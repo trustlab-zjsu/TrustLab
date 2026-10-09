@@ -1,6 +1,6 @@
 # TrustLab 实验室网站
 
-基于 Next.js、React 和 TypeScript 的英文实验室主页。保留蓝白配色，以简洁标题、细边框内容区和紧凑的学术列表展示研究、成员与成果。
+基于 Next.js、React 和 TypeScript 的英文实验室主页。蓝白配色，展示研究、成员与成果。
 
 ## 页面结构
 
