@@ -91,7 +91,7 @@ export const news:NewsItem[]=[
  {id:'redpj',date:'2026',title:'ReDPJ accepted at PRICAI 2026',body:'Our paper studies adaptive dual-path jailbreak attacks on large language models.',href:'/publications#conference-papers'}
 ];
 export const pages:Record<string,{title:string}>= {
- advisor:{title:'Advisor'},
+ advisor:{title:'Supervisor'},
  members:{title:'Members'},
  research:{title:'Research'},
  publications:{title:'Publications'},
@@ -127,14 +127,14 @@ export const advisorProfile = {
 
 export type Member = {name:string;photo:string;research:string;homepage?:string;email?:string;year?:string};
 export const memberGroups:{id:string;title:string;members:Member[]}[] = [
- {id:'phd',title:'PhD Students',members:[{name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}]},
- {id:'masters',title:"Master's Students",members:[
+ {id:'phd',title:'Ph.D. Students',members:[{name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}]},
+ {id:'masters',title:'Graduate Students',members:[
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}
  ]},
- {id:'undergraduates',title:'Undergraduates',members:[
+ {id:'undergraduates',title:'Undergraduate Students',members:[
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},

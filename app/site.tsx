@@ -6,8 +6,8 @@ import { ArrowUpRight, Building2, Code2, FileText, Mail, MapPin, Menu, Network, 
 import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, type Project, type NewsItem } from './data';
 
 const nav = [
-  ['home', 'Home', '/'],
-  ['advisor', 'Advisor', '/advisor'],
+  ['home', 'Homepage', '/'],
+  ['advisor', 'Supervisor', '/advisor'],
   ['members', 'Members', '/members'],
   ['research', 'Research', '/research'],
   ['publications', 'Publications', '/publications'],
@@ -61,7 +61,7 @@ function SectionTitle({ title, href }: { title: string; href?: string }) {
 
 function Sidebar() {
   return <aside className="lab-profile" aria-label="About TrustLab">
-    <Link className="identity" href="/" aria-label="TrustLab home">
+    <Link className="identity" href="/" aria-label="TrustLab homepage">
       <Mark /><div><h2>TrustLab<span className="brand-dot">.</span></h2><p>Trustworthy AI &amp; System Security</p></div>
     </Link>
     <div className="affiliation"><Building2 size={17} /><div><strong>Zhejiang Gongshang University</strong><p>School of Computer and Information Engineering</p></div></div>
@@ -235,7 +235,7 @@ export function LabSite({ section: requestedSection, projectId }: { section: str
   return <>
     <a href="#main-content" className="skip-link">Skip to main content</a>
     <header className="site-header"><div className="header-inner">
-      <Link className="wordmark" href="/" aria-label="TrustLab home"><Mark /><span>TrustLab<span className="brand-dot">.</span></span></Link>
+      <Link className="wordmark" href="/" aria-label="TrustLab homepage"><Mark /><span>TrustLab<span className="brand-dot">.</span></span></Link>
       <nav id="main-nav" aria-label="Main navigation" className={menu ? 'main-nav open' : 'main-nav'} onKeyDown={event => { if (event.key === 'Escape') { setMenu(false); document.getElementById('menu-toggle')?.focus(); } }}>
         {nav.map(([key, label, href]) => <Link key={key} className={current === key ? 'active' : ''} aria-current={current === key ? 'page' : undefined} href={href} onClick={() => setMenu(false)}>{label}</Link>)}
       </nav>
