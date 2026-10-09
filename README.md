@@ -33,7 +33,7 @@ Research 每个方向使用 overview 中的一段介绍，使用 **关键词** �
 
 导师身份和成员资料尚未确认的字段保留为字面值 XXX，不虚构姓名、照片或履历。未知链接不会成为可点击的 URL；导师的教育、经历、荣誉、服务和教学在填入确认资料后显示。
 
-论文通过 kind 分类：conference、journal、preprint、manuscript。Publications 只展示前三类。未公开稿件保留在研究详情中，公开预印本与正式接收论文分别标注；没有论文的类别显示 No entries yet.。
+论文通过 kind 分类：conference、journal、preprint、manuscript。Publications 顶部并排展示 Conference Papers、Journal Papers、Preprints 标签，默认显示会议论文，点击标签切换对应列表。分类链接（例如 /publications/#preprints）会自动选中对应标签；支持左右方向键、Home 和 End 切换。未公开稿件保留在研究详情中，公开预印本与正式接收论文分别标注；没有论文的类别显示 No entries yet.。
 
 ## 本地开发
 

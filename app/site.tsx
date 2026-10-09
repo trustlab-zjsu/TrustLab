@@ -174,13 +174,69 @@ function Publications() {
     { id: 'journal-papers', title: 'Journal Papers', kind: 'journal' },
     { id: 'preprints', title: 'Preprints', kind: 'preprint' },
   ];
-  return <>{categories.map(category => {
+  const [activeCategory, setActiveCategory] = useState('conference-papers');
+
+  useEffect(() => {
+    const syncCategory = () => {
+      const id = window.location.hash.slice(1);
+      setActiveCategory(['conference-papers', 'journal-papers', 'preprints'].includes(id) ? id : 'conference-papers');
+    };
+    syncCategory();
+    window.addEventListener('hashchange', syncCategory);
+    window.addEventListener('popstate', syncCategory);
+    return () => {
+      window.removeEventListener('hashchange', syncCategory);
+      window.removeEventListener('popstate', syncCategory);
+    };
+  }, []);
+
+  const selectCategory = (id: string) => {
+    setActiveCategory(id);
+    window.history.replaceState(window.history.state, '', '#' + id);
+  };
+
+  return <div className="panel publication-section">
+    <div className="publication-tabs" role="tablist" aria-label="Publication categories">
+      {categories.map((category, index) => <button
+        key={category.id}
+        type="button"
+        role="tab"
+        className="publication-tab"
+        id={'tab-' + category.id}
+        aria-controls={category.id}
+        aria-selected={activeCategory === category.id}
+        tabIndex={activeCategory === category.id ? 0 : -1}
+        onClick={() => selectCategory(category.id)}
+        onKeyDown={event => {
+          let next: number;
+          switch (event.key) {
+            case 'ArrowRight': next = (index + 1) % categories.length; break;
+            case 'ArrowLeft': next = (index - 1 + categories.length) % categories.length; break;
+            case 'Home': next = 0; break;
+            case 'End': next = categories.length - 1; break;
+            default: return;
+          }
+          event.preventDefault();
+          selectCategory(categories[next].id);
+          event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus();
+        }}
+      >{category.title}</button>)}
+    </div>
+    {categories.map(category => {
     const entries = publications.filter(p => p.kind === category.kind);
-    return <section className="panel publication-section" id={category.id} key={category.id}>
-      <SectionTitle title={category.title} />
+    return <section
+      className="publication-panel"
+      id={category.id}
+      key={category.id}
+      role="tabpanel"
+      aria-labelledby={'tab-' + category.id}
+      hidden={activeCategory !== category.id}
+      tabIndex={0}
+    >
       {entries.length ? <div className="paper-list">{entries.map(p => <PaperRow key={p.id} p={p} />)}</div> : <p className="empty-list">No entries yet.</p>}
     </section>;
-  })}</>;
+    })}
+  </div>;
 }
 
 function News() {
