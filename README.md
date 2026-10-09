@@ -16,6 +16,8 @@
 | News | /news/ | 具体的学术动态 |
 | Contact | /contact/ | 地址、邮箱、办公室、GitHub |
 
+Contact 的邮箱与办公室已补齐，与 Supervisor 一致：messi.qp711@gmail.com；Room 402-1, Teaching Building 3, Jiaogong Road Campus, Zhejiang Gongshang University。
+
 原有 /people/、/community/、/join/、/projects/ 路径分别展示 Members、News、Contact、Publications，保留旧链接可用。已有 /projects/<slug>/ 研究详情页及 /resources/ 资源页继续可访问，不再作为主导航栏目。
 
 ## 修改内容

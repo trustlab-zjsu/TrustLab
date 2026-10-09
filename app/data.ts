@@ -107,7 +107,7 @@ export const sectionAliases:Record<string,string> = {
 
 // Replace literal XXX values with confirmed laboratory information.
 export const labDetails = {
- email:'XXX',office:'XXX',admissions:'XXX',
+ email:'messi.qp711@gmail.com',office:'Room 402-1, Teaching Building 3, Jiaogong Road Campus, Zhejiang Gongshang University',admissions:'XXX',
  admissionQuota:'XXX',applicationDeadline:'XXX',
  academicAppointments:'XXX',programCommittees:'XXX',reviewing:'XXX',
  courses:'XXX',teachingMaterials:'XXX'

@@ -38,7 +38,7 @@ for(const page of pages){
   checkedLinks++;
  }
 }
-for(const page of ['members/index.html','contact/index.html']){
+for(const page of ['members/index.html']){
  if(!readFileSync(resolve(root,page),'utf8').includes('XXX'))failures.push('Missing XXX fields on '+page);
 }
 if(failures.length){console.error([...new Set(failures)].join('\n'));process.exit(1);}
