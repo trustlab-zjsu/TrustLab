@@ -68,23 +68,25 @@ export const areas=[
  {
   id:'llm-safety',name:'LLM Safety & Security',en:'LLM Safety & Security',icon:'shield',
   description:'Study safety failures, adversarial attacks, and defenses in large language models, with an emphasis on risks across multi-turn conversations.',
-  questions:'How can we recognize accumulating risks and turning points before a safety failure occurs?',
-  topics:['Jailbreak attacks and defenses','Multi-turn risk prediction','Safety evaluation and early warning'],projects:['recast','redpj']
+  overview:'We study **LLM safety and security** across both individual responses and multi-turn conversations. Our research examines how **jailbreak attacks** and other adversarial inputs influence model behavior, how risks accumulate as an interaction unfolds, and which signals appear before a safety failure. We develop methods for **risk modeling and early warning**, alongside evaluation and defense strategies that help identify unsafe trajectories and support timely intervention while preserving the usefulness of language models.',
+  projects:['recast','redpj']
  },
  {
   id:'agent-trust',name:'Trustworthy Agent Systems',en:'Trustworthy Agent Systems',icon:'network',
   description:'Understand how errors and security risks spread through agent collaboration, and develop methods for reliable reasoning, communication, and tool use.',
-  questions:'How can we limit risk propagation between agents while preserving useful collaboration?',
-  topics:['Agent and multi-agent security','Hallucination risk and propagation','Reliable collaboration and risk mitigation'],projects:['halluprop','evoguard']
+  overview:'We investigate the reliability and security of **agent and multi-agent systems**, where information, decisions, and tool calls are connected through ongoing collaboration. We study **hallucination and risk propagation**, the influence of agent roles and communication topology, and the risks introduced by delegation and tool use. Our goal is to develop **trustworthy collaboration** through risk inference, adaptive mitigation, and system design that contains errors and unsafe behavior while retaining useful information flow and collective problem-solving.',
+  projects:['halluprop','evoguard']
  },
  {
   id:'contract-security',name:'Blockchain & Smart Contract Security',en:'Blockchain & Smart Contract Security',icon:'code',
   description:'Investigate blockchain and smart contract security through program analysis, vulnerability discovery, and testing guided by language models.',
-  questions:'How can semantic understanding, vulnerability knowledge, and execution feedback improve vulnerability discovery together?',
-  topics:['Smart contract vulnerability discovery','State-aware fuzzing and program analysis','LLM-assisted security testing'],projects:['lara']
+  overview:'Our research focuses on **blockchain and smart contract security**, with an emphasis on vulnerabilities that arise from contract logic, transaction sequences, and state changes. We combine **program analysis and fuzzing** with language-model reasoning to understand how security-critical behaviors emerge during execution. By incorporating **retrieval-augmented vulnerability knowledge** and execution feedback, we develop testing methods that explore underexamined states, identify vulnerability-triggering paths, and improve the effectiveness of smart contract vulnerability discovery.',
+  projects:['lara']
  }
 ];
-export const news=[
+export type NewsItem = {id:string;date:string;title:string;body:string;href:string;image?:string;imageAlt?:string};
+// Add image paths (for example /news/paper-overview.png) when confirmed images are available.
+export const news:NewsItem[]=[
  {id:'exchange',date:'2026.09',title:'Academic exchange on agent and generative content security',body:'We shared research observations from a security forum on agent security, generative content security, and vulnerability discovery.',href:'/news#exchange'},
  {id:'redpj',date:'2026',title:'ReDPJ accepted at PRICAI 2026',body:'Our paper studies adaptive dual-path jailbreak attacks on large language models.',href:'/publications#conference-papers'}
 ];
@@ -125,7 +127,18 @@ export const advisorProfile = {
 
 export type Member = {name:string;photo:string;research:string;homepage?:string;email?:string;year?:string};
 export const memberGroups:{id:string;title:string;members:Member[]}[] = [
- {id:'phd',title:'PhD Students',members:[{name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}]},
- {id:'masters',title:"Master's Students",members:[{name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}]},
- {id:'undergraduates',title:'Undergraduates',members:[{name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}]}
+ {id:'phd',title:'PhD Students',members:[]},
+ {id:'masters',title:"Master's Students",members:[
+  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}
+ ]},
+ {id:'undergraduates',title:'Undergraduates',members:[
+  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}
+ ]}
 ];

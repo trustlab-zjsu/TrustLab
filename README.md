@@ -25,7 +25,11 @@
 - app/globals.css：蓝白配色、内容边框、网格和移动端布局。
 - public/：照片、网站图标及默认头像。
 
-成员按 PhD Students、Master's Students、Undergraduates 分组。每位成员填写 name、photo、research，可选填 homepage、email、year；卡片只展示照片、姓名和简短研究介绍。将真实照片放在 public/ 中，例如 public/members/name.jpg，并在 photo 中填写 /members/name.jpg。渲染时自动补充部署路径；缺失或无法加载的照片使用中性的默认头像。
+成员按 PhD Students、Master's Students、Undergraduates 分组；当前为 4 位硕士、5 位本科生，空分组不显示。每位成员填写 name、photo、research，可选填 homepage、email、year；卡片只展示照片、姓名和简短研究介绍。将真实照片放在 public/ 中，例如 public/members/name.jpg，并在 photo 中填写 /members/name.jpg。渲染时自动补充部署路径；缺失或无法加载的照片使用中性的默认头像。
+
+Research 每个方向使用 overview 中的一段介绍，使用 **关键词** 标记加粗内容；description 为首页的简短介绍。研究方向下不显示项目跳转链接。
+
+首页和 News 页的每条新闻左侧均预留图片位置。将图片放在 public/news/ 中，在 news 对应条目填写 image（例如 /news/paper-overview.png）和 imageAlt；图片按完整比例显示，适合论文方法概览图。尚未提供或加载失败时保留空白图片框。
 
 导师身份和成员资料尚未确认的字段保留为字面值 XXX，不虚构姓名、照片或履历。未知链接不会成为可点击的 URL；导师的教育、经历、荣誉、服务和教学在填入确认资料后显示。
 

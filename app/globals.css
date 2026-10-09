@@ -109,11 +109,14 @@ section[id], article[id] { scroll-margin-top: 100px; }
 .welcome p { color: var(--muted); font-size: 16px; line-height: 1.85; max-width: 780px; }
 .welcome strong { color: var(--navy); font-weight: 550; }
 .news-list { padding: 3px 23px; }
-.news-row { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 14px; padding: 16px 0; font-size: 14px; }
+.news-row { display: grid; grid-template-columns: 112px minmax(0, 1fr); align-items: center; gap: 20px; padding: 17px 0; font-size: 14px; }
 .news-row + .news-row { border-top: 1px solid #e9edf1; }
+.news-thumbnail { width: 100%; aspect-ratio: 8 / 5; border: 1px solid var(--border); border-radius: 4px; background: #f6f7f9; overflow: hidden; }
+.news-thumbnail img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+.news-row-copy, .news-item-copy { min-width: 0; }
 .news-row time, .news-item time { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
-.news-row > a { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; }
-.news-row > a svg { align-self: center; color: #738298; }
+.news-row-copy > a { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; margin-top: 4px; }
+.news-row-copy > a svg { align-self: center; color: #738298; }
 
 .area-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .area-card { padding: 24px 22px; }
@@ -122,9 +125,10 @@ section[id], article[id] { scroll-margin-top: 100px; }
 .area-card h3 { color: var(--navy); font-size: 17px; font-weight: 600; line-height: 1.4; margin-bottom: 12px; }
 .area-card p { font-size: 13px; color: var(--muted); line-height: 1.8; }
 .area-card:hover { background: #f8fafc; }
-.research-links { display: flex; flex-wrap: wrap; gap: 14px 24px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #e9edf1; }
-.research-links a, .text-link { display: inline-flex; align-items: center; gap: 6px; color: var(--blue); font-size: 13px; }
-.research-links a:hover, .text-link:hover { text-decoration: underline; }
+.research-panel .panel-copy p { line-height: 1.9; }
+.research-panel strong { color: var(--navy); font-weight: 600; }
+.text-link { display: inline-flex; align-items: center; gap: 6px; color: var(--blue); font-size: 13px; }
+.text-link:hover { text-decoration: underline; }
 
 .member-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; padding: 22px; }
 .member-card { min-width: 0; border: 1px solid var(--border); border-radius: 5px; padding: 18px 12px; text-align: center; }
@@ -166,9 +170,9 @@ section[id], article[id] { scroll-margin-top: 100px; }
 .empty-list { color: var(--muted); padding: 20px 24px; font-size: 14px; }
 
 .news-archive { padding: 0 24px; }
-.news-item { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 24px; padding: 25px 0; }
+.news-item { display: grid; grid-template-columns: 160px minmax(0, 1fr); align-items: start; gap: 24px; padding: 25px 0; }
 .news-item + .news-item { border-top: 1px solid var(--border); }
-.news-item time { margin-top: 2px; }
+.news-item time { display: block; margin-bottom: 6px; }
 .news-item h2 { color: var(--navy); font-weight: 600; font-size: 18px; line-height: 1.5; }
 .news-item p { font-size: 14px; color: var(--muted); margin-top: 9px; }
 .news-item .text-link { margin-top: 12px; }
@@ -260,9 +264,9 @@ section[id], article[id] { scroll-margin-top: 100px; }
   .area-card h3 { font-size: 17px; margin-bottom: 8px; }
   .area-card p { font-size: 13px; }
   .news-list { padding: 1px 19px; }
-  .news-row { grid-template-columns: 64px minmax(0, 1fr); gap: 11px; font-size: 13px; }
+  .news-row { grid-template-columns: 76px minmax(0, 1fr); gap: 13px; font-size: 13px; }
   .news-row time { font-size: 12px; }
-  .news-row > a { gap: 10px; }
+  .news-row-copy > a { gap: 10px; }
   .page-heading h1 { font-size: 28px; }
   .page-heading { margin-bottom: 17px; }
   .panel-copy { padding: 20px; font-size: 14px; }
@@ -283,8 +287,8 @@ section[id], article[id] { scroll-margin-top: 100px; }
   .paper-authors { font-size: 12px; }
   .empty-list { padding: 18px 20px; font-size: 13px; }
   .news-archive { padding: 0 20px; }
-  .news-item { grid-template-columns: 1fr; gap: 7px; padding: 21px 0; }
-  .news-item h2 { font-size: 17px; }
+  .news-item { grid-template-columns: 82px minmax(0, 1fr); gap: 14px; padding: 21px 0; }
+  .news-item h2 { font-size: 16px; }
   .news-item p { font-size: 13px; }
   .contact-panel { padding: 22px 20px; }
   .contact-affiliation h2 { font-size: 18px; line-height: 1.5; }

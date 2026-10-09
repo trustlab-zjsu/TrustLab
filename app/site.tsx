@@ -3,7 +3,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, Building2, Code2, FileText, Mail, MapPin, Menu, Network, ShieldCheck, X } from 'lucide-react';
-import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, type Project } from './data';
+import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, type Project, type NewsItem } from './data';
 
 const nav = [
   ['home', 'Home', '/'],
@@ -43,6 +43,18 @@ function AreaIcon({ id }: { id: string }) {
   return id === 'shield' ? <ShieldCheck /> : id === 'network' ? <Network /> : <Code2 />;
 }
 
+function NewsThumbnail({ item }: { item: NewsItem }) {
+  const [failed, setFailed] = useState(false);
+  useEffect(() => setFailed(false), [item.image]);
+  return <div className="news-thumbnail" aria-hidden={!known(item.image) || failed ? true : undefined}>
+    {known(item.image) && !failed && <img src={assetPath(item.image!)} alt={item.imageAlt || item.title} width={160} height={100} onError={() => setFailed(true)} />}
+  </div>;
+}
+
+function ResearchOverview({ text }: { text: string }) {
+  return <p>{text.split(/(\*\*[^*]+\*\*)/g).map((part, i) => part.startsWith('**') && part.endsWith('**') ? <strong key={i}>{part.slice(2, -2)}</strong> : part)}</p>;
+}
+
 function SectionTitle({ title, href }: { title: string; href?: string }) {
   return <div className="section-title"><h2>{title}</h2>{href && <Link href={href}>View all<ArrowUpRight size={14} /></Link>}</div>;
 }
@@ -69,7 +81,9 @@ function Home() {
     </section>
     <section className="panel home-section">
       <SectionTitle title="News" href="/news" />
-      <div className="news-list">{news.map(n => <div className="news-row" key={n.id}><time>{n.date}</time><Link href={n.href}>{n.title}<ArrowUpRight size={14} /></Link></div>)}</div>
+      <div className="news-list">{news.map(n => <article className="news-row" key={n.id}>
+        <NewsThumbnail item={n} /><div className="news-row-copy"><time>{n.date}</time><Link href={n.href}>{n.title}<ArrowUpRight size={14} /></Link></div>
+      </article>)}</div>
     </section>
     <section className="panel home-section">
       <SectionTitle title="Research Areas" href="/research" />
@@ -122,7 +136,7 @@ function Advisor() {
 }
 
 function Members() {
-  return <>{memberGroups.map(group => <section className="panel" key={group.id} id={group.id}>
+  return <>{memberGroups.filter(group => group.members.length > 0).map(group => <section className="panel" key={group.id} id={group.id}>
     <SectionTitle title={group.title} />
     <div className="member-grid">{group.members.map((member, i) => <article className="member-card" key={i}>
       {known(member.homepage) ? <a href={member.homepage} target="_blank" rel="noreferrer">
@@ -136,9 +150,7 @@ function Members() {
 function Research() {
   return <>{areas.map(a => <section className="panel research-panel" id={a.id} key={a.id}>
     <SectionTitle title={a.name} />
-    <div className="panel-copy"><p>{a.description}</p><ul>{a.topics.map(t => <li key={t}>{t}</li>)}</ul>
-      <div className="research-links">{projects.filter(p => a.projects.includes(p.id)).map(p => <Link key={p.id} href={'/projects/' + p.id}>{p.name}<ArrowUpRight size={13} /></Link>)}</div>
-    </div>
+    <div className="panel-copy"><ResearchOverview text={a.overview} /></div>
   </section>)}</>;
 }
 
@@ -173,7 +185,7 @@ function Publications() {
 
 function News() {
   return <div className="panel news-archive">{news.map(n => <article className="news-item" id={n.id} key={n.id}>
-    <time>{n.date}</time><div><h2>{n.title}</h2><p>{n.body}</p>{n.id !== 'exchange' && <Link href={n.href} className="text-link">Paper details<ArrowUpRight size={14} /></Link>}</div>
+    <NewsThumbnail item={n} /><div className="news-item-copy"><time>{n.date}</time><h2>{n.title}</h2><p>{n.body}</p>{n.id !== 'exchange' && <Link href={n.href} className="text-link">Paper details<ArrowUpRight size={14} /></Link>}</div>
   </article>)}</div>;
 }
 
