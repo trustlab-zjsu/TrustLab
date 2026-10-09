@@ -100,6 +100,7 @@ section[id], article[id] { scroll-margin-top: 100px; }
 .section-title > a:hover { text-decoration: underline; }
 .panel-copy { padding: 22px 24px; }
 .panel-copy p { color: var(--muted); }
+.biography-copy p + p { margin-top: 16px; }
 .panel-copy ul { margin: 14px 0 0; padding-left: 20px; }
 .panel-copy li { padding: 2px 0; }
 .panel-copy li::marker { color: #7c8ea5; }
@@ -118,13 +119,6 @@ section[id], article[id] { scroll-margin-top: 100px; }
 .news-row-copy > a { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; margin-top: 4px; }
 .news-row-copy > a svg { align-self: center; color: #738298; }
 
-.area-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.area-card { padding: 24px 22px; }
-.area-card + .area-card { border-left: 1px solid var(--border); }
-.area-card > svg { width: 22px; height: 22px; stroke-width: 1.6; color: var(--blue); margin-bottom: 12px; }
-.area-card h3 { color: var(--navy); font-size: 17px; font-weight: 600; line-height: 1.4; margin-bottom: 12px; }
-.area-card p { font-size: 13px; color: var(--muted); line-height: 1.8; }
-.area-card:hover { background: #f8fafc; }
 .research-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .research-panel + .research-panel { margin-top: 0; }
 .research-panel .section-title { min-height: 114px; align-items: center; padding: 18px 20px; }
@@ -223,8 +217,6 @@ section[id], article[id] { scroll-margin-top: 100px; }
   .lab-profile { padding: 20px 16px 16px; }
   .identity { gap: 9px; }
   .identity h2 { font-size: 24px; }
-  .area-card { padding: 21px 17px; }
-  .area-card h3 { font-size: 16px; }
   .member-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
@@ -273,11 +265,6 @@ section[id], article[id] { scroll-margin-top: 100px; }
   .panel + .panel { margin-top: 18px; }
   .section-title { padding: 15px 19px; }
   .section-title h2 { font-size: 19px; }
-  .area-grid { grid-template-columns: 1fr; }
-  .area-card { padding: 21px 20px; }
-  .area-card + .area-card { border-left: none; border-top: 1px solid var(--border); }
-  .area-card h3 { font-size: 17px; margin-bottom: 8px; }
-  .area-card p { font-size: 13px; }
   .research-grid { grid-template-columns: 1fr; gap: 18px; }
   .research-panel + .research-panel { margin-top: 0; }
   .research-panel .section-title { min-height: 0; padding: 15px 19px; }

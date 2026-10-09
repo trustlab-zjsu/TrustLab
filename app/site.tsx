@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Building2, Code2, FileText, Mail, MapPin, Menu, Network, ShieldCheck, X } from 'lucide-react';
+import { ArrowUpRight, Building2, Code2, FileText, Mail, MapPin, Menu, X } from 'lucide-react';
 import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, supervisorPublications, type Project, type NewsItem } from './data';
 
 const nav = [
@@ -37,10 +37,6 @@ function Portrait({ photo, name, className }: { photo: string; name: string; cla
     height={160}
     onError={() => setFailed(true)}
   />;
-}
-
-function AreaIcon({ id }: { id: string }) {
-  return id === 'shield' ? <ShieldCheck /> : id === 'network' ? <Network /> : <Code2 />;
 }
 
 function NewsThumbnail({ item }: { item: NewsItem }) {
@@ -85,12 +81,6 @@ function Home() {
         <NewsThumbnail item={n} /><div className="news-row-copy"><time>{n.date}</time><Link href={n.href}>{n.title}<ArrowUpRight size={14} /></Link></div>
       </article>)}</div>
     </section>
-    <section className="panel home-section">
-      <SectionTitle title="Research Areas" href="/research" />
-      <div className="area-grid">{areas.map(a => <Link key={a.id} href={'/research#' + a.id} className="area-card">
-        <AreaIcon id={a.icon} /><h3>{a.name}</h3><p>{a.description}</p>
-      </Link>)}</div>
-    </section>
   </>;
 }
 
@@ -107,7 +97,6 @@ function Advisor() {
         <p className="advisor-affiliation">{advisorProfile.department}<br />{advisorProfile.institution}</p>
         <div className="profile-external">
           {known(advisorProfile.homepage) && <a href={advisorProfile.homepage} target="_blank" rel="noreferrer">Homepage<ArrowUpRight size={13} /></a>}
-          {known(advisorProfile.scholar) && <a href={advisorProfile.scholar} target="_blank" rel="noreferrer">Google Scholar<ArrowUpRight size={13} /></a>}
           {known(advisorProfile.cv) && <a href={assetPath(advisorProfile.cv)} target="_blank" rel="noreferrer">CV<ArrowUpRight size={13} /></a>}
         </div>
       </div>
@@ -116,7 +105,10 @@ function Advisor() {
         <ProfileField label="Office" value={advisorProfile.office} />
       </dl>
     </section>
-    <section className="panel"><SectionTitle title="Biography" /><div className="panel-copy"><ResearchOverview text={advisorProfile.bio} /></div></section>
+    <section className="panel" id="biography"><SectionTitle title="Biography" /><div className="panel-copy biography-copy">
+      {advisorProfile.bio.split('\n\n').map((paragraph, i) => <ResearchOverview key={i} text={paragraph} />)}
+      {known(advisorProfile.scholar) && <a href={advisorProfile.scholar} className="text-link" target="_blank" rel="noreferrer">Google Scholar<ArrowUpRight size={13} /></a>}
+    </div></section>
     <section className="panel"><SectionTitle title="Research Interests" /><div className="panel-copy"><ResearchOverview text={advisorProfile.research} /></div></section>
     <section className="panel" id="selected-publications">
       <SectionTitle title="Selected Publications" />

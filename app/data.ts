@@ -116,14 +116,16 @@ export const labDetails = {
 // Confirmed supervisor details; unprovided optional records remain placeholders.
 export const advisorProfile = {
  name:'钱鹏',title:'Associate Research Fellow',photo:'/members/qian-peng.jpg',
- department:'School of Computer and Information Engineering',
+ department:'College of Computer Science and Technology',
  institution:'Zhejiang Gongshang University',
- bio:'Peng Qian is an Associate Research Fellow at Zhejiang Gongshang University. He received his B.E. from Yangtze University in 2018, his M.E. from Zhejiang Gongshang University in 2021, and his Ph.D. in Artificial Intelligence from Zhejiang University in 2025. His research spans AI security, blockchain security, and vulnerability discovery. He has published over 20 papers in leading venues, including TSE, TIFS, TKDE, TDSC, ICSE, ISSTA, WWW, ICDE, and IJCAI, with 10 CCF Class A papers as first or corresponding author. He has applied for nearly 20 Chinese invention patents, with more than 10 granted. His honors include a 2024 high-impact paper recognition from the Journal of Software and a Best Paper Award nomination at IEEE CCIS. Several of his papers are ESI Highly Cited Papers, and his publications have received over 2,000 citations on Google Scholar. He has led or contributed to projects supported by the National Key R&D Program of China, Zhejiang\'s Jianbing Lingyan Program, the Shanghai Science and Technology Innovation Action Plan, and the Zhejiang Provincial Education Department. He regularly reviews for TIFS, TDSC, TOSEM, TNSM, AAAI, and IJCAI. **He welcomes collaboration and academic exchange with colleagues and students.**',
+ bio:`Peng Qian is an Associate Research Fellow at the College of Computer Science and Technology, Zhejiang Gongshang University, China, where he is a member of the research team led by Prof. Xun Wang (王勋). He received his Ph.D. in Artificial Intelligence from Zhejiang University in 2025 under the supervision of Prof. Qinming He (何钦铭). He was also a Visiting Scholar at the National University of Singapore, where he conducted research under the guidance of Prof. Roger Zimmermann.
+
+His research interests span AI security, large language model (LLM) and multi-agent system security, blockchain security, and smart contract vulnerability detection. He has published over 20 papers in leading journals and conferences, including IEEE TSE, IEEE TIFS, IEEE TKDE, ICSE, ISSTA, and WWW. He has received several academic honors, including the National Scholarship for Graduate Students, the Best Paper Runner-up Award at IEEE CCIS 2019, and recognition for a 2024 High-Impact Paper in the Journal of Software (软件学报). He has also served as a program committee member or reviewer for leading conferences and journals, including AAAI, NeurIPS, IEEE TIFS, ACM TOSEM, and IEEE TNSM.`,
  research:'His research interests include **AI safety and security**, **blockchain and smart contract security**, and **vulnerability discovery**. He studies how to understand and mitigate risks in intelligent and decentralized systems, with the goal of improving their safety, robustness, and reliability. His work also explores methods for discovering software vulnerabilities and strengthening the security of complex computing systems.',
  education:[{period:'XXX',degree:'XXX',institution:'XXX'}],
  experience:[{period:'XXX',position:'XXX',institution:'XXX'}],
  awards:['XXX'],service:['XXX'],teaching:['XXX'],
- email:'messi.qp711@gmail.com',office:'Room 402-1, Teaching Building 3, Jiaogong Road Campus, Zhejiang Gongshang University',homepage:'XXX',scholar:'XXX',cv:'XXX'
+ email:'messi.qp711@gmail.com',office:'Room 402-1, Teaching Building 3, Jiaogong Road Campus, Zhejiang Gongshang University',homepage:'XXX',scholar:'https://scholar.google.com/citations?user=zUD2t5wAAAAJ',cv:'XXX'
 };
 
 export type SelectedPublication = {id:string;title:string;authors:string;venue:string;year:number;paper:string;corresponding?:boolean};
