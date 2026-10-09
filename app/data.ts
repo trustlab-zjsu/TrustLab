@@ -1,10 +1,10 @@
-export type Project = {id:string; name:string; title:string; en:string; area:string; status:string; kind:'conference'|'journal'|'manuscript'; summary:string; problem:string; method:string[]; tags:string[]; authors?:string; paper?:string; code?:string};
+export type Project = {id:string; name:string; title:string; en:string; area:string; status:string; kind:'conference'|'journal'|'preprint'|'manuscript'; summary:string; problem:string; method:string[]; tags:string[]; authors?:string; paper?:string; code?:string};
 export const projects:Project[] = [
  {
   id:'recast',name:'RECAST',title:'Forecasting Safety Risks Across Multi-turn Conversations',
   en:'Forecasting Trajectory-Level Safety Risks in Black-Box Multi-Turn Interactions',
   authors:'Shi Lin, Peng Qian, Dinghao Liu, Renjie Sun, Sifan Wu, Dezhang Kong, Chenpei Wang, Xun Wang',
-  paper:'https://arxiv.org/abs/2607.26820',area:'LLM Safety',status:'Research Manuscript',kind:'manuscript',
+  paper:'https://arxiv.org/abs/2607.26820',area:'LLM Safety',status:'Preprint · 2026',kind:'preprint',
   summary:'Model how risks accumulate along a conversation and issue warnings before a safety failure occurs.',
   problem:'Single-turn checks can overlook risks that develop across an interaction. We study whether a conversation prefix can reveal the likelihood and timing of a future first safety failure.',
   method:[
@@ -17,7 +17,7 @@ export const projects:Project[] = [
   id:'halluprop',name:'HalluProp',title:'Inferring Hallucination Risks Before Agents Interact',
   en:'Before Agents Speak: Pre-hoc Failure Risk Inference in Multi-Agent Systems',
   authors:'Shi Lin, Chenpei Wang, Peng Qian, Dezhang Kong, Minghao Li, Yufeng Li, Xun Wang',
-  paper:'https://arxiv.org/abs/2607.26836',area:'Trustworthy Agents',status:'Research Manuscript',kind:'manuscript',
+  paper:'https://arxiv.org/abs/2607.26836',area:'Trustworthy Agents',status:'Preprint · 2026',kind:'preprint',
   summary:'Use role semantics and communication topology to infer intrinsic agent risks and their potential propagation.',
   problem:'A local error can spread through a multi-agent communication network. Evaluating answers only after interaction ends provides limited guidance for preventive system configuration.',
   method:[
@@ -66,39 +66,41 @@ export const projects:Project[] = [
 ];
 export const areas=[
  {
-  id:'llm-safety',name:'LLM Safety',en:'Language Model Safety & Security',icon:'shield',
-  description:'Understand model safety boundaries and forecast how risks evolve across multi-turn interactions.',
+  id:'llm-safety',name:'LLM Safety & Security',en:'LLM Safety & Security',icon:'shield',
+  description:'Study safety failures, adversarial attacks, and defenses in large language models, with an emphasis on risks across multi-turn conversations.',
   questions:'How can we recognize accumulating risks and turning points before a safety failure occurs?',
-  topics:['Jailbreak Attacks & Defenses','Multi-turn Risk Prediction','Trajectory-level Early Warning'],projects:['recast','redpj']
+  topics:['Jailbreak attacks and defenses','Multi-turn risk prediction','Safety evaluation and early warning'],projects:['recast','redpj']
  },
  {
-  id:'agent-trust',name:'Trustworthy Agents',en:'Reliable Multi-agent Systems',icon:'network',
-  description:'Trace hallucination propagation through collaborative networks and build more reliable agent systems.',
+  id:'agent-trust',name:'Trustworthy Agent Systems',en:'Trustworthy Agent Systems',icon:'network',
+  description:'Understand how errors and security risks spread through agent collaboration, and develop methods for reliable reasoning, communication, and tool use.',
   questions:'How can we limit risk propagation between agents while preserving useful collaboration?',
-  topics:['Pre-interaction Risk Inference','Hallucination Propagation & Attribution','Adaptive Risk Governance'],projects:['halluprop','evoguard']
+  topics:['Agent and multi-agent security','Hallucination risk and propagation','Reliable collaboration and risk mitigation'],projects:['halluprop','evoguard']
  },
  {
-  id:'contract-security',name:'Contract Security',en:'Smart Contract Analysis & Testing',icon:'code',
-  description:'Combine LLM reasoning with program analysis to uncover deeper vulnerabilities and their triggering paths.',
+  id:'contract-security',name:'Blockchain & Smart Contract Security',en:'Blockchain & Smart Contract Security',icon:'code',
+  description:'Investigate blockchain and smart contract security through program analysis, vulnerability discovery, and testing guided by language models.',
   questions:'How can semantic understanding, vulnerability knowledge, and execution feedback improve vulnerability discovery together?',
-  topics:['Retrieval-augmented Vulnerability Discovery','State-aware Fuzzing','Trustworthy Automated Analysis'],projects:['lara']
+  topics:['Smart contract vulnerability discovery','State-aware fuzzing and program analysis','LLM-assisted security testing'],projects:['lara']
  }
 ];
 export const news=[
- {date:'2026.09',category:'Academic Exchange',title:'Exploring Agent and Generative Content Security',body:'Research observations and discussion questions from a security forum, covering agent security, generative content security, and vulnerability discovery.',href:'/community#exchange'},
- {date:'2026',category:'Publication',title:'ReDPJ Accepted at PRICAI 2026',body:'Our work explores LLM jailbreak testing through adaptive dual-path reasoning guidance.',href:'/projects/redpj'},
- {date:'Ongoing',category:'Research Direction',title:'From Risk Detection to Trajectory Forecasting and Adaptive Governance',body:'We study risk modeling, early warning, and governance in multi-turn LLM interactions and multi-agent collaboration.',href:'/research'},
- {date:'Ongoing',category:'Research Project',title:'Bringing LLM Reasoning and Vulnerability Knowledge Together',body:'Our smart contract fuzzing research combines retrieval-augmented generation with execution feedback.',href:'/projects/lara'}
+ {id:'exchange',date:'2026.09',title:'Academic exchange on agent and generative content security',body:'We shared research observations from a security forum on agent security, generative content security, and vulnerability discovery.',href:'/news#exchange'},
+ {id:'redpj',date:'2026',title:'ReDPJ accepted at PRICAI 2026',body:'Our paper studies adaptive dual-path jailbreak attacks on large language models.',href:'/publications#conference-papers'}
 ];
-export const pages:Record<string,{title:string;en:string;intro:string}>= {
- research:{title:'Research',en:'Questions & Directions',intro:'We investigate risk discovery, prediction, and governance across models, interactions, and intelligent systems.'},
- publications:{title:'Publications',en:'Selected Research',intro:'Selected publications and research manuscripts on LLM safety, trustworthy multi-agent systems, and smart contract security.'},
- projects:{title:'Projects',en:'Research in Progress',intro:'Connecting research questions with risk modeling, method design, and experimental validation.'},
- advisor:{title:'Advisor',en:'About the Advisor',intro:'Research, teaching, and academic service.'},
- people:{title:'People',en:'Our Team',intro:'Bringing together different backgrounds to explore trustworthy AI and system security.'},
- community:{title:'Community',en:'News & Academic Life',intro:'Sharing research questions, methods, and perspectives through academic exchange.'},
- resources:{title:'Learning & Teaching',en:'Resources for Researchers',intro:'Learning paths and research practices connected to the laboratory’s research directions.'},
- join:{title:'Join TrustLab',en:'Work With Us',intro:'Interested in trustworthy AI and system security? Start with a research question you would like to explore.'}
+export const pages:Record<string,{title:string}>= {
+ advisor:{title:'Advisor'},
+ members:{title:'Members'},
+ research:{title:'Research'},
+ publications:{title:'Publications'},
+ news:{title:'News'},
+ contact:{title:'Contact'},
+ resources:{title:'Learning & Teaching'}
+};
+
+// Keep previously published URLs working without adding them to the navigation.
+export const sectionAliases:Record<string,string> = {
+ people:'members', community:'news', join:'contact', projects:'publications'
 };
 
 // Replace literal XXX values with confirmed laboratory information.
@@ -121,8 +123,9 @@ export const advisorProfile = {
  email:'XXX',office:'XXX',homepage:'XXX',scholar:'XXX',cv:'XXX'
 };
 
-export const memberGroups = [
- {en:'Academic Team',title:'Faculty & Researchers',members:[{name:'XXX',photo:'XXX',role:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}]},
- {en:'Current Members',title:'Graduate Students',members:[{name:'XXX',photo:'XXX',role:'XXX',research:'XXX',year:'XXX',homepage:'XXX',email:'XXX'}]},
- {en:'Beyond TrustLab',title:'Alumni',members:[{name:'XXX',photo:'XXX',role:'XXX',research:'XXX',year:'XXX',destination:'XXX',homepage:'XXX',email:'XXX'}]}
+export type Member = {name:string;photo:string;research:string;homepage?:string;email?:string;year?:string};
+export const memberGroups:{id:string;title:string;members:Member[]}[] = [
+ {id:'phd',title:'PhD Students',members:[{name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}]},
+ {id:'masters',title:"Master's Students",members:[{name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}]},
+ {id:'undergraduates',title:'Undergraduates',members:[{name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}]}
 ];

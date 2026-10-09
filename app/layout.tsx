@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 export const metadata: Metadata = {
  title:{default:'TrustLab | Trustworthy AI & System Security',template:'%s · TrustLab'},
- description:'TrustLab studies LLM safety, trustworthy multi-agent systems, and smart contract security, with a focus on risk forecasting, hallucination governance, and vulnerability discovery.',
+ description:'TrustLab at Zhejiang Gongshang University studies LLM safety and security, trustworthy agent systems, and blockchain and smart contract security.',
  icons:{icon:`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/favicon.svg`,shortcut:`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/favicon.svg`}
 };
 export default function RootLayout({children}:{children:React.ReactNode}) { return <html lang="en"><body>{children}</body></html>; }

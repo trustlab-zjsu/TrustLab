@@ -1,90 +1,73 @@
 # TrustLab 实验室网站
 
-基于 Next.js、React 和 TypeScript 的多页面学术实验室网站。保持简洁蓝白学术风格，全站使用英文，支持桌面和移动端布局、导师介绍、成果分类、研究方向锚点、独立项目详情和 404 页面。
-
-## 预览已构建的网站
-
-完成下方构建步骤后，在项目根目录运行（需要 Node.js 22.13 或更高版本）：
-
-```bash
-node scripts/preview.mjs
-```
-
-终端会根据构建路径输出访问地址。部署路径为 `/TrustLab` 时，预览地址为 `http://localhost:3000/TrustLab/`。
-
-> 请通过本地 HTTP 服务访问，不要直接双击 HTML 文件。JavaScript 路由和资源使用正式部署路径。
-
-## 本地开发
-
-```bash
-corepack enable
-pnpm install --frozen-lockfile
-pnpm dev
-```
-
-打开 `http://localhost:3000`。
-
-## 构建并验证
-
-```bash
-pnpm build
-pnpm verify
-pnpm preview
-```
-
-- `pnpm build`：导出完整静态网站至 `out/`。
-- `pnpm verify`：校验页面、内部链接、资源、路径前缀与 XXX 占位。
-- `pnpm preview`：用 Node.js 提供本地静态服务。
-
-部署在子目录时，在构建前设置 `NEXT_PUBLIC_BASE_PATH`，例如 `/TrustLab`。GitHub Actions 已自动处理普通仓库与 `<所有者名称>.github.io` 仓库的路径差异；所有者可以是个人账号或组织。
-
-## GitHub Pages
-
-网站源码仓库：`TrustLab`。原有模板和资料单独保存在私有仓库 `TrustLab-assets`，不作为网站部署源。
-
-1. 将项目源码推送到 `TrustLab` 仓库的 `main` 分支。
-2. 在仓库 **Settings → Pages → Build and deployment → Source** 中选择 **GitHub Actions**。
-3. `.github/workflows/deploy-pages.yml` 在推送时自动安装依赖、构建、验证并部署；也可在 Actions 中手动运行。
-4. 最终网站地址以 Actions 部署结果或 **Settings → Pages** 为准。`TrustLab` 仓库的地址形式为 `https://<owner>.github.io/TrustLab/`，其中 `<owner>` 是仓库所属个人账号或组织的名称。
-
-仓库改名或转移所有者后，请重新运行部署工作流。工作流会根据当前仓库名称设置路径前缀；重新构建后，页面、链接和静态资源将使用新路径。
-
-所需权限：构建任务仅读取仓库；发布任务仅使用 `pages: write` 和 `id-token: write`。工作流使用 GitHub 自动提供的凭证，无需在源码中存储个人访问令牌。
+基于 Next.js、React 和 TypeScript 的英文实验室主页。保留蓝白配色，以简洁标题、细边框内容区和紧凑的学术列表展示研究、成员与成果。
 
 ## 页面结构
 
-| 页面 | 路径 |
-|---|---|
-| 首页 | `/` |
-| 研究方向 | `/research/` |
-| 学术成果 | `/publications/` |
-| 研究项目 | `/projects/` |
-| 导师介绍 | `/advisor/` |
-| 团队成员 | `/people/` |
-| 学术动态 | `/community/` |
-| 学习与教学 | `/resources/` |
-| 加入我们 / 联系方式 | `/join/` |
-| RECAST / HalluProp / EvoGuard / LARA / ReDPJ | `/projects/<项目英文小写名>/` |
+主导航依次为 Home → Advisor → Members → Research → Publications → News；Contact 为独立的页头入口。
+
+| 页面 | 路径 | 内容 |
+|---|---|---|
+| Home | / | Welcome、News、Research Areas |
+| Advisor | /advisor/ | 导师介绍 |
+| Members | /members/ | 博士、硕士、本科成员的照片卡片 |
+| Research | /research/ | 大模型安全、可信智能体系统、区块链与智能合约安全 |
+| Publications | /publications/ | Conference Papers、Journal Papers、Preprints |
+| News | /news/ | 具体的学术动态 |
+| Contact | /contact/ | 地址、邮箱、办公室、GitHub |
+
+原有 /people/、/community/、/join/、/projects/ 路径分别展示 Members、News、Contact、Publications，保留旧链接可用。已有 /projects/<slug>/ 研究详情页及 /resources/ 资源页继续可访问，不再作为主导航栏目。
 
 ## 修改内容
 
-- `app/data.ts`：项目、研究方向、新闻、导师、成员和联系信息。
-- `advisorProfile`：导师姓名、职称、简介、研究兴趣、教育经历、工作经历、荣誉、学术服务、教学、学术主页和联系方式。填入英文即可更新独立导师页；首页聚焦实验室介绍、研究方向、动态和成果。
-- 主页入口：页头、侧栏与页脚的 TrustLab 名称都链接到实验室主页。
-- `app/site.tsx`：页面结构和展示文案。
-- `app/globals.css`：配色、布局、字号和移动端适配。
-- `public/favicon.svg`：网站图标。
+- app/data.ts：研究方向、论文资料、新闻、导师、成员和联系信息。
+- app/site.tsx：页面结构与展示内容。
+- app/globals.css：蓝白配色、内容边框、网格和移动端布局。
+- public/：照片、网站图标及默认头像。
 
-所有缺失信息以字面值 `XXX` 表示，包括姓名、照片、身份、研究方向、个人主页、邮箱、年份、毕业去向、办公地点、招生安排、名额、截止时间、学术服务、课程及资料。未公开的论文作者、论文链接、代码与引用格式同样显示 `XXX`。未知值不会被渲染为可点击的虚假链接。
+成员按 PhD Students、Master's Students、Undergraduates 分组。每位成员填写 name、photo、research，可选填 homepage、email、year；卡片只展示照片、姓名和简短研究介绍。将真实照片放在 public/ 中，例如 public/members/name.jpg，并在 photo 中填写 /members/name.jpg。渲染时自动补充部署路径；缺失或无法加载的照片使用中性的默认头像。
 
-照片目前用显示 `XXX` 的占位框表示。替换真实照片时，将图片存入 `public/`，并为图片路径加上 `NEXT_PUBLIC_BASE_PATH` 前缀。
+导师身份和成员资料尚未确认的字段保留为字面值 XXX，不虚构姓名、照片或履历。未知链接不会成为可点击的 URL；导师的教育、经历、荣誉、服务和教学在填入确认资料后显示。
 
-保留已提供或已核实的信息。研究稿件和已接收成果分别标注，避免将未发表工作展示为已发表论文。
+论文通过 kind 分类：conference、journal、preprint、manuscript。Publications 只展示前三类。未公开稿件保留在研究详情中，公开预印本与正式接收论文分别标注；没有论文的类别显示 No entries yet.。
 
-## 技术说明
+## 本地开发
 
-- 全站静态导出，部署后不需要 Node.js 服务器、数据库或第三方 API。
-- 所有动态路由均通过 `generateStaticParams` 在构建时生成。
-- `trailingSlash: true` 将子页面输出为目录内的 `index.html`，支持直接打开与刷新。
-- 保留 `.nojekyll` 和 `404.html`，避免 GitHub Pages 忽略静态资源。
-- `out/` 是构建产物，不提交到源码仓库；从仓库下载源码后，请先运行构建命令再预览。
+需要 Node.js 22.13 或更高版本。
+
+~~~bash
+corepack enable
+pnpm install --frozen-lockfile
+pnpm dev
+~~~
+
+打开 http://localhost:3000。
+
+## 构建与验证
+
+~~~bash
+pnpm check
+pnpm build
+pnpm verify
+pnpm preview
+~~~
+
+静态网站导出至 out/；验证脚本检查页面、内部链接、资源、锚点、路径前缀和未知信息链接。请使用 HTTP 预览，不要直接双击 HTML。
+
+部署在子目录时，构建前设置 NEXT_PUBLIC_BASE_PATH。例如：
+
+~~~bash
+NEXT_PUBLIC_BASE_PATH=/TrustLab pnpm build
+pnpm verify
+pnpm preview
+~~~
+
+此时预览地址为 http://localhost:3000/TrustLab/。
+
+## GitHub Pages
+
+.github/workflows/deploy-pages.yml 在 main 分支更新后自动安装依赖、构建、验证和部署。Pages 的发布源应选择 GitHub Actions。
+
+工作流根据仓库名称自动设置部署路径；当前公开主页地址为 https://trustlab-zjsu.github.io/TrustLab/。仓库改名或转移后重新运行工作流即可。
+
+网站使用静态导出，不需要服务器、数据库或第三方 API。保留 trailingSlash、.nojekyll、404.html 和旧路由，使 GitHub Pages 的子页面能直接访问和刷新。构建产物 out/ 不提交。
