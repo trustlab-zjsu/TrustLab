@@ -67,20 +67,20 @@ export const projects:Project[] = [
 export const areas=[
  {
   id:'llm-safety',name:'LLM Safety & Security',en:'LLM Safety & Security',icon:'shield',
-  description:'Study safety failures, adversarial attacks, and defenses in large language models, with an emphasis on risks across multi-turn conversations.',
-  overview:'We study **LLM safety and security** across both individual responses and multi-turn conversations. Our research examines how **jailbreak attacks** and other adversarial inputs influence model behavior, how risks accumulate as an interaction unfolds, and which signals appear before a safety failure. We develop methods for **risk modeling and early warning**, alongside evaluation and defense strategies that help identify unsafe trajectories and support timely intervention while preserving the usefulness of language models.',
+  description:'Explore the safety and security of large language models, and improve their robustness, reliability, and trustworthiness.',
+  overview:'We study **LLM safety and security**, focusing on the risks and challenges involved in developing and using large language models. Our goal is to improve their **safety, robustness, and reliability** across a wide range of applications.',
   projects:['recast','redpj']
  },
  {
   id:'agent-trust',name:'Trustworthy Agent Systems',en:'Trustworthy Agent Systems',icon:'network',
-  description:'Understand how errors and security risks spread through agent collaboration, and develop methods for reliable reasoning, communication, and tool use.',
-  overview:'We investigate the reliability and security of **agent and multi-agent systems**, where information, decisions, and tool calls are connected through ongoing collaboration. We study **hallucination and risk propagation**, the influence of agent roles and communication topology, and the risks introduced by delegation and tool use. Our goal is to develop **trustworthy collaboration** through risk inference, adaptive mitigation, and system design that contains errors and unsafe behavior while retaining useful information flow and collective problem-solving.',
+  description:'Study the security and reliability of intelligent agents and collaborative systems for safe, effective task execution.',
+  overview:'We explore **trustworthy agent systems**, including both individual agents and collaborative multi-agent systems. Our research focuses on **security and reliability**, with the goal of enabling intelligent agents to carry out tasks and work together safely and effectively in complex environments.',
   projects:['halluprop','evoguard']
  },
  {
   id:'contract-security',name:'Blockchain & Smart Contract Security',en:'Blockchain & Smart Contract Security',icon:'code',
-  description:'Investigate blockchain and smart contract security through program analysis, vulnerability discovery, and testing guided by language models.',
-  overview:'Our research focuses on **blockchain and smart contract security**, with an emphasis on vulnerabilities that arise from contract logic, transaction sequences, and state changes. We combine **program analysis and fuzzing** with language-model reasoning to understand how security-critical behaviors emerge during execution. By incorporating **retrieval-augmented vulnerability knowledge** and execution feedback, we develop testing methods that explore underexamined states, identify vulnerability-triggering paths, and improve the effectiveness of smart contract vulnerability discovery.',
+  description:'Investigate the security of decentralized systems and smart contracts to support reliable blockchain technologies and applications.',
+  overview:'We study **blockchain and smart contract security**, focusing on the security challenges of decentralized systems and applications. Our research aims to improve **security, reliability, and trust** in blockchain technologies and support their safe deployment and practical use.',
   projects:['lara']
  }
 ];
@@ -127,7 +127,7 @@ export const advisorProfile = {
 
 export type Member = {name:string;photo:string;research:string;homepage?:string;email?:string;year?:string};
 export const memberGroups:{id:string;title:string;members:Member[]}[] = [
- {id:'phd',title:'PhD Students',members:[]},
+ {id:'phd',title:'PhD Students',members:[{name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}]},
  {id:'masters',title:"Master's Students",members:[
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
