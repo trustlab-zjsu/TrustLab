@@ -25,7 +25,7 @@
 - app/globals.css：蓝白配色、内容边框、网格和移动端布局。
 - public/：照片、网站图标及默认头像。
 
-成员按 Ph.D. Students、Graduate Students、Undergraduate Students 分组；当前为 1 位博士、4 位硕士、5 位本科生，空分组不显示。每位成员填写 name、photo、research，可选填 homepage、email、year；卡片只展示照片、姓名和简短研究介绍。将真实照片放在 public/ 中，例如 public/members/name.jpg，并在 photo 中填写 /members/name.jpg。渲染时自动补充部署路径；缺失或无法加载的照片使用中性的默认头像。
+成员按 Ph.D. Students、Graduate Students、Undergraduate Students 分组；当前为 1 位博士、4 位硕士、5 位本科生，空分组不显示。每位成员填写 name、photo、research，可选填 homepage、email、year；卡片只展示照片、姓名和简短研究介绍。将真实照片放在 public/ 中，例如 public/members/name.jpg，并在 photo 中填写 /members/name.jpg。渲染时自动补充部署路径；照片在统一的 4:5 竖版框内按原图比例完整显示，不裁切人物，姓名位置保持一致；缺失或无法加载的照片使用中性的默认头像。
 
 Research 每个方向使用 overview 中的一段介绍，使用 **关键词** 标记加粗内容；description 为首页的简短介绍。研究方向下不显示项目跳转链接。
 
