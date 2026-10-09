@@ -31,7 +31,7 @@ Research 每个方向使用 overview 中的一段介绍，使用 **关键词** �
 
 首页和 News 页的每条新闻左侧均预留图片位置。将图片放在 public/news/ 中，在 news 对应条目填写 image（例如 /news/paper-overview.png）和 imageAlt；图片按完整比例显示，适合论文方法概览图。尚未提供或加载失败时保留空白图片框。
 
-导师身份和成员资料尚未确认的字段保留为字面值 XXX，不虚构姓名、照片或履历。未知链接不会成为可点击的 URL；导师的教育、经历、荣誉、服务和教学在填入确认资料后显示。
+已同步确认的中文姓名和照片：Supervisor 为钱鹏；Ph.D. Students 为林石；Graduate Students 为李昊泽、陈行栋、范明锐；Undergraduate Students 为吴承宇。照片位于 public/members/，保持上传原图。其余 1 位硕士、4 位本科成员以及未确认的研究介绍、职称、联系方式和履历保留字面值 XXX。未知链接不会成为可点击的 URL；导师的教育、经历、荣誉、服务和教学在填入确认资料后显示。页面正文保持英文，个人姓名按提供的中文保留。
 
 论文通过 kind 分类：conference、journal、preprint、manuscript。Publications 顶部并排展示 Conference Papers、Journal Papers、Preprints 标签，默认显示会议论文，点击标签切换对应列表。分类链接（例如 /publications/#preprints）会自动选中对应标签；支持左右方向键、Home 和 End 切换。未公开稿件保留在研究详情中，公开预印本与正式接收论文分别标注；没有论文的类别显示 No entries yet.。
 

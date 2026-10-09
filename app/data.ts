@@ -113,9 +113,9 @@ export const labDetails = {
  courses:'XXX',teachingMaterials:'XXX'
 };
 
-// The advisor’s identity, biography, and credentials must be confirmed before publication.
+// The supervisor's name and photo are confirmed; other details remain placeholders.
 export const advisorProfile = {
- name:'XXX',title:'XXX',photo:'XXX',
+ name:'钱鹏',title:'XXX',photo:'/members/qian-peng.jpg',
  department:'School of Computer and Information Engineering',
  institution:'Zhejiang Gongshang University',
  bio:'XXX',research:'XXX',
@@ -127,15 +127,15 @@ export const advisorProfile = {
 
 export type Member = {name:string;photo:string;research:string;homepage?:string;email?:string;year?:string};
 export const memberGroups:{id:string;title:string;members:Member[]}[] = [
- {id:'phd',title:'Ph.D. Students',members:[{name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}]},
+ {id:'phd',title:'Ph.D. Students',members:[{name:'林石',photo:'/members/lin-shi.jpg',research:'XXX',homepage:'XXX',email:'XXX'}]},
  {id:'masters',title:'Graduate Students',members:[
-  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
-  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
-  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'李昊泽',photo:'/members/li-haoze.jpg',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'陈行栋',photo:'/members/chen-xingdong.jpg',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'范明锐',photo:'/members/fan-mingrui.jpg',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}
  ]},
  {id:'undergraduates',title:'Undergraduate Students',members:[
-  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'吴承宇',photo:'/members/wu-chengyu.jpg',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},

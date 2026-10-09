@@ -10,10 +10,15 @@ if(!existsSync(resolve(root,'404.html')))failures.push('Missing 404.html');
 if(!existsSync(resolve(root,'.nojekyll')))failures.push('Missing .nojekyll');
 function walk(dir){return readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(resolve(dir,e.name)):[resolve(dir,e.name)]);}
 const pages=walk(root).filter(p=>p.endsWith('.html'));
+// Preserve supplied Chinese personal names while checking the English page copy.
+const personalNames=[...readFileSync(resolve('app/data.ts'),'utf8').matchAll(/\bname:'([^']+)'/g)]
+ .map(match=>match[1]).filter(name=>/\p{Script=Han}/u.test(name));
 let checkedLinks=0;
 for(const page of pages){
  const text=readFileSync(page,'utf8');
- if(/\p{Script=Han}/u.test(text))failures.push('Untranslated content '+relative(root,page));
+ const languageText=['advisor/index.html','members/index.html','people/index.html'].includes(relative(root,page))
+  ? personalNames.reduce((html,name)=>html.replaceAll(name,''),text) : text;
+ if(/\p{Script=Han}/u.test(languageText))failures.push('Untranslated content '+relative(root,page));
  if(!text.includes('lang="en"'))failures.push('Missing English document language '+relative(root,page));
  const current='https://local.test'+basePath+'/'+relative(root,page).split(sep).join('/').replace(/index\.html$/,'');
  for(const match of text.matchAll(/<(?:a|link|script|img)\b[^>]*?\b(?:href|src)="([^"]+)"/g)){

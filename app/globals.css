@@ -132,7 +132,7 @@ section[id], article[id] { scroll-margin-top: 100px; }
 
 .member-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; padding: 22px; }
 .member-card { min-width: 0; border: 1px solid var(--border); border-radius: 5px; padding: 18px 12px; text-align: center; }
-.member-photo { width: 96px; height: 96px; object-fit: cover; border-radius: 4px; margin: 0 auto 12px; background: #edf1f6; }
+.member-photo { width: 96px; height: 96px; object-fit: cover; object-position: center top; border-radius: 4px; margin: 0 auto 12px; background: #edf1f6; }
 .member-card h3 { color: var(--navy); font-size: 16px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
 .member-card p { margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
 .member-card a:hover h3 { color: var(--blue); }
