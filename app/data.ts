@@ -113,29 +113,84 @@ export const labDetails = {
  courses:'XXX',teachingMaterials:'XXX'
 };
 
-// The supervisor's name and photo are confirmed; other details remain placeholders.
+// Confirmed supervisor details; unprovided optional records remain placeholders.
 export const advisorProfile = {
- name:'钱鹏',title:'XXX',photo:'/members/qian-peng.jpg',
+ name:'钱鹏',title:'Associate Research Fellow',photo:'/members/qian-peng.jpg',
  department:'School of Computer and Information Engineering',
  institution:'Zhejiang Gongshang University',
- bio:'XXX',research:'XXX',
+ bio:'Peng Qian is an Associate Research Fellow at Zhejiang Gongshang University. He received his B.E. from Yangtze University in 2018, his M.E. from Zhejiang Gongshang University in 2021, and his Ph.D. in Artificial Intelligence from Zhejiang University in 2025. His research spans AI security, blockchain security, and vulnerability discovery. He has published over 20 papers in leading venues, including TSE, TIFS, TKDE, TDSC, ICSE, ISSTA, WWW, ICDE, and IJCAI, with 10 CCF Class A papers as first or corresponding author. He has applied for nearly 20 Chinese invention patents, with more than 10 granted. His honors include a 2024 high-impact paper recognition from the Journal of Software and a Best Paper Award nomination at IEEE CCIS. Several of his papers are ESI Highly Cited Papers, and his publications have received over 2,000 citations on Google Scholar. He has led or contributed to projects supported by the National Key R&D Program of China, Zhejiang\'s Jianbing Lingyan Program, the Shanghai Science and Technology Innovation Action Plan, and the Zhejiang Provincial Education Department. He regularly reviews for TIFS, TDSC, TOSEM, TNSM, AAAI, and IJCAI. **He welcomes collaboration and academic exchange with colleagues and students.**',
+ research:'His research interests include **AI safety and security**, **blockchain and smart contract security**, and **vulnerability discovery**. He studies how to understand and mitigate risks in intelligent and decentralized systems, with the goal of improving their safety, robustness, and reliability. His work also explores methods for discovering software vulnerabilities and strengthening the security of complex computing systems.',
  education:[{period:'XXX',degree:'XXX',institution:'XXX'}],
  experience:[{period:'XXX',position:'XXX',institution:'XXX'}],
  awards:['XXX'],service:['XXX'],teaching:['XXX'],
- email:'XXX',office:'XXX',homepage:'XXX',scholar:'XXX',cv:'XXX'
+ email:'messi.qp711@gmail.com',office:'Room 402-1, Teaching Building 3, Jiaogong Road Campus, Zhejiang Gongshang University',homepage:'XXX',scholar:'XXX',cv:'XXX'
 };
+
+export type SelectedPublication = {id:string;title:string;authors:string;venue:string;year:number;paper:string;corresponding?:boolean};
+// Selected supervisor papers, kept separate from the laboratory publication tabs.
+// Conference details and publisher/author records were checked against the supplied bibliography.
+export const supervisorPublications:SelectedPublication[] = [
+ {
+  id:'echofuzz',title:'EchoFuzz: Empowering Smart Contract Fuzzing with Large Language Models',
+  authors:'Juanen Li, Peng Qian, Guanyan Li, Rui Wang, Peixin Wang, Zhiqing Tang, Fuchen Ma, Yuanliang Chen, Lun Zhang',
+  venue:'International Conference on Software Engineering (ICSE)',year:2026,
+  paper:'https://conf.researchr.org/details/icse-2026/icse-2026-research-track/124/EchoFuzz-Empowering-Smart-Contract-Fuzzing-with-Large-Language-Models'
+ },
+ {
+  id:'freewavm',title:'FreeWavm: Enhanced WebAssembly Runtime Fuzzing Guided by Parse Tree Mutation and Snapshot',
+  authors:'Peng Qian, Xinlei Ying, Jiashui Wang, Long Liu, Lun Zhang, Jianhai Chen, Qinming He',
+  venue:'ACM International Symposium on Software Testing and Analysis (ISSTA)',year:2025,
+  paper:'https://doi.org/10.1145/3728877'
+ },
+ {
+  id:'mufuzz',title:'MuFuzz: Sequence-Aware Mutation and Seed Mask Guidance for Blockchain Smart Contract Fuzzing',
+  authors:'Peng Qian, Hanjie Wu, Zeren Du, Turan Vural, Dazhong Rong, Zheng Cao, Lun Zhang, Yanbin Wang, Jianhai Chen, Qinming He',
+  venue:'IEEE International Conference on Data Engineering (ICDE)',year:2024,
+  paper:'https://ieeexplore.ieee.org/document/10597778/'
+ },
+ {
+  id:'tacoma',title:'Tacoma: Enhanced Browser Fuzzing with Fine-Grained Semantic Alignment',
+  authors:'Jiashui Wang, Peng Qian, Xilin Huang, Xinlei Ying, Yan Chen, Shouling Ji, Jianhai Chen, Jundong Xie, Long Liu',
+  venue:'ACM International Symposium on Software Testing and Analysis (ISSTA)',year:2024,corresponding:true,
+  paper:'https://doi.org/10.1145/3650212.3680351'
+ },
+ {
+  id:'random-number',title:'Demystifying Random Number in Ethereum Smart Contract: Taxonomy, Vulnerability Identification, and Attack Detection',
+  authors:'Peng Qian, Jianting He, Lingling Lu, Siwei Wu, Zhipeng Lu, Lei Wu, Yajin Zhou, Qinming He',
+  venue:'IEEE Transactions on Software Engineering (TSE)',year:2023,
+  paper:'https://doi.org/10.1109/TSE.2023.3271417'
+ },
+ {
+  id:'cross-modality',title:'Cross-Modality Mutual Learning for Enhancing Smart Contract Vulnerability Detection on Bytecode',
+  authors:'Peng Qian, Zhenguang Liu, Yifang Yin, Qinming He',
+  venue:'The ACM Web Conference (WWW)',year:2023,
+  paper:'https://doi.org/10.1145/3543507.3583367'
+ },
+ {
+  id:'ir-fuzz',title:'Rethinking Smart Contract Fuzzing: Fuzzing With Invocation Ordering and Important Branch Revisiting',
+  authors:'Zhenguang Liu, Peng Qian, Jiaxu Yang, Lingfeng Liu, Xiaojun Xu, Qinming He, Xiaosong Zhang',
+  venue:'IEEE Transactions on Information Forensics and Security (TIFS)',year:2023,corresponding:true,
+  paper:'https://doi.org/10.1109/TIFS.2023.3237370'
+ },
+ {
+  id:'graph-expert',title:'Combining Graph Neural Networks With Expert Knowledge for Smart Contract Vulnerability Detection',
+  authors:'Zhenguang Liu, Peng Qian, Xiaoyang Wang, Yuan Zhuang, Lin Qiu, Xun Wang',
+  venue:'IEEE Transactions on Knowledge and Data Engineering (TKDE)',year:2023,corresponding:true,
+  paper:'https://doi.org/10.1109/TKDE.2021.3095196'
+ }
+];
 
 export type Member = {name:string;photo:string;research:string;homepage?:string;email?:string;year?:string};
 export const memberGroups:{id:string;title:string;members:Member[]}[] = [
- {id:'phd',title:'Ph.D. Students',members:[{name:'林石',photo:'/members/lin-shi.jpg',research:'XXX',homepage:'XXX',email:'XXX'}]},
+ {id:'phd',title:'Ph.D. Students',members:[{name:'林石',photo:'/members/lin-shi.jpg',year:'2025',research:'LLM Safety & Security · Trustworthy Agent Systems',homepage:'XXX',email:'XXX'}]},
  {id:'masters',title:'Graduate Students',members:[
-  {name:'李昊泽',photo:'/members/li-haoze.jpg',research:'XXX',homepage:'XXX',email:'XXX'},
-  {name:'陈行栋',photo:'/members/chen-xingdong.jpg',research:'XXX',homepage:'XXX',email:'XXX'},
-  {name:'范明锐',photo:'/members/fan-mingrui.jpg',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'李昊泽',photo:'/members/li-haoze.jpg',year:'2025',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
+  {name:'陈行栋',photo:'/members/chen-xingdong.jpg',year:'2026',research:'Trustworthy Agent Systems',homepage:'XXX',email:'XXX'},
+  {name:'范明锐',photo:'/members/fan-mingrui.jpg',year:'2026',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}
  ]},
  {id:'undergraduates',title:'Undergraduate Students',members:[
-  {name:'吴承宇',photo:'/members/wu-chengyu.jpg',research:'XXX',homepage:'XXX',email:'XXX'},
+  {name:'吴承宇',photo:'/members/wu-chengyu.jpg',year:'2024',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},

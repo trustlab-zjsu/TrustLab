@@ -3,7 +3,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, Building2, Code2, FileText, Mail, MapPin, Menu, Network, ShieldCheck, X } from 'lucide-react';
-import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, type Project, type NewsItem } from './data';
+import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, supervisorPublications, type Project, type NewsItem } from './data';
 
 const nav = [
   ['home', 'Homepage', '/'],
@@ -105,19 +105,27 @@ function Advisor() {
       <div>
         <h2>{advisorProfile.name}</h2><p className="advisor-position">{advisorProfile.title}</p>
         <p className="advisor-affiliation">{advisorProfile.department}<br />{advisorProfile.institution}</p>
-        <dl className="profile-fields">
-          <ProfileField label="Email" value={advisorProfile.email} href={'mailto:' + advisorProfile.email} />
-          <ProfileField label="Office" value={advisorProfile.office} />
-        </dl>
         <div className="profile-external">
           {known(advisorProfile.homepage) && <a href={advisorProfile.homepage} target="_blank" rel="noreferrer">Homepage<ArrowUpRight size={13} /></a>}
           {known(advisorProfile.scholar) && <a href={advisorProfile.scholar} target="_blank" rel="noreferrer">Google Scholar<ArrowUpRight size={13} /></a>}
           {known(advisorProfile.cv) && <a href={assetPath(advisorProfile.cv)} target="_blank" rel="noreferrer">CV<ArrowUpRight size={13} /></a>}
         </div>
       </div>
+      <dl className="profile-fields advisor-contact">
+        <ProfileField label="Email" value={advisorProfile.email} href={'mailto:' + advisorProfile.email} />
+        <ProfileField label="Office" value={advisorProfile.office} />
+      </dl>
     </section>
-    <section className="panel"><SectionTitle title="About" /><div className="panel-copy"><p>{advisorProfile.bio}</p></div></section>
-    <section className="panel"><SectionTitle title="Research Interests" /><div className="panel-copy"><p>{advisorProfile.research}</p></div></section>
+    <section className="panel"><SectionTitle title="Biography" /><div className="panel-copy"><ResearchOverview text={advisorProfile.bio} /></div></section>
+    <section className="panel"><SectionTitle title="Research Interests" /><div className="panel-copy"><ResearchOverview text={advisorProfile.research} /></div></section>
+    <section className="panel" id="selected-publications">
+      <SectionTitle title="Selected Publications" />
+      <div className="paper-list">{supervisorPublications.map(p => <article className="paper-row" key={p.id}>
+        <h3><a href={p.paper} target="_blank" rel="noreferrer">{p.title}</a></h3>
+        <p className="paper-authors">{p.authors.split(/(Peng Qian)/g).map((part, i) => part === 'Peng Qian' ? <strong key={i}>{part}</strong> : part)}</p>
+        <p className="paper-venue">{p.venue} · {p.year}{p.corresponding && <span className="paper-role"> · Corresponding author</span>}</p>
+      </article>)}</div>
+    </section>
     {advisorProfile.education.some(item => known(item.degree)) && <section className="panel">
       <SectionTitle title="Education" /><div className="academic-records">{advisorProfile.education.map((item, i) => <article key={i}><time>{item.period}</time><div><h3>{item.degree}</h3><p>{item.institution}</p></div></article>)}</div>
     </section>}
@@ -142,16 +150,17 @@ function Members() {
       {known(member.homepage) ? <a href={member.homepage} target="_blank" rel="noreferrer">
         <Portrait className="member-photo" photo={member.photo} name={member.name} /><h3>{member.name}</h3>
       </a> : <><Portrait className="member-photo" photo={member.photo} name={member.name} /><h3>{member.name}</h3></>}
-      <p>{member.research}</p>
+      <p className="member-year">{known(member.year) ? member.year + ' Cohort' : 'XXX'}</p>
+      <p className="member-research">{member.research}</p>
     </article>)}</div>
   </section>)}</>;
 }
 
 function Research() {
-  return <>{areas.map(a => <section className="panel research-panel" id={a.id} key={a.id}>
+  return <div className="research-grid">{areas.map(a => <section className="panel research-panel" id={a.id} key={a.id}>
     <SectionTitle title={a.name} />
     <div className="panel-copy"><ResearchOverview text={a.overview} /></div>
-  </section>)}</>;
+  </section>)}</div>;
 }
 
 function PaperRow({ p }: { p: Project }) {
