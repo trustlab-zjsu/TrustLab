@@ -51,7 +51,6 @@ section[id], article[id] { scroll-margin-top: 100px; }
   display: flex; align-items: center; gap: 10px; flex-shrink: 0;
   color: var(--navy); font-weight: 700; font-size: 24px; letter-spacing: -.7px;
 }
-.brand-dot { color: var(--blue); }
 .brand-mark {
   display: block; position: relative; overflow: hidden; flex-shrink: 0;
   width: 34px; height: 34px; border-radius: 5px;

@@ -189,7 +189,7 @@ export const memberGroups:{id:string;title:string;members:Member[]}[] = [
   {name:'李昊泽',photo:'/members/li-haoze.jpg',year:'2025',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
   {name:'陈行栋',photo:'/members/chen-xingdong.jpg',year:'2026',research:'Trustworthy Agent Systems',homepage:'XXX',email:'XXX'},
   {name:'范明锐',photo:'/members/fan-mingrui.jpg',year:'2026',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
-  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}
+  {name:'王陈培',photo:'/members/wang-chenpei.jpg',year:'2025',research:'Trustworthy Agent Systems',homepage:'XXX',email:'XXX'}
  ]},
  {id:'undergraduates',title:'Undergraduate Students',members:[
   {name:'吴承宇',photo:'/members/wu-chengyu.jpg',year:'2024',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
