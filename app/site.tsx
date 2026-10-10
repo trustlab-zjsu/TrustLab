@@ -144,6 +144,7 @@ function Members() {
       </a> : <><Portrait className="member-photo" photo={member.photo} name={member.name} /><h3>{member.name}</h3></>}
       <p className="member-year">{known(member.year) ? member.year + ' Cohort' : 'XXX'}</p>
       <p className="member-research">{member.research}</p>
+      {known(member.scholar) && <a href={member.scholar} className="text-link" target="_blank" rel="noreferrer">Google Scholar<ArrowUpRight size={13} /></a>}
     </article>)}</div>
   </section>)}</>;
 }

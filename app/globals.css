@@ -135,6 +135,7 @@ section[id], article[id] { scroll-margin-top: 100px; }
 .member-card p { margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
 .member-card .member-year { color: var(--navy); }
 .member-card .member-research { margin-top: 7px; }
+.member-card .text-link { margin-top: 12px; }
 .member-card a:hover h3 { color: var(--blue); }
 
 .advisor-profile { padding: 25px; display: grid; grid-template-columns: 145px minmax(0, 1fr); gap: 0 27px; align-items: start; }
