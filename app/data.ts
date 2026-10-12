@@ -208,7 +208,7 @@ export const memberGroups:{id:string;title:string;members:Member[]}[] = [
  {id:'phd',title:'Ph.D. Students',members:[{name:'Shi Lin (林石)',photo:'/members/lin-shi.jpg',year:'2025',research:'LLM Safety & Security · Trustworthy Agent Systems',homepage:'XXX',scholar:'https://scholar.google.com/citations?user=00pnoYAAAAAJ&hl=zh-CN',email:'XXX'}]},
  {id:'masters',title:'Graduate Students',members:[
   {name:'Haoze Li (李昊泽)',photo:'/members/li-haoze.jpg',year:'2025',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
-  {name:'Xingdong Chen (陈行栋)',photo:'/members/chen-xingdong.jpg',year:'2026',research:'Trustworthy Agent Systems',homepage:'XXX',email:'XXX'},
+  {name:'Hangdong Chen (陈行栋)',photo:'/members/chen-xingdong.jpg',year:'2026',research:'Trustworthy Agent Systems',homepage:'XXX',email:'XXX'},
   {name:'Mingrui Fan (范明锐)',photo:'/members/fan-mingrui.jpg',year:'2026',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
   {name:'Chenpei Wang (王陈培)',photo:'/members/wang-chenpei.jpg',year:'2025',research:'Trustworthy Agent Systems',homepage:'XXX',email:'XXX'}
  ]},

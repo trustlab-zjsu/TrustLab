@@ -187,7 +187,7 @@ function Members() {
 }
 
 function Research() {
-  return <div className="research-grid">{areas.map(a => <Link className="panel research-panel" id={a.id} key={a.id} href={'/publications?area=' + a.id} aria-label={'View publications in ' + a.name}>
+  return <div className="research-grid">{areas.map(a => <Link className="panel research-panel" id={a.id} key={a.id} href={'/publications?area=' + a.id + '#conference-papers'} aria-label={'View publications in ' + a.name}>
     <div className="section-title"><h2>{a.name}</h2><ArrowUpRight size={16} /></div>
     <div className="panel-copy"><ResearchOverview text={a.overview} /></div>
   </Link>)}</div>;
@@ -219,10 +219,6 @@ function Publications() {
   const [activeCategory, setActiveCategory] = useState('conference-papers');
   const [activeArea, setActiveArea] = useState('all');
 
-  const matchingCategory = (areaId: string) => categories.find(category =>
-    publications.some(p => p.kind === category.kind && (areaId === 'all' || p.researchAreas.includes(areaId)))
-  )?.id || 'conference-papers';
-
   const updateLocation = (categoryId: string, areaId: string) => {
     const url = new URL(window.location.href);
     if (areaId === 'all') url.searchParams.delete('area'); else url.searchParams.set('area', areaId);
@@ -235,7 +231,7 @@ function Publications() {
       const requestedArea = new URLSearchParams(window.location.search).get('area') || 'all';
       const areaId = requestedArea === 'all' || areas.some(area => area.id === requestedArea) ? requestedArea : 'all';
       const requestedCategory = window.location.hash.slice(1);
-      const categoryId = categories.some(category => category.id === requestedCategory) ? requestedCategory : matchingCategory(areaId);
+      const categoryId = categories.some(category => category.id === requestedCategory) ? requestedCategory : 'conference-papers';
       setActiveArea(areaId);
       setActiveCategory(categoryId);
     };
@@ -254,12 +250,8 @@ function Publications() {
   };
 
   const selectArea = (id: string) => {
-    const category = categories.find(item => item.id === activeCategory)!;
-    const categoryHasEntries = publications.some(p => p.kind === category.kind && (id === 'all' || p.researchAreas.includes(id)));
-    const nextCategory = categoryHasEntries ? activeCategory : matchingCategory(id);
     setActiveArea(id);
-    setActiveCategory(nextCategory);
-    updateLocation(nextCategory, id);
+    updateLocation(activeCategory, id);
   };
 
   return <div className="panel publication-section">
@@ -312,7 +304,7 @@ function Publications() {
       hidden={activeCategory !== category.id}
       tabIndex={0}
     >
-      {entries.length ? <div className="paper-list">{entries.map(p => <PaperRow key={p.id} p={p} onAreaSelect={selectArea} />)}</div> : <p className="empty-list">No publications in this category.</p>}
+      {entries.length ? <div className="paper-list">{entries.map(p => <PaperRow key={p.id} p={p} onAreaSelect={selectArea} />)}</div> : <p className="empty-list">No {category.title.toLowerCase()}{activeArea !== 'all' ? ` in ${areas.find(area => area.id === activeArea)?.name}` : ''} yet.</p>}
     </section>;
     })}
   </div>;
