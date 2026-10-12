@@ -15,7 +15,33 @@ const nav = [
 ];
 const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || '').replace(/\/$/, '');
 const known = (value?: string) => Boolean(value && value !== 'XXX');
-const publications = projects.filter(p => p.kind !== 'manuscript');
+type PublicationItem = {
+  id:string; title:string; authors?:string; venue:string;
+  kind:'conference'|'journal'|'preprint'; researchAreas:string[];
+  paper?:string; code?:string; detailsHref?:string;
+};
+const publications:PublicationItem[] = [
+  ...projects.filter(p => p.kind !== 'manuscript').map(p => ({
+    id:'project-' + p.id,
+    title:known(p.en) ? p.en : p.title,
+    authors:p.authors,
+    venue:p.status,
+    kind:p.kind as PublicationItem['kind'],
+    researchAreas:p.researchAreas,
+    paper:p.paper,
+    code:p.code,
+    detailsHref:'/projects/' + p.id,
+  })),
+  ...supervisorPublications.flatMap(p => p.publicationKind && p.researchAreas?.length ? [{
+    id:'selected-' + p.id,
+    title:p.title,
+    authors:p.authors,
+    venue:p.venue + ' · ' + p.year,
+    kind:p.publicationKind,
+    researchAreas:p.researchAreas,
+    paper:p.paper,
+  }] : []),
+];
 
 function assetPath(path: string) {
   return /^(?:https?:\/\/|data:)/.test(path) ? path : basePath + '/' + path.replace(/^\/+/, '');
@@ -88,12 +114,23 @@ function ProfileField({ label, value, href }: { label: string; value: string; hr
   return <div><dt>{label}</dt><dd>{known(value) && href ? <a href={href} target="_blank" rel="noreferrer">{value}<ArrowUpRight size={13} /></a> : value}</dd></div>;
 }
 
+function ProfileEmails({ emails }: { emails: string[] }) {
+  return <div><dt>Email</dt><dd className="profile-email-list">{emails.filter(known).map(email =>
+    <a href={'mailto:' + email} key={email}>{email}<ArrowUpRight size={13} /></a>
+  )}</dd></div>;
+}
+
+function PersonName({ name }: { name: string }) {
+  const parts = name.match(/^(.+?)\s(\([^()]+\))$/);
+  return parts ? <>{parts[1]} <span className="native-name">{parts[2]}</span></> : name;
+}
+
 function Advisor() {
   return <>
     <section className="panel advisor-profile">
       <Portrait className="advisor-portrait" photo={advisorProfile.photo} name={advisorProfile.name} />
       <div>
-        <h2>{advisorProfile.name}</h2><p className="advisor-position">{advisorProfile.title}</p>
+        <h2><PersonName name={advisorProfile.name} /></h2><p className="advisor-position">{advisorProfile.title}</p>
         <p className="advisor-affiliation">{advisorProfile.department}<br />{advisorProfile.institution}</p>
         <div className="profile-external">
           {known(advisorProfile.homepage) && <a href={advisorProfile.homepage} target="_blank" rel="noreferrer">Homepage<ArrowUpRight size={13} /></a>}
@@ -140,8 +177,8 @@ function Members() {
     <SectionTitle title={group.title} />
     <div className="member-grid">{group.members.map((member, i) => <article className="member-card" key={i}>
       {known(member.homepage) ? <a href={member.homepage} target="_blank" rel="noreferrer">
-        <Portrait className="member-photo" photo={member.photo} name={member.name} /><h3>{member.name}</h3>
-      </a> : <><Portrait className="member-photo" photo={member.photo} name={member.name} /><h3>{member.name}</h3></>}
+        <Portrait className="member-photo" photo={member.photo} name={member.name} /><h3><PersonName name={member.name} /></h3>
+      </a> : <><Portrait className="member-photo" photo={member.photo} name={member.name} /><h3><PersonName name={member.name} /></h3></>}
       <p className="member-year">{known(member.year) ? member.year + ' Cohort' : 'XXX'}</p>
       <p className="member-research">{member.research}</p>
       {known(member.scholar) && <a href={member.scholar} className="text-link" target="_blank" rel="noreferrer">Google Scholar<ArrowUpRight size={13} /></a>}
@@ -150,22 +187,25 @@ function Members() {
 }
 
 function Research() {
-  return <div className="research-grid">{areas.map(a => <section className="panel research-panel" id={a.id} key={a.id}>
-    <SectionTitle title={a.name} />
+  return <div className="research-grid">{areas.map(a => <Link className="panel research-panel" id={a.id} key={a.id} href={'/publications?area=' + a.id} aria-label={'View publications in ' + a.name}>
+    <div className="section-title"><h2>{a.name}</h2><ArrowUpRight size={16} /></div>
     <div className="panel-copy"><ResearchOverview text={a.overview} /></div>
-  </section>)}</div>;
+  </Link>)}</div>;
 }
 
-function PaperRow({ p }: { p: Project }) {
-  const title = known(p.en) ? p.en : p.title;
+function PaperRow({ p, onAreaSelect }: { p: PublicationItem; onAreaSelect: (id:string) => void }) {
   return <article className="paper-row">
-    <h3>{p.paper ? <a href={p.paper} target="_blank" rel="noreferrer">{title}</a> : <Link href={'/projects/' + p.id}>{title}</Link>}</h3>
+    <div className="paper-tags" aria-label="Research areas">{p.researchAreas.map(id => {
+      const area = areas.find(item => item.id === id);
+      return area ? <button type="button" className={'research-tag tag-' + id} key={id} onClick={() => onAreaSelect(id)}>{area.name}</button> : null;
+    })}</div>
+    <h3>{p.paper ? <a href={p.paper} target="_blank" rel="noreferrer">{p.title}</a> : p.detailsHref ? <Link href={p.detailsHref}>{p.title}</Link> : p.title}</h3>
     {known(p.authors) && <p className="paper-authors">{p.authors}</p>}
-    <p className="paper-venue">{p.status}</p>
+    <p className="paper-venue">{p.venue}</p>
     <div className="paper-links">
       {p.paper && <a href={p.paper} target="_blank" rel="noreferrer">Paper<FileText size={13} /></a>}
       {p.code && <a href={p.code} target="_blank" rel="noreferrer">Code<Code2 size={13} /></a>}
-      <Link href={'/projects/' + p.id}>Details<ArrowUpRight size={13} /></Link>
+      {p.detailsHref && <Link href={p.detailsHref}>Details<ArrowUpRight size={13} /></Link>}
     </div>
   </article>;
 }
@@ -177,24 +217,49 @@ function Publications() {
     { id: 'preprints', title: 'Preprints', kind: 'preprint' },
   ];
   const [activeCategory, setActiveCategory] = useState('conference-papers');
+  const [activeArea, setActiveArea] = useState('all');
+
+  const matchingCategory = (areaId: string) => categories.find(category =>
+    publications.some(p => p.kind === category.kind && (areaId === 'all' || p.researchAreas.includes(areaId)))
+  )?.id || 'conference-papers';
+
+  const updateLocation = (categoryId: string, areaId: string) => {
+    const url = new URL(window.location.href);
+    if (areaId === 'all') url.searchParams.delete('area'); else url.searchParams.set('area', areaId);
+    url.hash = categoryId;
+    window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
+  };
 
   useEffect(() => {
-    const syncCategory = () => {
-      const id = window.location.hash.slice(1);
-      setActiveCategory(['conference-papers', 'journal-papers', 'preprints'].includes(id) ? id : 'conference-papers');
+    const syncFilters = () => {
+      const requestedArea = new URLSearchParams(window.location.search).get('area') || 'all';
+      const areaId = requestedArea === 'all' || areas.some(area => area.id === requestedArea) ? requestedArea : 'all';
+      const requestedCategory = window.location.hash.slice(1);
+      const categoryId = categories.some(category => category.id === requestedCategory) ? requestedCategory : matchingCategory(areaId);
+      setActiveArea(areaId);
+      setActiveCategory(categoryId);
     };
-    syncCategory();
-    window.addEventListener('hashchange', syncCategory);
-    window.addEventListener('popstate', syncCategory);
+    syncFilters();
+    window.addEventListener('hashchange', syncFilters);
+    window.addEventListener('popstate', syncFilters);
     return () => {
-      window.removeEventListener('hashchange', syncCategory);
-      window.removeEventListener('popstate', syncCategory);
+      window.removeEventListener('hashchange', syncFilters);
+      window.removeEventListener('popstate', syncFilters);
     };
   }, []);
 
   const selectCategory = (id: string) => {
     setActiveCategory(id);
-    window.history.replaceState(window.history.state, '', '#' + id);
+    updateLocation(id, activeArea);
+  };
+
+  const selectArea = (id: string) => {
+    const category = categories.find(item => item.id === activeCategory)!;
+    const categoryHasEntries = publications.some(p => p.kind === category.kind && (id === 'all' || p.researchAreas.includes(id)));
+    const nextCategory = categoryHasEntries ? activeCategory : matchingCategory(id);
+    setActiveArea(id);
+    setActiveCategory(nextCategory);
+    updateLocation(nextCategory, id);
   };
 
   return <div className="panel publication-section">
@@ -224,8 +289,20 @@ function Publications() {
         }}
       >{category.title}</button>)}
     </div>
+    <div className="publication-filter">
+      <span>Research Area</span>
+      <div role="group" aria-label="Filter publications by research area">
+        {[{id:'all',name:'All'}, ...areas].map(area => <button
+          type="button"
+          key={area.id}
+          className="area-filter"
+          aria-pressed={activeArea === area.id}
+          onClick={() => selectArea(area.id)}
+        >{area.name}</button>)}
+      </div>
+    </div>
     {categories.map(category => {
-    const entries = publications.filter(p => p.kind === category.kind);
+    const entries = publications.filter(p => p.kind === category.kind && (activeArea === 'all' || p.researchAreas.includes(activeArea)));
     return <section
       className="publication-panel"
       id={category.id}
@@ -235,7 +312,7 @@ function Publications() {
       hidden={activeCategory !== category.id}
       tabIndex={0}
     >
-      {entries.length ? <div className="paper-list">{entries.map(p => <PaperRow key={p.id} p={p} />)}</div> : <p className="empty-list">No entries yet.</p>}
+      {entries.length ? <div className="paper-list">{entries.map(p => <PaperRow key={p.id} p={p} onAreaSelect={selectArea} />)}</div> : <p className="empty-list">No publications in this category.</p>}
     </section>;
     })}
   </div>;
@@ -252,7 +329,7 @@ function Contact() {
     <div className="contact-affiliation"><Building2 size={20} /><div><h2>Zhejiang Gongshang University</h2><p>School of Computer and Information Engineering</p></div></div>
     <p className="contact-address"><MapPin size={17} />Hangzhou, Zhejiang 310018, China</p>
     <dl className="profile-fields">
-      <ProfileField label="Email" value={labDetails.email} href={'mailto:' + labDetails.email} />
+      <ProfileEmails emails={labDetails.emails} />
       <ProfileField label="Office" value={labDetails.office} />
       <ProfileField label="GitHub" value="trustlab-zjsu" href="https://github.com/trustlab-zjsu" />
     </dl>

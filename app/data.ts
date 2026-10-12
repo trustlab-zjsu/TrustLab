@@ -1,10 +1,11 @@
-export type Project = {id:string; name:string; title:string; en:string; area:string; status:string; kind:'conference'|'journal'|'preprint'|'manuscript'; summary:string; problem:string; method:string[]; tags:string[]; authors?:string; paper?:string; code?:string};
+export type ResearchAreaId = 'llm-safety'|'agent-trust'|'contract-security';
+export type Project = {id:string; name:string; title:string; en:string; area:string; researchAreas:ResearchAreaId[]; status:string; kind:'conference'|'journal'|'preprint'|'manuscript'; summary:string; problem:string; method:string[]; tags:string[]; authors?:string; paper?:string; code?:string};
 export const projects:Project[] = [
  {
   id:'recast',name:'RECAST',title:'Forecasting Safety Risks Across Multi-turn Conversations',
   en:'Forecasting Trajectory-Level Safety Risks in Black-Box Multi-Turn Interactions',
   authors:'Shi Lin, Peng Qian, Dinghao Liu, Renjie Sun, Sifan Wu, Dezhang Kong, Chenpei Wang, Xun Wang',
-  paper:'https://arxiv.org/abs/2607.26820',area:'LLM Safety',status:'Preprint · 2026',kind:'preprint',
+  paper:'https://arxiv.org/abs/2607.26820',area:'LLM Safety',researchAreas:['llm-safety'],status:'Preprint · 2026',kind:'preprint',
   summary:'Model how risks accumulate along a conversation and issue warnings before a safety failure occurs.',
   problem:'Single-turn checks can overlook risks that develop across an interaction. We study whether a conversation prefix can reveal the likelihood and timing of a future first safety failure.',
   method:[
@@ -17,7 +18,7 @@ export const projects:Project[] = [
   id:'halluprop',name:'HalluProp',title:'Inferring Hallucination Risks Before Agents Interact',
   en:'Before Agents Speak: Pre-hoc Failure Risk Inference in Multi-Agent Systems',
   authors:'Shi Lin, Chenpei Wang, Peng Qian, Dezhang Kong, Minghao Li, Yufeng Li, Xun Wang',
-  paper:'https://arxiv.org/abs/2607.26836',area:'Trustworthy Agents',status:'Preprint · 2026',kind:'preprint',
+  paper:'https://arxiv.org/abs/2607.26836',area:'Trustworthy Agents',researchAreas:['agent-trust'],status:'Preprint · 2026',kind:'preprint',
   summary:'Use role semantics and communication topology to infer intrinsic agent risks and their potential propagation.',
   problem:'A local error can spread through a multi-agent communication network. Evaluating answers only after interaction ends provides limited guidance for preventive system configuration.',
   method:[
@@ -28,7 +29,7 @@ export const projects:Project[] = [
  },
  {
   id:'evoguard',name:'EvoGuard',title:'Governing Multi-agent Hallucinations Through Evolutionary Games',
-  en:'XXX',area:'Trustworthy Agents',status:'Research Manuscript',kind:'manuscript',
+  en:'XXX',area:'Trustworthy Agents',researchAreas:['agent-trust'],status:'Research Manuscript',kind:'manuscript',
   summary:'Adapt agent strategies and communication structures to reduce hallucinations while preserving useful collaboration.',
   problem:'Removing risky agents or communication links may contain errors but also weaken collective reasoning. We study how to balance risk mitigation and collaboration as interactions evolve.',
   method:[
@@ -40,7 +41,7 @@ export const projects:Project[] = [
  {
   id:'lara',name:'LARA',title:'Retrieval-augmented LLM Guidance for Smart Contract Fuzzing',
   en:'Unlocking Underexplored States: LLM-Enhanced Smart Contract Fuzzing with Retrieval-Augmented Generation',
-  area:'Contract Security',status:'Research Manuscript',kind:'manuscript',
+  area:'Contract Security',researchAreas:['contract-security'],status:'Research Manuscript',kind:'manuscript',
   summary:'Combine vulnerability knowledge retrieval with LLM reasoning to explore deeper contract states and vulnerability-triggering paths.',
   problem:'Smart contract vulnerabilities often require specific transaction sequences and state conditions. Conventional input mutation can struggle to cover these deeper states.',
   method:[
@@ -54,7 +55,7 @@ export const projects:Project[] = [
   en:'Reasoning as a Weapon: Adaptive Dual-Path Jailbreak Attack on Large Language Models',
   authors:'Shi Lin, Peng Qian, Hongming Yang, Renjie Sun, Dezhang Kong, Xun Wang',
   paper:'https://arxiv.org/abs/2407.16205',code:'https://github.com/theshi-1128/ReDPJ',
-  area:'LLM Safety',status:'PRICAI 2026 · Accepted',kind:'conference',
+  area:'LLM Safety',researchAreas:['llm-safety'],status:'PRICAI 2026 · Accepted',kind:'conference',
   summary:'Explore risky reasoning paths through adaptive testing to better understand the safety boundaries of large language models.',
   problem:'Fixed prompts provide limited coverage of the reasoning paths that may lead to model failures. Safety evaluation needs to examine potential failure modes across different reasoning strategies.',
   method:[
@@ -107,7 +108,7 @@ export const sectionAliases:Record<string,string> = {
 
 // Replace literal XXX values with confirmed laboratory information.
 export const labDetails = {
- email:'messi.qp711@gmail.com',office:'Room 402-1, Teaching Building 3, Jiaogong Road Campus, Zhejiang Gongshang University',admissions:'XXX',
+ emails:['messi.qp711@gmail.com','linshizjsu@gmail.com'],office:'Room 402-1, Teaching Building 3, Jiaogong Road Campus, Zhejiang Gongshang University',admissions:'XXX',
  admissionQuota:'XXX',applicationDeadline:'XXX',
  academicAppointments:'XXX',programCommittees:'XXX',reviewing:'XXX',
  courses:'XXX',teachingMaterials:'XXX'
@@ -115,7 +116,7 @@ export const labDetails = {
 
 // Confirmed supervisor details; unprovided optional records remain placeholders.
 export const advisorProfile = {
- name:'钱鹏',title:'Associate Research Fellow',photo:'/members/qian-peng.jpg',
+ name:'Peng Qian (钱鹏)',title:'Associate Research Fellow',photo:'/members/qian-peng.jpg',
  department:'College of Computer Science and Technology',
  institution:'Zhejiang Gongshang University',
  bio:`Peng Qian is an Associate Research Fellow at the College of Computer Science and Technology, Zhejiang Gongshang University, China, where he is a member of the research team led by Prof. Xun Wang (王勋). He received his Ph.D. in Artificial Intelligence from Zhejiang University in 2025 under the supervision of Prof. Qinming He (何钦铭). He was also a Visiting Scholar at the National University of Singapore, where he conducted research under the guidance of Prof. Roger Zimmermann.
@@ -125,10 +126,10 @@ His research interests span AI security, large language model (LLM) and multi-ag
  education:[{period:'XXX',degree:'XXX',institution:'XXX'}],
  experience:[{period:'XXX',position:'XXX',institution:'XXX'}],
  awards:['XXX'],service:['XXX'],teaching:['XXX'],
- email:'messi.qp711@gmail.com',office:'Room 402-1, Teaching Building 3, Jiaogong Road Campus, Zhejiang Gongshang University',homepage:'XXX',scholar:'https://scholar.google.com/citations?user=zUD2t5wAAAAJ',cv:'XXX'
+ email:'messi.qp711@gmail.com',office:'Room 402-1, Teaching Building 3, Jiaogong Road Campus, Zhejiang Gongshang University',homepage:'XXX',scholar:'https://scholar.google.com/citations?user=zUD2t5wAAAAJ&hl=zh-CN',cv:'XXX'
 };
 
-export type SelectedPublication = {id:string;title:string;authors:string;venue:string;year:number;paper:string;corresponding?:boolean};
+export type SelectedPublication = {id:string;title:string;authors:string;venue:string;year:number;paper:string;corresponding?:boolean;publicationKind?:'conference'|'journal';researchAreas?:ResearchAreaId[]};
 // Selected supervisor papers, kept separate from the laboratory publication tabs.
 // Conference details and publisher/author records were checked against the supplied bibliography.
 export const supervisorPublications:SelectedPublication[] = [
@@ -136,6 +137,7 @@ export const supervisorPublications:SelectedPublication[] = [
   id:'echofuzz',title:'EchoFuzz: Empowering Smart Contract Fuzzing with Large Language Models',
   authors:'Juanen Li, Peng Qian, Guanyan Li, Rui Wang, Peixin Wang, Zhiqing Tang, Fuchen Ma, Yuanliang Chen, Lun Zhang',
   venue:'International Conference on Software Engineering (ICSE)',year:2026,
+  publicationKind:'conference',researchAreas:['contract-security'],
   paper:'https://conf.researchr.org/details/icse-2026/icse-2026-research-track/124/EchoFuzz-Empowering-Smart-Contract-Fuzzing-with-Large-Language-Models'
  },
  {
@@ -148,6 +150,7 @@ export const supervisorPublications:SelectedPublication[] = [
   id:'mufuzz',title:'MuFuzz: Sequence-Aware Mutation and Seed Mask Guidance for Blockchain Smart Contract Fuzzing',
   authors:'Peng Qian, Hanjie Wu, Zeren Du, Turan Vural, Dazhong Rong, Zheng Cao, Lun Zhang, Yanbin Wang, Jianhai Chen, Qinming He',
   venue:'IEEE International Conference on Data Engineering (ICDE)',year:2024,
+  publicationKind:'conference',researchAreas:['contract-security'],
   paper:'https://ieeexplore.ieee.org/document/10597778/'
  },
  {
@@ -160,39 +163,57 @@ export const supervisorPublications:SelectedPublication[] = [
   id:'random-number',title:'Demystifying Random Number in Ethereum Smart Contract: Taxonomy, Vulnerability Identification, and Attack Detection',
   authors:'Peng Qian, Jianting He, Lingling Lu, Siwei Wu, Zhipeng Lu, Lei Wu, Yajin Zhou, Qinming He',
   venue:'IEEE Transactions on Software Engineering (TSE)',year:2023,
+  publicationKind:'journal',researchAreas:['contract-security'],
   paper:'https://doi.org/10.1109/TSE.2023.3271417'
  },
  {
   id:'cross-modality',title:'Cross-Modality Mutual Learning for Enhancing Smart Contract Vulnerability Detection on Bytecode',
   authors:'Peng Qian, Zhenguang Liu, Yifang Yin, Qinming He',
   venue:'The ACM Web Conference (WWW)',year:2023,
+  publicationKind:'conference',researchAreas:['contract-security'],
   paper:'https://doi.org/10.1145/3543507.3583367'
  },
  {
   id:'ir-fuzz',title:'Rethinking Smart Contract Fuzzing: Fuzzing With Invocation Ordering and Important Branch Revisiting',
   authors:'Zhenguang Liu, Peng Qian, Jiaxu Yang, Lingfeng Liu, Xiaojun Xu, Qinming He, Xiaosong Zhang',
   venue:'IEEE Transactions on Information Forensics and Security (TIFS)',year:2023,corresponding:true,
+  publicationKind:'journal',researchAreas:['contract-security'],
   paper:'https://doi.org/10.1109/TIFS.2023.3237370'
  },
  {
   id:'graph-expert',title:'Combining Graph Neural Networks With Expert Knowledge for Smart Contract Vulnerability Detection',
   authors:'Zhenguang Liu, Peng Qian, Xiaoyang Wang, Yuan Zhuang, Lin Qiu, Xun Wang',
   venue:'IEEE Transactions on Knowledge and Data Engineering (TKDE)',year:2023,corresponding:true,
+  publicationKind:'journal',researchAreas:['contract-security'],
   paper:'https://doi.org/10.1109/TKDE.2021.3095196'
+ },
+ {
+  id:'bitcoin-address',title:'Demystifying Bitcoin Address Behavior via Graph Neural Networks',
+  authors:'Zhengjie Huang, Yunyang Huang, Peng Qian, Jianhai Chen, Qinming He',
+  venue:'IEEE International Conference on Data Engineering (ICDE)',year:2023,corresponding:true,
+  publicationKind:'conference',researchAreas:['contract-security'],
+  paper:'https://www.computer.org/csdl/proceedings-article/icde/2023/222700b747/1PByvsROwDe'
+ },
+ {
+  id:'ijcai-vulnerability',title:'Smart Contract Vulnerability Detection: From Pure Neural Network to Interpretable Graph Feature and Expert Pattern Fusion',
+  authors:'Zhenguang Liu, Peng Qian, Xiang Wang, Lei Zhu, Qinming He, Shouling Ji',
+  venue:'International Joint Conference on Artificial Intelligence (IJCAI)',year:2021,
+  publicationKind:'conference',researchAreas:['contract-security'],
+  paper:'https://www.ijcai.org/proceedings/2021/379'
  }
 ];
 
 export type Member = {name:string;photo:string;research:string;homepage?:string;scholar?:string;email?:string;year?:string};
 export const memberGroups:{id:string;title:string;members:Member[]}[] = [
- {id:'phd',title:'Ph.D. Students',members:[{name:'林石',photo:'/members/lin-shi.jpg',year:'2025',research:'LLM Safety & Security · Trustworthy Agent Systems',homepage:'XXX',scholar:'https://scholar.google.com/citations?user=00pnoYAAAAAJ&hl=zh-CN',email:'XXX'}]},
+ {id:'phd',title:'Ph.D. Students',members:[{name:'Shi Lin (林石)',photo:'/members/lin-shi.jpg',year:'2025',research:'LLM Safety & Security · Trustworthy Agent Systems',homepage:'XXX',scholar:'https://scholar.google.com/citations?user=00pnoYAAAAAJ&hl=zh-CN',email:'XXX'}]},
  {id:'masters',title:'Graduate Students',members:[
-  {name:'李昊泽',photo:'/members/li-haoze.jpg',year:'2025',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
-  {name:'陈行栋',photo:'/members/chen-xingdong.jpg',year:'2026',research:'Trustworthy Agent Systems',homepage:'XXX',email:'XXX'},
-  {name:'范明锐',photo:'/members/fan-mingrui.jpg',year:'2026',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
-  {name:'王陈培',photo:'/members/wang-chenpei.jpg',year:'2025',research:'Trustworthy Agent Systems',homepage:'XXX',email:'XXX'}
+  {name:'Haoze Li (李昊泽)',photo:'/members/li-haoze.jpg',year:'2025',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
+  {name:'Xingdong Chen (陈行栋)',photo:'/members/chen-xingdong.jpg',year:'2026',research:'Trustworthy Agent Systems',homepage:'XXX',email:'XXX'},
+  {name:'Mingrui Fan (范明锐)',photo:'/members/fan-mingrui.jpg',year:'2026',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
+  {name:'Chenpei Wang (王陈培)',photo:'/members/wang-chenpei.jpg',year:'2025',research:'Trustworthy Agent Systems',homepage:'XXX',email:'XXX'}
  ]},
  {id:'undergraduates',title:'Undergraduate Students',members:[
-  {name:'吴承宇',photo:'/members/wu-chengyu.jpg',year:'2024',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
+  {name:'Chengyu Wu (吴承宇)',photo:'/members/wu-chengyu.jpg',year:'2024',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
   {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},

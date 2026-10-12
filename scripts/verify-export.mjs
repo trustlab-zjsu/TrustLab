@@ -12,7 +12,7 @@ function walk(dir){return readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isD
 const pages=walk(root).filter(p=>p.endsWith('.html'));
 // Preserve supplied Chinese personal names and the supervisor biography's named entities.
 const personalNames=[...readFileSync(resolve('app/data.ts'),'utf8').matchAll(/\bname:'([^']+)'/g)]
- .map(match=>match[1]).filter(name=>/\p{Script=Han}/u.test(name));
+ .flatMap(match=>match[1].match(/\p{Script=Han}+/gu) || []);
 let checkedLinks=0;
 for(const page of pages){
  const text=readFileSync(page,'utf8');
