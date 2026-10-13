@@ -16,7 +16,8 @@ const personalNames=[...readFileSync(resolve('app/data.ts'),'utf8').matchAll(/\b
 let checkedLinks=0;
 for(const page of pages){
  const text=readFileSync(page,'utf8');
- const allowedNames=['advisor/index.html','members/index.html','people/index.html'].includes(relative(root,page)) ? personalNames : [];
+ // The shared sidebar includes the supervisor's bilingual name on every route.
+ const allowedNames=personalNames;
  const namedEntities=relative(root,page)==='advisor/index.html' ? [...allowedNames,'王勋','何钦铭','软件学报'] : allowedNames;
  const languageText=namedEntities.reduce((html,name)=>html.replaceAll(name,''),text);
  if(/\p{Script=Han}/u.test(languageText))failures.push('Untranslated content '+relative(root,page));

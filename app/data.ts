@@ -85,12 +85,7 @@ export const areas=[
   projects:['lara']
  }
 ];
-export type NewsItem = {id:string;date:string;title:string;body:string;href:string;image?:string;imageAlt?:string};
-// Add image paths (for example /news/paper-overview.png) when confirmed images are available.
-export const news:NewsItem[]=[
- {id:'exchange',date:'2026.09',title:'Academic exchange on agent and generative content security',body:'We shared research observations from a security forum on agent security, generative content security, and vulnerability discovery.',href:'/news#exchange'},
- {id:'redpj',date:'2026',title:'ReDPJ accepted at PRICAI 2026',body:'Our paper studies adaptive dual-path jailbreak attacks on large language models.',href:'/publications#conference-papers'}
-];
+export type NewsItem = {id:string;date:string;title:string;body:string;href:string;code?:string;image?:string;imageAlt?:string;imageSource?:string};
 export const pages:Record<string,{title:string}>= {
  advisor:{title:'Supervisor'},
  members:{title:'Members'},
@@ -129,7 +124,7 @@ His research interests span AI security, large language model (LLM) and multi-ag
  email:'messi.qp711@gmail.com',office:'Room 402-1, Teaching Building 3, Jiaogong Road Campus, Zhejiang Gongshang University',homepage:'XXX',scholar:'https://scholar.google.com/citations?user=zUD2t5wAAAAJ&hl=zh-CN',cv:'XXX'
 };
 
-export type SelectedPublication = {id:string;title:string;authors:string;venue:string;year:number;paper:string;corresponding?:boolean;publicationKind?:'conference'|'journal';researchAreas?:ResearchAreaId[]};
+export type SelectedPublication = {id:string;title:string;authors:string;venue:string;year:number;paper:string;corresponding?:boolean;publicationKind?:'conference'|'journal';researchAreas?:ResearchAreaId[];code?:string};
 // Selected supervisor papers, kept separate from the laboratory publication tabs.
 // Conference details and publisher/author records were checked against the supplied bibliography.
 export const supervisorPublications:SelectedPublication[] = [
@@ -202,6 +197,34 @@ export const supervisorPublications:SelectedPublication[] = [
   paper:'https://www.ijcai.org/proceedings/2021/379'
  }
 ];
+
+export const researchCode = [
+ {name:'ReDPJ',area:'LLM Safety & Security',description:'Adaptive dual-path jailbreak testing for large language models.',href:'https://github.com/theshi-1128/ReDPJ'},
+ {name:'LARA',area:'Blockchain & Smart Contract Security',description:'Retrieval-augmented LLM guidance for smart contract fuzzing.',href:'https://github.com/fuzzersc/LARA'}
+];
+
+const publicationHighlights:Record<string,{name:string;venue:string;code?:string;imageSource?:string}> = {
+ echofuzz:{name:'EchoFuzz',venue:'ICSE 2026'},
+ freewavm:{name:'FreeWavm',venue:'ISSTA 2025',code:'https://github.com/Messi-Q/FreeWavm',imageSource:'https://www.techflowpost.com/article/24669'},
+ mufuzz:{name:'MuFuzz',venue:'ICDE 2024',code:'https://github.com/Messi-Q/MuFuzz'},
+ tacoma:{name:'Tacoma',venue:'ISSTA 2024'},
+ 'random-number':{name:'RNVulDet',venue:'IEEE TSE 2023',code:'https://github.com/Messi-Q/RNVulDet'},
+ 'cross-modality':{name:'Cross-Modality Mutual Learning',venue:'WWW 2023',code:'https://github.com/Messi-Q/Cross-Modality-Bug-Detection'},
+ 'ir-fuzz':{name:'IR-Fuzz',venue:'IEEE TIFS 2023',code:'https://github.com/Messi-Q/IR-Fuzz'},
+ 'graph-expert':{name:'Graph and Expert Knowledge Fusion',venue:'IEEE TKDE 2023',code:'https://github.com/Messi-Q/GPSCVulDetector'},
+ 'bitcoin-address':{name:'Bitcoin Address Behavior Analysis',venue:'ICDE 2023'},
+ 'ijcai-vulnerability':{name:'Interpretable Smart Contract Vulnerability Detection',venue:'IJCAI 2021',code:'https://github.com/Messi-Q/AMEVulDetector'}
+};
+supervisorPublications.forEach(p => { p.code = publicationHighlights[p.id]?.code; });
+
+// Historical entries use publication years, not unverified acceptance dates.
+export const news:NewsItem[] = [
+ {id:'redpj',date:'2026',title:'ReDPJ accepted at PRICAI 2026',body:projects.find(p => p.id === 'redpj')!.en,href:projects.find(p => p.id === 'redpj')!.paper!,code:researchCode[0].href,image:'/news/redpj-overview.png',imageAlt:'Method overview of ReDPJ',imageSource:'https://github.com/theshi-1128/ReDPJ/blob/main/overview.pdf'},
+ ...supervisorPublications.map(p => {
+  const details = publicationHighlights[p.id];
+  return {id:p.id,date:String(p.year),title:`${details.name} published ${p.publicationKind === 'journal' ? 'in' : 'at'} ${details.venue}`,body:p.title,href:p.paper,code:details.code,image:`/news/${p.id}-overview.png`,imageAlt:`Method overview of ${details.name}`,imageSource:details.imageSource || p.paper};
+ })
+].sort((a,b) => Number(b.date) - Number(a.date));
 
 export type Member = {name:string;photo:string;research:string;homepage?:string;scholar?:string;email?:string;year?:string};
 export const memberGroups:{id:string;title:string;members:Member[]}[] = [

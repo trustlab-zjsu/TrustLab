@@ -3,7 +3,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, Building2, Code2, FileText, Mail, MapPin, Menu, X } from 'lucide-react';
-import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, supervisorPublications, type Project, type NewsItem } from './data';
+import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, supervisorPublications, researchCode, type Project, type NewsItem } from './data';
 
 const nav = [
   ['home', 'Homepage', '/'],
@@ -40,8 +40,17 @@ const publications:PublicationItem[] = [
     kind:p.publicationKind,
     researchAreas:p.researchAreas,
     paper:p.paper,
+    code:p.code,
   }] : []),
 ];
+
+function Github({ size = 16 }: { size?:number }) {
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>;
+}
+
+function ScholarIcon({ size = 16 }: { size?:number }) {
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z" /></svg>;
+}
 
 function assetPath(path: string) {
   return /^(?:https?:\/\/|data:)/.test(path) ? path : basePath + '/' + path.replace(/^\/+/, '');
@@ -68,9 +77,9 @@ function Portrait({ photo, name, className }: { photo: string; name: string; cla
 function NewsThumbnail({ item }: { item: NewsItem }) {
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [item.image]);
-  return <div className="news-thumbnail" aria-hidden={!known(item.image) || failed ? true : undefined}>
-    {known(item.image) && !failed && <img src={assetPath(item.image!)} alt={item.imageAlt || item.title} width={160} height={100} onError={() => setFailed(true)} />}
-  </div>;
+  return known(item.image) && !failed ? <a className="news-thumbnail" href={assetPath(item.image!)} target="_blank" rel="noreferrer" aria-label={'Open full-size method overview: ' + item.title}>
+    <img src={assetPath(item.image!)} alt={item.imageAlt || item.title} width={2400} height={1000} loading="lazy" onError={() => setFailed(true)} />
+  </a> : <div className="news-thumbnail" aria-hidden="true"><FileText size={24} /></div>;
 }
 
 function ResearchOverview({ text }: { text: string }) {
@@ -86,11 +95,16 @@ function Sidebar() {
     <Link className="identity" href="/" aria-label="TrustLab homepage">
       <Mark /><div><h2>TrustLab</h2><p>Trustworthy AI &amp; System Security</p></div>
     </Link>
-    <div className="affiliation"><Building2 size={17} /><div><strong>Zhejiang Gongshang University</strong><p>School of Computer and Information Engineering</p></div></div>
+    <div className="affiliation"><Building2 size={17} /><div><strong>Zhejiang Gongshang University</strong><p>College of Computer Science and Technology</p></div></div>
     <p className="location"><MapPin size={16} />Hangzhou, China</p>
+    <dl className="sidebar-details">
+      <div><dt>Supervisor</dt><dd><Link href="/advisor">Peng Qian (钱鹏)</Link><span>Associate Research Fellow</span></dd></div>
+      <div><dt>Office</dt><dd>Room 402-1, Teaching Building 3<br />Jiaogong Road Campus</dd></div>
+    </dl>
     <div className="sidebar-links">
-      <a href="https://github.com/trustlab-zjsu" target="_blank" rel="noreferrer">GitHub<ArrowUpRight size={13} /></a>
-      <Link href="/contact">Contact<Mail size={13} /></Link>
+      <a href="https://github.com/trustlab-zjsu" target="_blank" rel="noreferrer"><Github size={15} />GitHub<ArrowUpRight size={12} /></a>
+      <a href={advisorProfile.scholar} target="_blank" rel="noreferrer"><ScholarIcon size={15} />Google Scholar<ArrowUpRight size={12} /></a>
+      <Link href="/contact"><Mail size={15} />Contact</Link>
     </div>
   </aside>;
 }
@@ -102,16 +116,28 @@ function Home() {
       <p>TrustLab is a research group at Zhejiang Gongshang University. We study <strong>LLM safety and security</strong>, <strong>trustworthy agent systems</strong>, and <strong>blockchain and smart contract security</strong>.</p>
     </section>
     <section className="panel home-section">
+      <SectionTitle title="Research" href="/research" />
+      <div className="home-research-grid">{areas.map(area => <Link key={area.id} href={'/research#' + area.id} className="home-research-card">
+        <h3>{area.name}<ArrowUpRight size={14} /></h3><p>{area.description}</p>
+      </Link>)}</div>
+    </section>
+    <section className="panel home-section">
       <SectionTitle title="News" href="/news" />
-      <div className="news-list">{news.map(n => <article className="news-row" key={n.id}>
-        <NewsThumbnail item={n} /><div className="news-row-copy"><time>{n.date}</time><Link href={n.href}>{n.title}<ArrowUpRight size={14} /></Link></div>
+      <div className="news-list">{news.slice(0,4).map(n => <article className="news-row" key={n.id}>
+        <NewsThumbnail item={n} /><div className="news-row-copy"><time>{n.date}</time><Link href={'/news#' + n.id}>{n.title}<ArrowUpRight size={14} /></Link></div>
       </article>)}</div>
+    </section>
+    <section className="panel home-section">
+      <SectionTitle title="Open-source Code" />
+      <div className="home-code-grid">{researchCode.map(repo => <a className="home-code-card" key={repo.name} href={repo.href} target="_blank" rel="noreferrer">
+        <h3><Github size={18} />{repo.name}<ArrowUpRight size={14} /></h3><p>{repo.description}</p>
+      </a>)}</div>
     </section>
   </>;
 }
 
 function ProfileField({ label, value, href }: { label: string; value: string; href?: string }) {
-  return <div><dt>{label}</dt><dd>{known(value) && href ? <a href={href} target="_blank" rel="noreferrer">{value}<ArrowUpRight size={13} /></a> : value}</dd></div>;
+  return <div><dt>{label}</dt><dd>{known(value) && href ? <a href={href} target="_blank" rel="noreferrer">{label === 'GitHub' && <Github size={15} />}{value}<ArrowUpRight size={13} /></a> : value}</dd></div>;
 }
 
 function ProfileEmails({ emails }: { emails: string[] }) {
@@ -144,7 +170,7 @@ function Advisor() {
     </section>
     <section className="panel" id="biography"><SectionTitle title="Biography" /><div className="panel-copy biography-copy">
       {advisorProfile.bio.split('\n\n').map((paragraph, i) => <ResearchOverview key={i} text={paragraph} />)}
-      {known(advisorProfile.scholar) && <a href={advisorProfile.scholar} className="text-link" target="_blank" rel="noreferrer">Google Scholar<ArrowUpRight size={13} /></a>}
+      {known(advisorProfile.scholar) && <a href={advisorProfile.scholar} className="text-link" target="_blank" rel="noreferrer"><ScholarIcon />Google Scholar<ArrowUpRight size={13} /></a>}
     </div></section>
     <section className="panel"><SectionTitle title="Research Interests" /><div className="panel-copy"><ResearchOverview text={advisorProfile.research} /></div></section>
     <section className="panel" id="selected-publications">
@@ -153,6 +179,7 @@ function Advisor() {
         <h3><a href={p.paper} target="_blank" rel="noreferrer">{p.title}</a></h3>
         <p className="paper-authors">{p.authors.split(/(Peng Qian)/g).map((part, i) => part === 'Peng Qian' ? <strong key={i}>{part}</strong> : part)}</p>
         <p className="paper-venue">{p.venue} · {p.year}{p.corresponding && <span className="paper-role"> · Corresponding author</span>}</p>
+        {p.code && <div className="paper-links"><a href={p.code} target="_blank" rel="noreferrer"><Github size={14} />Code<ArrowUpRight size={12} /></a></div>}
       </article>)}</div>
     </section>
     {advisorProfile.education.some(item => known(item.degree)) && <section className="panel">
@@ -181,16 +208,26 @@ function Members() {
       </a> : <><Portrait className="member-photo" photo={member.photo} name={member.name} /><h3><PersonName name={member.name} /></h3></>}
       <p className="member-year">{known(member.year) ? member.year + ' Cohort' : 'XXX'}</p>
       <p className="member-research">{member.research}</p>
-      {known(member.scholar) && <a href={member.scholar} className="text-link" target="_blank" rel="noreferrer">Google Scholar<ArrowUpRight size={13} /></a>}
+      {known(member.scholar) && <a href={member.scholar} className="text-link" target="_blank" rel="noreferrer"><ScholarIcon />Google Scholar<ArrowUpRight size={13} /></a>}
     </article>)}</div>
   </section>)}</>;
 }
 
 function Research() {
-  return <div className="research-grid">{areas.map(a => <Link className="panel research-panel" id={a.id} key={a.id} href={'/publications?area=' + a.id + '#conference-papers'} aria-label={'View publications in ' + a.name}>
-    <div className="section-title"><h2>{a.name}</h2><ArrowUpRight size={16} /></div>
+  return <div className="research-grid">{areas.map(a => <section className="panel research-panel" id={a.id} key={a.id}>
+    <div className="section-title"><h2><Link href={'/publications?area=' + a.id + '#conference-papers'}>{a.name}<ArrowUpRight size={16} /></Link></h2></div>
     <div className="panel-copy"><ResearchOverview text={a.overview} /></div>
-  </Link>)}</div>;
+    <div className="research-work"><h3>Related Work</h3>{projects.filter(p => p.researchAreas.includes(a.id as typeof p.researchAreas[number])).map(p => <article key={p.id}>
+      <Link href={'/projects/' + p.id}>{p.name}<ArrowUpRight size={13} /></Link><p>{p.summary}</p><span>{p.status}</span>
+      {p.paper && <a href={p.paper} target="_blank" rel="noreferrer" className="text-link">Paper<FileText size={12} /></a>}
+      {p.code && <a href={p.code} target="_blank" rel="noreferrer" className="text-link"><Github size={12} />Code</a>}
+      {p.id === 'lara' && <a href={researchCode[1].href} target="_blank" rel="noreferrer" className="text-link"><Github size={12} />Code</a>}
+    </article>)}{a.id === 'contract-security' && <article>
+      <a href={supervisorPublications.find(p => p.id === 'mufuzz')!.paper} target="_blank" rel="noreferrer">MuFuzz<ArrowUpRight size={13} /></a>
+      <p>Sequence-aware smart contract fuzzing with seed mask guidance.</p><span>ICDE 2024</span>
+      <a href={supervisorPublications.find(p => p.id === 'mufuzz')!.code} target="_blank" rel="noreferrer" className="text-link"><Github size={12} />Code</a>
+    </article>}</div>
+  </section>)}</div>;
 }
 
 function PaperRow({ p, onAreaSelect }: { p: PublicationItem; onAreaSelect: (id:string) => void }) {
@@ -204,7 +241,7 @@ function PaperRow({ p, onAreaSelect }: { p: PublicationItem; onAreaSelect: (id:s
     <p className="paper-venue">{p.venue}</p>
     <div className="paper-links">
       {p.paper && <a href={p.paper} target="_blank" rel="noreferrer">Paper<FileText size={13} /></a>}
-      {p.code && <a href={p.code} target="_blank" rel="noreferrer">Code<Code2 size={13} /></a>}
+      {p.code && <a href={p.code} target="_blank" rel="noreferrer"><Github size={13} />Code</a>}
       {p.detailsHref && <Link href={p.detailsHref}>Details<ArrowUpRight size={13} /></Link>}
     </div>
   </article>;
@@ -312,13 +349,18 @@ function Publications() {
 
 function News() {
   return <div className="panel news-archive">{news.map(n => <article className="news-item" id={n.id} key={n.id}>
-    <NewsThumbnail item={n} /><div className="news-item-copy"><time>{n.date}</time><h2>{n.title}</h2><p>{n.body}</p>{n.id !== 'exchange' && <Link href={n.href} className="text-link">Paper details<ArrowUpRight size={14} /></Link>}</div>
+    <NewsThumbnail item={n} /><div className="news-item-copy"><time>{n.date}</time><h2>{n.title}</h2><p>{n.body}</p>
+      <div className="paper-links"><a href={n.href} target="_blank" rel="noreferrer">Paper<FileText size={13} /></a>
+        {n.code && <a href={n.code} target="_blank" rel="noreferrer"><Github size={13} />Code</a>}
+        {n.image && <a href={assetPath(n.image)} target="_blank" rel="noreferrer">Overview<ArrowUpRight size={13} /></a>}
+        {n.imageSource && <a href={n.imageSource} target="_blank" rel="noreferrer">Figure source<ArrowUpRight size={13} /></a>}
+      </div></div>
   </article>)}</div>;
 }
 
 function Contact() {
   return <section className="panel contact-panel" id="contact">
-    <div className="contact-affiliation"><Building2 size={20} /><div><h2>Zhejiang Gongshang University</h2><p>School of Computer and Information Engineering</p></div></div>
+    <div className="contact-affiliation"><Building2 size={20} /><div><h2>Zhejiang Gongshang University</h2><p>College of Computer Science and Technology</p></div></div>
     <p className="contact-address"><MapPin size={17} />Hangzhou, Zhejiang 310018, China</p>
     <dl className="profile-fields">
       <ProfileEmails emails={labDetails.emails} />
