@@ -54,7 +54,7 @@ export const projects:Project[] = [
   id:'redpj',name:'ReDPJ',title:'Adaptive Reasoning Guidance for LLM Jailbreak Testing',
   en:'Reasoning as a Weapon: Adaptive Dual-Path Jailbreak Attack on Large Language Models',
   authors:'Shi Lin, Peng Qian, Hongming Yang, Renjie Sun, Dezhang Kong, Xun Wang',
-  paper:'https://arxiv.org/abs/2407.16205',code:'https://github.com/theshi-1128/ReDPJ',
+  paper:'https://arxiv.org/abs/2407.16205',code:'https://github.com/trustlab-zjsu/ReDPJ',
   area:'LLM Safety',researchAreas:['llm-safety'],status:'PRICAI 2026 · Accepted',kind:'conference',
   summary:'Explore risky reasoning paths through adaptive testing to better understand the safety boundaries of large language models.',
   problem:'Fixed prompts provide limited coverage of the reasoning paths that may lead to model failures. Safety evaluation needs to examine potential failure modes across different reasoning strategies.',
@@ -199,21 +199,21 @@ export const supervisorPublications:SelectedPublication[] = [
 ];
 
 export const researchCode = [
- {name:'ReDPJ',area:'LLM Safety & Security',description:'Adaptive dual-path jailbreak testing for large language models.',href:'https://github.com/theshi-1128/ReDPJ'},
- {name:'LARA',area:'Blockchain & Smart Contract Security',description:'Retrieval-augmented LLM guidance for smart contract fuzzing.',href:'https://github.com/fuzzersc/LARA'}
+ {name:'ReDPJ',area:'LLM Safety & Security',description:'Adaptive dual-path jailbreak testing for large language models.',href:'https://github.com/trustlab-zjsu/ReDPJ'},
+ {name:'LARA',area:'Blockchain & Smart Contract Security',description:'Retrieval-augmented LLM guidance for smart contract fuzzing.',href:'https://github.com/trustlab-zjsu/LARA-Research'}
 ];
 
 const publicationHighlights:Record<string,{name:string;venue:string;code?:string;imageSource?:string}> = {
  echofuzz:{name:'EchoFuzz',venue:'ICSE 2026'},
- freewavm:{name:'FreeWavm',venue:'ISSTA 2025',code:'https://github.com/Messi-Q/FreeWavm',imageSource:'https://www.techflowpost.com/article/24669'},
- mufuzz:{name:'MuFuzz',venue:'ICDE 2024',code:'https://github.com/Messi-Q/MuFuzz'},
+ freewavm:{name:'FreeWavm',venue:'ISSTA 2025',code:'https://github.com/trustlab-zjsu/FreeWavm',imageSource:'https://www.techflowpost.com/article/24669'},
+ mufuzz:{name:'MuFuzz',venue:'ICDE 2024',code:'https://github.com/trustlab-zjsu/MuFuzz'},
  tacoma:{name:'Tacoma',venue:'ISSTA 2024'},
- 'random-number':{name:'RNVulDet',venue:'IEEE TSE 2023',code:'https://github.com/Messi-Q/RNVulDet'},
- 'cross-modality':{name:'Cross-Modality Mutual Learning',venue:'WWW 2023',code:'https://github.com/Messi-Q/Cross-Modality-Bug-Detection'},
- 'ir-fuzz':{name:'IR-Fuzz',venue:'IEEE TIFS 2023',code:'https://github.com/Messi-Q/IR-Fuzz'},
- 'graph-expert':{name:'Graph and Expert Knowledge Fusion',venue:'IEEE TKDE 2023',code:'https://github.com/Messi-Q/GPSCVulDetector'},
+ 'random-number':{name:'RNVulDet',venue:'IEEE TSE 2023',code:'https://github.com/trustlab-zjsu/RNVulDet'},
+ 'cross-modality':{name:'Cross-Modality Mutual Learning',venue:'WWW 2023',code:'https://github.com/trustlab-zjsu/Cross-Modality-Bug-Detection'},
+ 'ir-fuzz':{name:'IR-Fuzz',venue:'IEEE TIFS 2023',code:'https://github.com/trustlab-zjsu/IR-Fuzz'},
+ 'graph-expert':{name:'Graph and Expert Knowledge Fusion',venue:'IEEE TKDE 2023',code:'https://github.com/trustlab-zjsu/GPSCVulDetector'},
  'bitcoin-address':{name:'Bitcoin Address Behavior Analysis',venue:'ICDE 2023'},
- 'ijcai-vulnerability':{name:'Interpretable Smart Contract Vulnerability Detection',venue:'IJCAI 2021',code:'https://github.com/Messi-Q/AMEVulDetector'}
+ 'ijcai-vulnerability':{name:'Interpretable Smart Contract Vulnerability Detection',venue:'IJCAI 2021',code:'https://github.com/trustlab-zjsu/AMEVulDetector'}
 };
 supervisorPublications.forEach(p => { p.code = publicationHighlights[p.id]?.code; });
 

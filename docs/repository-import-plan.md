@@ -1,6 +1,6 @@
 # Independent research repositories
 
-The following public code repositories have been downloaded and checked against their current default-branch heads. Import them as independent repositories, not GitHub forks. Keep original authorship, README citations, copyright notices and all existing licenses. Do not introduce a replacement license.
+The following public code repositories were downloaded and independently imported into trustlab-zjsu on 2026-10-13. Their imported default-branch commits match the source revisions below, and repository metadata confirms `fork: false`. Original authorship, README citations, copyright notices, existing licenses, and Git history are preserved.
 
 | Source | Proposed destination | Downloaded revision |
 | --- | --- | --- |
@@ -14,10 +14,10 @@ The following public code repositories have been downloaded and checked against 
 | Messi-Q/GPSCVulDetector | trustlab-zjsu/GPSCVulDetector | 2404d2eafddb4727f368ca04e01f7a1d4b424af2 |
 | Messi-Q/AMEVulDetector | trustlab-zjsu/AMEVulDetector | f68cd4e0fd98b7fbacb775373fc0ca77e7df5fa9 |
 
-An existing `trustlab-zjsu/LARA` repository is a fork. The proposed `LARA-Research` name avoids overwriting or deleting it.
+An existing `trustlab-zjsu/LARA` repository is a fork. The new `LARA-Research` repository is independent and preserves that existing repository.
 
-MuFuzz and IR-Fuzz contain a `fuzz` executable stored through Git LFS. The downloaded copies include the resolved executable. A repository import must preserve the LFS pointer and also upload the corresponding LFS object; merely copying the pointer does not transfer the executable.
+MuFuzz and IR-Fuzz contain a `fuzz` executable stored through Git LFS. GitHub's ordinary importer copies the pointer but does not populate destination LFS storage. The original resolved executables are preserved as Releases attachments. Clone these repositories with `GIT_LFS_SKIP_SMUDGE=1`, obtain the `fuzz` attachment from the repository's Releases page, place it in the repository root, and run `chmod +x fuzz`. SHA-256 values are recorded in the release notes and can be checked against the original LFS pointer. This does not require a privileged migration workflow.
 
 The selected-publication code mappings are verified from author repositories. No matching repository for Tacoma, EchoFuzz or Bitcoin Address Behavior Analysis was found in Messi-Q's account, so they are not included in this import list.
 
-Until independent imports are complete and verified with `fork: false`, the website links to the existing source repositories. Replace links with organization URLs only after confirming the imported code and LFS assets are available.
+Website code links point to the independently imported organization repositories. Figure-source links continue to credit original author resources.
