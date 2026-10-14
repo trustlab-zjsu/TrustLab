@@ -112,7 +112,7 @@ section[id], article[id] { scroll-margin-top: 100px; }
 .panel-copy li::marker { color: #7c8ea5; }
 
 .welcome { border-top: 3px solid var(--navy); padding: 28px 29px; }
-.welcome h1 { color: var(--navy); font-size: clamp(28px, 2.8vw, 38px); font-weight: 500; letter-spacing: -.035em; line-height: 1.25; text-align: left; margin-bottom: 16px; }
+.welcome h1 { color: var(--navy); font-size: clamp(28px, 2.8vw, 38px); font-weight: 700; letter-spacing: -.035em; line-height: 1.25; text-align: left; margin-bottom: 16px; }
 .welcome h1 span { font-weight: 700; }
 .welcome p { color: var(--muted); font-size: 16px; line-height: 1.85; max-width: 780px; }
 .welcome strong { color: var(--navy); font-weight: 550; }

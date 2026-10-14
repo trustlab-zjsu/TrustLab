@@ -39,8 +39,5 @@ for(const page of pages){
   checkedLinks++;
  }
 }
-for(const page of ['members/index.html']){
- if(!readFileSync(resolve(root,page),'utf8').includes('XXX'))failures.push('Missing XXX fields on '+page);
-}
 if(failures.length){console.error([...new Set(failures)].join('\n'));process.exit(1);}
-console.log(`PASS: ${routes.length} site routes, ${pages.length} HTML files, ${checkedLinks} local links/assets; basePath=${basePath||'/'}; XXX placeholders checked.`);
+console.log(`PASS: ${routes.length} site routes, ${pages.length} HTML files, ${checkedLinks} local links/assets; basePath=${basePath||'/'}; inactive placeholder URLs checked.`);

@@ -55,7 +55,7 @@ export const projects:Project[] = [
   en:'Reasoning as a Weapon: Adaptive Dual-Path Jailbreak Attack on Large Language Models',
   authors:'Shi Lin, Peng Qian, Hongming Yang, Renjie Sun, Dezhang Kong, Xun Wang',
   paper:'https://arxiv.org/abs/2407.16205',code:'https://github.com/trustlab-zjsu/ReDPJ',
-  area:'LLM Safety',researchAreas:['llm-safety'],status:'PRICAI 2026 · Accepted',kind:'conference',
+  area:'LLM Safety',researchAreas:['llm-safety'],status:'Pacific Rim International Conference on Artificial Intelligence (PRICAI) · 2026',kind:'conference',
   summary:'Explore risky reasoning paths through adaptive testing to better understand the safety boundaries of large language models.',
   problem:'Fixed prompts provide limited coverage of the reasoning paths that may lead to model failures. Safety evaluation needs to examine potential failure modes across different reasoning strategies.',
   method:[
@@ -360,9 +360,5 @@ export const memberGroups:{id:string;title:string;members:Member[]}[] = [
  ]},
  {id:'undergraduates',title:'Undergraduate Students',members:[
   {name:'Chengyu Wu (吴承宇)',photo:'/members/wu-chengyu.jpg',year:'2024',research:'Blockchain & Smart Contract Security',homepage:'XXX',email:'XXX'},
-  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
-  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
-  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'},
-  {name:'XXX',photo:'XXX',research:'XXX',homepage:'XXX',email:'XXX'}
  ]}
 ];
