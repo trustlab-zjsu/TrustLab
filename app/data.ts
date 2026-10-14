@@ -256,14 +256,24 @@ const additionalPublicationNews:NewsItem[] = [
   "date": "2024",
   "title": "Proteus published at APSEC 2024",
   "body": "Exploring the Depths of WebAudio: Advancing Greybox Fuzzing for Enhanced Vulnerability Detection in Safari",
-  "href": "https://conf.researchr.org/details/apsec-2024/apsec-2024-technical-track/38/Exploring-the-Depths-of-WebAudio-Advancing-Greybox-Fuzzing-for-Enhanced-Vulnerabilit"
+  "href": "https://conf.researchr.org/details/apsec-2024/apsec-2024-technical-track/38/Exploring-the-Depths-of-WebAudio-Advancing-Greybox-Fuzzing-for-Enhanced-Vulnerabilit",
+  "image": "/news/webaudio-overview.png",
+  "imageAlt": "Architecture of the Proteus WebAudio fuzzer",
+  "imageWidth": 2401,
+  "imageHeight": 564,
+  "imageSource": "https://users.cs.northwestern.edu/~ychen/Papers/WebAudio_APSEC.pdf"
  },
  {
   "id": "insider-threat",
   "date": "2024",
   "title": "Associated Session Graph published in Electronics 2024",
   "body": "Detect Insider Threat with Associated Session Graph",
-  "href": "https://doi.org/10.3390/electronics13244885"
+  "href": "https://doi.org/10.3390/electronics13244885",
+  "image": "/news/insider-threat-overview.png",
+  "imageAlt": "ASG-ITD insider threat detection architecture",
+  "imageWidth": 2401,
+  "imageHeight": 911,
+  "imageSource": "https://www.mdpi.com/2079-9292/13/24/4885/pdf"
  },
  {
   "id": "iquery",
@@ -281,7 +291,12 @@ const additionalPublicationNews:NewsItem[] = [
   "date": "2022",
   "title": "Smart Contract Vulnerability Detection Survey published in Journal of Software 2022",
   "body": "Smart Contract Vulnerability Detection Technique: A Survey",
-  "href": "https://www.jos.org.cn/1000-9825/6375.htm"
+  "href": "https://www.jos.org.cn/1000-9825/6375.htm",
+  "image": "/news/contract-survey-overview.png",
+  "imageAlt": "Overview table of smart contract vulnerability detection methods",
+  "imageWidth": 2401,
+  "imageHeight": 1420,
+  "imageSource": "https://arxiv.org/pdf/2209.05872"
  },
  {
   "id": "ijcai-2020",
@@ -298,14 +313,24 @@ const additionalPublicationNews:NewsItem[] = [
   "date": "2020",
   "title": "Sequential Reentrancy Detection published in IEEE Access 2020",
   "body": "Towards Automated Reentrancy Detection for Smart Contracts Based on Sequential Models",
-  "href": "https://doi.org/10.1109/ACCESS.2020.2969429"
+  "href": "https://doi.org/10.1109/ACCESS.2020.2969429",
+  "image": "/news/reentrancy-overview.png",
+  "imageAlt": "Architecture of BLSTM with attention for reentrancy detection",
+  "imageWidth": 2400,
+  "imageHeight": 640,
+  "imageSource": "https://raw.githubusercontent.com/Messi-Q/messi-q.github.io/master/projects/papers/access/BLSTM_ATT.pdf"
  },
  {
   "id": "digital-rights",
   "date": "2019",
   "title": "Digital Resource Rights Protection published at IEEE CCIS 2019",
   "body": "Digital Resource Rights Confirmation and Infringement Tracking Based on Smart Contracts",
-  "href": "https://doi.org/10.1109/CCIS48116.2019.9073733"
+  "href": "https://doi.org/10.1109/CCIS48116.2019.9073733",
+  "image": "/news/digital-rights-overview.png",
+  "imageAlt": "Overview of the digital resource rights protection system",
+  "imageWidth": 2401,
+  "imageHeight": 1083,
+  "imageSource": "https://messi-q.github.io/projects/papers/ccis2019/ccis2019.pdf"
  }
 ];
 

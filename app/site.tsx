@@ -97,7 +97,7 @@ function Sidebar() {
     <p className="location"><MapPin size={16} />Hangzhou, China</p>
     <dl className="sidebar-details">
       <div><dt>Supervisor</dt><dd><Link href="/advisor">Peng Qian (钱鹏)</Link><span>Associate Research Fellow</span></dd></div>
-      <div><dt>Office</dt><dd>Room 402-1, Teaching Building 3<br />Jiaogong Road Campus</dd></div>
+      <div><dt>Office</dt><dd><span className="office-line">Room 402-1</span><span className="office-line">Teaching Building 3</span><span className="office-line">Jiaogong Road Campus</span></dd></div>
     </dl>
     <div className="sidebar-links">
       <a href="https://github.com/trustlab-zjsu" target="_blank" rel="noreferrer"><Github size={15} />GitHub<ArrowUpRight size={12} /></a>
@@ -109,7 +109,7 @@ function Sidebar() {
 function Home() {
   return <>
     <section className="panel welcome">
-      <h1>WELCOME TO TRUSTLAB</h1>
+      <h1>Welcome to <span>TrustLab</span></h1>
       <p>TrustLab is a research group at Zhejiang Gongshang University. We study <strong>LLM safety and security</strong>, <strong>trustworthy agent systems</strong>, and <strong>blockchain and smart contract security</strong>.</p>
     </section>
     <section className="panel home-section" id="research">

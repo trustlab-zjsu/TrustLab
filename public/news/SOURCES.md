@@ -28,4 +28,15 @@ News archive labels use confirmed publication years. They do not assert unverifi
 - IJCAI 2020 vulnerability detection: Figure 2, page 4; https://www.ijcai.org/proceedings/2020/0454.pdf.
 - iQuery: Figure 3, page 4, accepted version at https://eprints.ncl.ac.uk/288735 (CC BY 4.0); published version https://doi.org/10.1109/TDSC.2022.3228908.
 
-Figures are rendered directly from their source PDFs at 2400 pixels wide. The website retains the original aspect ratio. Attribution remains here after removing the extra user-facing source links. Newly added records without an accessible original overview use a compact placeholder.
+Figures are rendered directly from their source PDFs at 2400 pixels wide. The website retains the original aspect ratio. Attribution remains here after removing the extra user-facing source links. Records without an accessible original figure use a compact placeholder.
+
+
+## Completed figure sources (2026-10-14)
+
+- digital-rights: Overview of the digital resource rights protection system, from https://messi-q.github.io/projects/papers/ccis2019/ccis2019.pdf; PDF page 2.
+- insider-threat: ASG-ITD insider threat detection architecture, from https://www.mdpi.com/2079-9292/13/24/4885/pdf; PDF page 5.
+- contract-survey: Overview table of smart contract vulnerability detection methods, from https://arxiv.org/pdf/2209.05872; PDF page 12.
+- webaudio: Architecture of the Proteus WebAudio fuzzer, from https://users.cs.northwestern.edu/~ychen/Papers/WebAudio_APSEC.pdf; PDF page 5.
+- reentrancy: Architecture of BLSTM with attention for reentrancy detection, from https://raw.githubusercontent.com/Messi-Q/messi-q.github.io/master/projects/papers/access/BLSTM_ATT.pdf; PDF page 1.
+
+The survey thumbnail is the original methods overview table, rather than a proposed architecture.
