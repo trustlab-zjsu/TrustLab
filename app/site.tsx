@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Building2, Code2, FileText, Mail, MapPin, Menu, Network, ShieldCheck, X } from 'lucide-react';
+import { ArrowUpRight, Building2, ChevronDown, Code2, FileText, Mail, MapPin, Menu, Network, ShieldCheck, X } from 'lucide-react';
 import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, supervisorPublications, type Project, type NewsItem } from './data';
 
 const nav = [
@@ -74,10 +74,52 @@ function Portrait({ photo, name, className }: { photo: string; name: string; cla
 
 function NewsThumbnail({ item }: { item: NewsItem }) {
   const [failed, setFailed] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const triggerRef = useRef<HTMLAnchorElement>(null);
   useEffect(() => setFailed(false), [item.image]);
-  return known(item.image) && !failed ? <a className="news-thumbnail" href={assetPath(item.image!)} target="_blank" rel="noreferrer" aria-label={'Open full-size method overview: ' + item.title}>
-    <img src={assetPath(item.image!)} alt={item.imageAlt || item.title} width={item.imageWidth || 2400} height={item.imageHeight || 1000} loading="lazy" onError={() => setFailed(true)} />
-  </a> : <div className="news-thumbnail news-thumbnail-placeholder" aria-hidden="true"><FileText size={24} /></div>;
+  useEffect(() => {
+    if (!previewOpen || !dialogRef.current) return;
+    const overflow = document.body.style.overflow;
+    const paddingRight = document.body.style.paddingRight;
+    const scrollbarGutter = document.documentElement.style.scrollbarGutter;
+    const gutterWidth = Math.max(0, window.innerWidth - document.documentElement.getBoundingClientRect().width);
+    const currentPadding = parseFloat(getComputedStyle(document.body).paddingRight) || 0;
+    document.body.style.paddingRight = `${currentPadding + gutterWidth}px`;
+    document.documentElement.style.scrollbarGutter = 'auto';
+    document.body.style.overflow = 'hidden';
+    if (!dialogRef.current.open) dialogRef.current.showModal();
+    return () => {
+      document.body.style.overflow = overflow;
+      document.body.style.paddingRight = paddingRight;
+      document.documentElement.style.scrollbarGutter = scrollbarGutter;
+      triggerRef.current?.focus({ preventScroll: true });
+    };
+  }, [previewOpen]);
+  return known(item.image) && !failed ? <>
+    <a ref={triggerRef} className="news-thumbnail" href={assetPath(item.image!)} target="_blank" rel="noreferrer" aria-haspopup="dialog" aria-label={'Open full-size method overview: ' + item.title} onClick={event => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      setPreviewOpen(true);
+    }}>
+      <img src={assetPath(item.image!)} alt={item.imageAlt || item.title} width={item.imageWidth || 2400} height={item.imageHeight || 1000} loading="lazy" onError={() => setFailed(true)} />
+    </a>
+    <dialog ref={dialogRef} className="image-preview" aria-label={'Image preview: ' + item.title} onClose={() => setPreviewOpen(false)} onKeyDown={event => {
+      if (event.key === 'Tab') {
+        event.preventDefault();
+        event.currentTarget.querySelector<HTMLButtonElement>('.image-preview-close')?.focus();
+      }
+    }} onClick={event => {
+      if (event.target !== event.currentTarget) return;
+      const bounds = event.currentTarget.getBoundingClientRect();
+      if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) event.currentTarget.close();
+    }}>
+      {previewOpen && <>
+        <div className="image-preview-header"><p>{item.title}</p><button type="button" className="image-preview-close" aria-label="Close image preview" onClick={() => dialogRef.current?.close()}><X size={20} /></button></div>
+        <div className="image-preview-body"><img src={assetPath(item.image!)} alt={item.imageAlt || item.title} width={item.imageWidth || 2400} height={item.imageHeight || 1000} /></div>
+      </>}
+    </dialog>
+  </> : <div className="news-thumbnail news-thumbnail-placeholder" aria-hidden="true"><FileText size={24} /></div>;
 }
 
 function ResearchOverview({ text }: { text: string }) {
@@ -89,19 +131,24 @@ function SectionTitle({ title, href }: { title: string; href?: string }) {
 }
 
 function Sidebar() {
+  const [detailsOpen, setDetailsOpen] = useState(false);
   return <aside className="lab-profile" aria-label="About TrustLab">
+    <noscript><style>{'@media(max-width:600px){.sidebar-extra{display:block!important}.sidebar-toggle{display:none!important}}'}</style></noscript>
     <Link className="identity" href="/" aria-label="TrustLab homepage">
       <Mark /><div><h2>TrustLab</h2><p>Trustworthy AI &amp; System Security</p></div>
     </Link>
     <div className="affiliation"><Building2 size={17} /><div><strong>Zhejiang Gongshang University</strong><p>College of Computer Science and Technology</p></div></div>
-    <p className="location"><MapPin size={16} />Hangzhou, China</p>
-    <dl className="sidebar-details">
-      <div><dt>Supervisor</dt><dd><Link href="/advisor">Peng Qian (钱鹏)</Link><span>Associate Research Fellow</span></dd></div>
-      <div><dt>Office</dt><dd><span className="office-line">Room 402-1</span><span className="office-line">Teaching Building 3</span><span className="office-line">Jiaogong Road Campus</span></dd></div>
-    </dl>
     <div className="sidebar-links">
       <a href="https://github.com/trustlab-zjsu" target="_blank" rel="noreferrer"><Github size={15} />GitHub<ArrowUpRight size={12} /></a>
       <Link href="/contact"><Mail size={15} />Contact</Link>
+      <button type="button" className="sidebar-toggle" aria-label={detailsOpen ? 'Hide lab details' : 'Show lab details'} aria-expanded={detailsOpen} aria-controls="lab-details" onClick={() => setDetailsOpen(!detailsOpen)}>Lab info<ChevronDown size={14} /></button>
+    </div>
+    <div id="lab-details" className={detailsOpen ? 'sidebar-extra is-expanded' : 'sidebar-extra'}>
+      <p className="location"><MapPin size={16} />Hangzhou, China</p>
+      <dl className="sidebar-details">
+        <div><dt>Supervisor</dt><dd><Link href="/advisor">Peng Qian (钱鹏)</Link><span>Associate Research Fellow</span></dd></div>
+        <div><dt>Office</dt><dd><span className="office-line">Room 402-1</span><span className="office-line">Teaching Building 3</span><span className="office-line">Jiaogong Road Campus</span></dd></div>
+      </dl>
     </div>
   </aside>;
 }
@@ -129,7 +176,13 @@ function Home() {
 }
 
 function ProfileField({ label, value, href }: { label: string; value: string; href?: string }) {
-  return <div><dt>{label}</dt><dd>{known(value) && href ? <a href={href} target="_blank" rel="noreferrer">{label === 'GitHub' && <Github size={15} />}{value}<ArrowUpRight size={13} /></a> : value}</dd></div>;
+  return <div><dt>{label}</dt><dd>{known(value) && href ? <a href={href} target="_blank" rel="noreferrer">{label === 'GitHub' && <Github size={15} />}{value}<ArrowUpRight size={13} /></a> : label === 'Office' ? <OfficeAddress value={value} /> : value}</dd></div>;
+}
+
+function OfficeAddress({ value }: { value: string }) {
+  const parts = value.split(/,\s*/);
+  const lines = parts.length > 2 ? [parts.slice(0, 2).join(', '), ...parts.slice(2)] : [value];
+  return <span className="office-address">{lines.map((line, i) => <span key={i}>{line}</span>)}</span>;
 }
 
 function ProfileEmails({ emails }: { emails: string[] }) {
@@ -322,12 +375,16 @@ function Publications() {
 }
 
 function News() {
-  return <div className="panel news-archive">{news.map(n => <article className="news-item" id={n.id} key={n.id}>
-    <NewsThumbnail item={n} /><div className="news-item-copy"><time>{n.date}</time><h2>{n.title}</h2><p>{n.body}</p>
-      <div className="paper-links"><a href={n.href} target="_blank" rel="noreferrer">Paper<FileText size={13} /></a>
-        {n.code && <a href={n.code} target="_blank" rel="noreferrer"><Github size={13} />Code</a>}
-      </div></div>
-  </article>)}</div>;
+  const years = [...new Set(news.map(item => item.date.slice(0, 4)))].sort((a, b) => Number(b) - Number(a));
+  return <div className="panel news-archive">{years.map(year => <section className="news-year-group" key={year} aria-labelledby={'news-year-' + year}>
+    <div className="news-year-heading"><h2 id={'news-year-' + year}>{year}</h2></div>
+    <div>{news.filter(item => item.date.startsWith(year)).map(n => <article className="news-item" id={n.id} key={n.id}>
+      <NewsThumbnail item={n} /><div className="news-item-copy">{n.date !== year && <time>{n.date}</time>}<h3>{n.title}</h3><p>{n.body}</p>
+        <div className="paper-links"><a href={n.href} target="_blank" rel="noreferrer">Paper<FileText size={13} /></a>
+          {n.code && <a href={n.code} target="_blank" rel="noreferrer"><Github size={13} />Code</a>}
+        </div></div>
+    </article>)}</div>
+  </section>)}</div>;
 }
 
 function Contact() {
@@ -375,9 +432,9 @@ export function LabSite({ section: requestedSection, projectId }: { section: str
   };
   return <>
     <a href="#main-content" className="skip-link">Skip to main content</a>
-    <header className="site-header"><div className="header-inner">
+    <header className="site-header" onKeyDown={event => { if (event.key === 'Escape' && menu) { setMenu(false); document.getElementById('menu-toggle')?.focus(); } }}><div className="header-inner">
       <Link className="wordmark" href="/" aria-label="TrustLab homepage"><Mark /><span>TrustLab</span></Link>
-      <nav id="main-nav" aria-label="Main navigation" className={menu ? 'main-nav open' : 'main-nav'} onKeyDown={event => { if (event.key === 'Escape') { setMenu(false); document.getElementById('menu-toggle')?.focus(); } }}>
+      <nav id="main-nav" aria-label="Main navigation" className={menu ? 'main-nav open' : 'main-nav'}>
         {nav.map(([key, label, href]) => <Link key={key} className={current === key ? 'active' : ''} aria-current={current === key ? 'page' : undefined} href={href} onClick={() => setMenu(false)}>{label}</Link>)}
       </nav>
       <div className="header-actions">
