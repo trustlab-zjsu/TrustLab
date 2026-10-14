@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Building2, Code2, FileText, Mail, MapPin, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Building2, Code2, FileText, Mail, MapPin, Menu, Network, ShieldCheck, X } from 'lucide-react';
 import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, supervisorPublications, type Project, type NewsItem } from './data';
 
 const nav = [
@@ -115,7 +115,8 @@ function Home() {
     <section className="panel home-section" id="research">
       <SectionTitle title="Research" href="/publications" />
       <div className="home-research-grid">{areas.map(area => <Link key={area.id} href={'/publications?area=' + area.id + '#conference-papers'} id={area.id} className="home-research-card">
-        <h3>{area.name}<ArrowUpRight size={14} /></h3><ResearchOverview text={area.overview} />
+        <div className="research-card-top"><span className="research-icon" aria-hidden="true">{area.icon === 'shield' ? <ShieldCheck size={20} /> : area.icon === 'network' ? <Network size={20} /> : <Code2 size={20} />}</span><ArrowUpRight size={15} aria-hidden="true" /></div>
+        <h3>{area.name}</h3><ResearchOverview text={area.overview} />
       </Link>)}</div>
     </section>
     <section className="panel home-section">
@@ -191,12 +192,12 @@ function Advisor() {
 }
 
 function Members() {
-  return <>{memberGroups.filter(group => group.members.length > 0).map(group => <section className="panel" key={group.id} id={group.id}>
+  return <>{memberGroups.filter(group => group.members.length > 0).map(group => <section className="member-group" key={group.id} id={group.id}>
     <SectionTitle title={group.title} />
     <div className="member-grid">{group.members.map((member, i) => <article className="member-card" key={i}>
       {known(member.homepage) ? <a href={member.homepage} target="_blank" rel="noreferrer">
-        <Portrait className="member-photo" photo={member.photo} name={member.name} /><h3><PersonName name={member.name} /></h3>
-      </a> : <><Portrait className="member-photo" photo={member.photo} name={member.name} /><h3><PersonName name={member.name} /></h3></>}
+        <div className="member-portrait"><Portrait className="member-photo" photo={member.photo} name={member.name} /></div><h3><PersonName name={member.name} /></h3>
+      </a> : <><div className="member-portrait"><Portrait className="member-photo" photo={member.photo} name={member.name} /></div><h3><PersonName name={member.name} /></h3></>}
       <p className="member-year">{known(member.year) ? member.year + ' Cohort' : 'XXX'}</p>
       <p className="member-research">{member.research}</p>
       {known(member.scholar) && <a href={member.scholar} className="text-link" target="_blank" rel="noreferrer"><ScholarIcon />Google Scholar<ArrowUpRight size={13} /></a>}

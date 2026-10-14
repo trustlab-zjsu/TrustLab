@@ -69,19 +69,19 @@ export const areas=[
  {
   id:'llm-safety',name:'LLM Safety & Security',en:'LLM Safety & Security',icon:'shield',
   description:'Explore the safety and security of large language models, and improve their robustness, reliability, and trustworthiness.',
-  overview:'We study **LLM safety and security**, focusing on the risks and challenges involved in developing and using large language models. Our goal is to improve their **safety, robustness, and reliability** across a wide range of applications.',
+  overview:'We study **LLM safety and security**, focusing on risks in the development and use of large language models. Our research aims to improve their **robustness, reliability, and trustworthiness** to support safe and responsible use across diverse applications.',
   projects:['recast','redpj']
  },
  {
   id:'agent-trust',name:'Trustworthy Agent Systems',en:'Trustworthy Agent Systems',icon:'network',
   description:'Study the security and reliability of intelligent agents and collaborative systems for safe, effective task execution.',
-  overview:'We explore **trustworthy agent systems**, including both individual agents and collaborative multi-agent systems. Our research focuses on **security and reliability**, with the goal of enabling intelligent agents to carry out tasks and work together safely and effectively in complex environments.',
+  overview:'We study **trustworthy agent systems**, including individual agents and multi-agent collaboration. Our research aims to improve their **security, reliability, and coordination**, enabling agents to work together safely across diverse applications.',
   projects:['halluprop','evoguard']
  },
  {
   id:'contract-security',name:'Blockchain & Smart Contract Security',en:'Blockchain & Smart Contract Security',icon:'code',
   description:'Investigate the security of decentralized systems and smart contracts to support reliable blockchain technologies and applications.',
-  overview:'We study **blockchain and smart contract security**, focusing on the security challenges of decentralized systems and applications. Our research aims to improve **security, reliability, and trust** in blockchain technologies and support their safe deployment and practical use.',
+  overview:'We study **blockchain and smart contract security**, focusing on risks in decentralized systems and applications. Our research aims to improve their **security, reliability, and trustworthiness** to support the safe development and practical use of blockchain technologies.',
   projects:['lara']
  }
 ];
