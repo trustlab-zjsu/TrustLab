@@ -28,7 +28,7 @@ News archive labels use confirmed publication years. They do not assert unverifi
 - IJCAI 2020 vulnerability detection: Figure 2, page 4; https://www.ijcai.org/proceedings/2020/0454.pdf.
 - iQuery: Figure 3, page 4, accepted version at https://eprints.ncl.ac.uk/288735 (CC BY 4.0); published version https://doi.org/10.1109/TDSC.2022.3228908.
 
-Figures are rendered directly from their source PDFs at 2400 pixels wide. The website retains the original aspect ratio. Attribution remains here after removing the extra user-facing source links. Records without an accessible original figure use a compact placeholder.
+Figures are rendered directly from their source PDFs at 2400 pixels wide. The website retains the original aspect ratio. Attribution remains here after removing the extra user-facing source links. All 22 news records now have an image.
 
 
 ## Completed figure sources (2026-10-14)
@@ -40,3 +40,11 @@ Figures are rendered directly from their source PDFs at 2400 pixels wide. The we
 - reentrancy: Architecture of BLSTM with attention for reentrancy detection, from https://raw.githubusercontent.com/Messi-Q/messi-q.github.io/master/projects/papers/access/BLSTM_ATT.pdf; PDF page 1.
 
 The survey thumbnail is the original methods overview table, rather than a proposed architecture.
+
+
+## User-supplied paper headers (2026-10-14)
+
+- Mecon: title, authors and affiliations, with journal heading, from page 1 of the supplied published PDF `1-s2.0-S0957417425001083-main.pdf` (https://doi.org/10.1016/j.eswa.2025.126486).
+- DeFi review: title, authors and affiliations, with journal heading, from page 1 of the supplied published PDF `1-s2.0-S0957417425020500-main.pdf` (https://doi.org/10.1016/j.eswa.2025.128431).
+
+These two thumbnails show original paper metadata rather than a method architecture, as requested. They are rendered at 2400 pixels wide and keep their source aspect ratio.

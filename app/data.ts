@@ -233,14 +233,22 @@ const additionalPublicationNews:NewsItem[] = [
   "date": "2025",
   "title": "Smart Contract and DeFi Security Review published in ESWA 2025",
   "body": "Comprehensive Review of Smart Contract and DeFi Security: Attack, Vulnerability Detection, and Automated Repair",
-  "href": "https://doi.org/10.1016/j.eswa.2025.128431"
+  "href": "https://doi.org/10.1016/j.eswa.2025.128431",
+  "image": "/news/defi-review-overview.png",
+  "imageAlt": "Paper title, authors and affiliations of Comprehensive Review of Smart Contract and DeFi Security",
+  "imageWidth": 2401,
+  "imageHeight": 1075
  },
  {
   "id": "mecon",
   "date": "2025",
   "title": "Mecon published in ESWA 2025",
   "body": "Mecon: A GNN-based Graph Classification Framework for MEV Activity Detection",
-  "href": "https://doi.org/10.1016/j.eswa.2025.126486"
+  "href": "https://doi.org/10.1016/j.eswa.2025.126486",
+  "image": "/news/mecon-overview.png",
+  "imageAlt": "Paper title, authors and affiliations of Mecon",
+  "imageWidth": 2401,
+  "imageHeight": 1169
  },
  {
   "id": "swfuzz",
