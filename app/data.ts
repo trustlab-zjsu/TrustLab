@@ -85,7 +85,7 @@ export const areas=[
   projects:['lara']
  }
 ];
-export type NewsItem = {id:string;date:string;title:string;body:string;href:string;code?:string;image?:string;imageAlt?:string;imageSource?:string};
+export type NewsItem = {id:string;date:string;title:string;body:string;href:string;code?:string;image?:string;imageAlt?:string;imageWidth?:number;imageHeight?:number;imageSource?:string};
 export const pages:Record<string,{title:string}>= {
  advisor:{title:'Supervisor'},
  members:{title:'Members'},
@@ -98,7 +98,7 @@ export const pages:Record<string,{title:string}>= {
 
 // Keep previously published URLs working without adding them to the navigation.
 export const sectionAliases:Record<string,string> = {
- people:'members', community:'news', join:'contact', projects:'publications'
+ people:'members', community:'news', join:'contact', projects:'publications', research:'home'
 };
 
 // Replace literal XXX values with confirmed laboratory information.
@@ -217,14 +217,112 @@ const publicationHighlights:Record<string,{name:string;venue:string;code?:string
 };
 supervisorPublications.forEach(p => { p.code = publicationHighlights[p.id]?.code; });
 
+// Additional published papers verified against author ORCID, publisher records and conference programs.
+const additionalPublicationNews:NewsItem[] = [
+ {
+  "id": "lmae4eth",
+  "date": "2025",
+  "title": "LMAE4Eth published in IEEE TIFS 2025",
+  "body": "LMAE4Eth: Generalizable and Robust Ethereum Fraud Detection by Exploring Transaction Semantics and Masked Graph Embedding",
+  "href": "https://doi.org/10.1109/TIFS.2025.3612149",
+  "image": "/news/lmae4eth-overview.png",
+  "imageAlt": "Method overview of LMAE4Eth"
+ },
+ {
+  "id": "defi-review",
+  "date": "2025",
+  "title": "Smart Contract and DeFi Security Review published in ESWA 2025",
+  "body": "Comprehensive Review of Smart Contract and DeFi Security: Attack, Vulnerability Detection, and Automated Repair",
+  "href": "https://doi.org/10.1016/j.eswa.2025.128431"
+ },
+ {
+  "id": "mecon",
+  "date": "2025",
+  "title": "Mecon published in ESWA 2025",
+  "body": "Mecon: A GNN-based Graph Classification Framework for MEV Activity Detection",
+  "href": "https://doi.org/10.1016/j.eswa.2025.126486"
+ },
+ {
+  "id": "swfuzz",
+  "date": "2024",
+  "title": "SwFuzz published at APSEC 2024",
+  "body": "SwFuzz: Structure-Sensitive WebAssembly Fuzzing",
+  "href": "https://users.cs.northwestern.edu/~ychen/Papers/SWFuzz_ASIA.pdf",
+  "image": "/news/swfuzz-overview.png",
+  "imageAlt": "Method overview of SwFuzz"
+ },
+ {
+  "id": "webaudio",
+  "date": "2024",
+  "title": "Proteus published at APSEC 2024",
+  "body": "Exploring the Depths of WebAudio: Advancing Greybox Fuzzing for Enhanced Vulnerability Detection in Safari",
+  "href": "https://conf.researchr.org/details/apsec-2024/apsec-2024-technical-track/38/Exploring-the-Depths-of-WebAudio-Advancing-Greybox-Fuzzing-for-Enhanced-Vulnerabilit"
+ },
+ {
+  "id": "insider-threat",
+  "date": "2024",
+  "title": "Associated Session Graph published in Electronics 2024",
+  "body": "Detect Insider Threat with Associated Session Graph",
+  "href": "https://doi.org/10.3390/electronics13244885"
+ },
+ {
+  "id": "iquery",
+  "image": "/news/iquery-overview.png",
+  "imageAlt": "Architecture of iQuery",
+  "imageWidth": 2401,
+  "imageHeight": 1125,
+  "date": "2023",
+  "title": "iQuery published in IEEE TDSC 2023",
+  "body": "iQuery: A Trustworthy and Scalable Blockchain Analytics Platform",
+  "href": "https://doi.org/10.1109/TDSC.2022.3228908"
+ },
+ {
+  "id": "contract-survey",
+  "date": "2022",
+  "title": "Smart Contract Vulnerability Detection Survey published in Journal of Software 2022",
+  "body": "Smart Contract Vulnerability Detection Technique: A Survey",
+  "href": "https://www.jos.org.cn/1000-9825/6375.htm"
+ },
+ {
+  "id": "ijcai-2020",
+  "date": "2020",
+  "title": "Graph Neural Network Vulnerability Detection published at IJCAI 2020",
+  "body": "Smart Contract Vulnerability Detection Using Graph Neural Networks",
+  "href": "https://www.ijcai.org/proceedings/2020/454",
+  "code": "https://github.com/Messi-Q/GNNSCVulDetector",
+  "image": "/news/ijcai-2020-overview.png",
+  "imageAlt": "TMP architecture from the IJCAI 2020 vulnerability detection paper"
+ },
+ {
+  "id": "reentrancy",
+  "date": "2020",
+  "title": "Sequential Reentrancy Detection published in IEEE Access 2020",
+  "body": "Towards Automated Reentrancy Detection for Smart Contracts Based on Sequential Models",
+  "href": "https://doi.org/10.1109/ACCESS.2020.2969429"
+ },
+ {
+  "id": "digital-rights",
+  "date": "2019",
+  "title": "Digital Resource Rights Protection published at IEEE CCIS 2019",
+  "body": "Digital Resource Rights Confirmation and Infringement Tracking Based on Smart Contracts",
+  "href": "https://doi.org/10.1109/CCIS48116.2019.9073733"
+ }
+];
+
+const newsImageSizes:Record<string,[number,number]> = {"swfuzz-overview.png": [2401, 1886], "freewavm-overview.png": [1586, 488], "random-number-overview.png": [2706, 890], "ijcai-2020-overview.png": [2401, 658], "echofuzz-overview.png": [2401, 710], "bitcoin-address-overview.png": [2401, 633], "ijcai-vulnerability-overview.png": [2401, 415], "graph-expert-overview.png": [2401, 488], "redpj-overview.png": [2400, 1411], "cross-modality-overview.png": [2401, 1009], "lmae4eth-overview.png": [2401, 1145], "ir-fuzz-overview.png": [2401, 676], "tacoma-overview.png": [2401, 636], "mufuzz-overview.png": [2401, 624]};
+
 // Historical entries use publication years, not unverified acceptance dates.
 export const news:NewsItem[] = [
  {id:'redpj',date:'2026',title:'ReDPJ accepted at PRICAI 2026',body:projects.find(p => p.id === 'redpj')!.en,href:projects.find(p => p.id === 'redpj')!.paper!,code:researchCode[0].href,image:'/news/redpj-overview.png',imageAlt:'Method overview of ReDPJ',imageSource:'https://github.com/theshi-1128/ReDPJ/blob/main/overview.pdf'},
+ ...additionalPublicationNews,
  ...supervisorPublications.map(p => {
   const details = publicationHighlights[p.id];
   return {id:p.id,date:String(p.year),title:`${details.name} published ${p.publicationKind === 'journal' ? 'in' : 'at'} ${details.venue}`,body:p.title,href:p.paper,code:details.code,image:`/news/${p.id}-overview.png`,imageAlt:`Method overview of ${details.name}`,imageSource:details.imageSource || p.paper};
  })
-].sort((a,b) => Number(b.date) - Number(a.date));
+].map((item:NewsItem) => {
+ const size = item.image && newsImageSizes[item.image.split('/').pop()!];
+ return size ? {...item,imageWidth:size[0],imageHeight:size[1]} : item;
+}).sort((a,b) => Number(b.date) - Number(a.date));
 
 export type Member = {name:string;photo:string;research:string;homepage?:string;scholar?:string;email?:string;year?:string};
 export const memberGroups:{id:string;title:string;members:Member[]}[] = [

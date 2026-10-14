@@ -3,13 +3,12 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, Building2, Code2, FileText, Mail, MapPin, Menu, X } from 'lucide-react';
-import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, supervisorPublications, researchCode, type Project, type NewsItem } from './data';
+import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, supervisorPublications, type Project, type NewsItem } from './data';
 
 const nav = [
   ['home', 'Homepage', '/'],
   ['advisor', 'Supervisor', '/advisor'],
   ['members', 'Members', '/members'],
-  ['research', 'Research', '/research'],
   ['publications', 'Publications', '/publications'],
   ['news', 'News', '/news'],
 ];
@@ -18,7 +17,7 @@ const known = (value?: string) => Boolean(value && value !== 'XXX');
 type PublicationItem = {
   id:string; title:string; authors?:string; venue:string;
   kind:'conference'|'journal'|'preprint'; researchAreas:string[];
-  paper?:string; code?:string; detailsHref?:string;
+  paper?:string; code?:string;
 };
 const publications:PublicationItem[] = [
   ...projects.filter(p => p.kind !== 'manuscript').map(p => ({
@@ -30,7 +29,6 @@ const publications:PublicationItem[] = [
     researchAreas:p.researchAreas,
     paper:p.paper,
     code:p.code,
-    detailsHref:'/projects/' + p.id,
   })),
   ...supervisorPublications.flatMap(p => p.publicationKind && p.researchAreas?.length ? [{
     id:'selected-' + p.id,
@@ -78,8 +76,8 @@ function NewsThumbnail({ item }: { item: NewsItem }) {
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [item.image]);
   return known(item.image) && !failed ? <a className="news-thumbnail" href={assetPath(item.image!)} target="_blank" rel="noreferrer" aria-label={'Open full-size method overview: ' + item.title}>
-    <img src={assetPath(item.image!)} alt={item.imageAlt || item.title} width={2400} height={1000} loading="lazy" onError={() => setFailed(true)} />
-  </a> : <div className="news-thumbnail" aria-hidden="true"><FileText size={24} /></div>;
+    <img src={assetPath(item.image!)} alt={item.imageAlt || item.title} width={item.imageWidth || 2400} height={item.imageHeight || 1000} loading="lazy" onError={() => setFailed(true)} />
+  </a> : <div className="news-thumbnail news-thumbnail-placeholder" aria-hidden="true"><FileText size={24} /></div>;
 }
 
 function ResearchOverview({ text }: { text: string }) {
@@ -103,7 +101,6 @@ function Sidebar() {
     </dl>
     <div className="sidebar-links">
       <a href="https://github.com/trustlab-zjsu" target="_blank" rel="noreferrer"><Github size={15} />GitHub<ArrowUpRight size={12} /></a>
-      <a href={advisorProfile.scholar} target="_blank" rel="noreferrer"><ScholarIcon size={15} />Google Scholar<ArrowUpRight size={12} /></a>
       <Link href="/contact"><Mail size={15} />Contact</Link>
     </div>
   </aside>;
@@ -115,10 +112,10 @@ function Home() {
       <h1>WELCOME TO TRUSTLAB</h1>
       <p>TrustLab is a research group at Zhejiang Gongshang University. We study <strong>LLM safety and security</strong>, <strong>trustworthy agent systems</strong>, and <strong>blockchain and smart contract security</strong>.</p>
     </section>
-    <section className="panel home-section">
-      <SectionTitle title="Research" href="/research" />
-      <div className="home-research-grid">{areas.map(area => <Link key={area.id} href={'/research#' + area.id} className="home-research-card">
-        <h3>{area.name}<ArrowUpRight size={14} /></h3><p>{area.description}</p>
+    <section className="panel home-section" id="research">
+      <SectionTitle title="Research" href="/publications" />
+      <div className="home-research-grid">{areas.map(area => <Link key={area.id} href={'/publications?area=' + area.id + '#conference-papers'} id={area.id} className="home-research-card">
+        <h3>{area.name}<ArrowUpRight size={14} /></h3><ResearchOverview text={area.overview} />
       </Link>)}</div>
     </section>
     <section className="panel home-section">
@@ -126,12 +123,6 @@ function Home() {
       <div className="news-list">{news.slice(0,4).map(n => <article className="news-row" key={n.id}>
         <NewsThumbnail item={n} /><div className="news-row-copy"><time>{n.date}</time><Link href={'/news#' + n.id}>{n.title}<ArrowUpRight size={14} /></Link></div>
       </article>)}</div>
-    </section>
-    <section className="panel home-section">
-      <SectionTitle title="Open-source Code" />
-      <div className="home-code-grid">{researchCode.map(repo => <a className="home-code-card" key={repo.name} href={repo.href} target="_blank" rel="noreferrer">
-        <h3><Github size={18} />{repo.name}<ArrowUpRight size={14} /></h3><p>{repo.description}</p>
-      </a>)}</div>
     </section>
   </>;
 }
@@ -159,6 +150,7 @@ function Advisor() {
         <h2><PersonName name={advisorProfile.name} /></h2><p className="advisor-position">{advisorProfile.title}</p>
         <p className="advisor-affiliation">{advisorProfile.department}<br />{advisorProfile.institution}</p>
         <div className="profile-external">
+          {known(advisorProfile.scholar) && <a href={advisorProfile.scholar} target="_blank" rel="noreferrer"><ScholarIcon />Google Scholar<ArrowUpRight size={13} /></a>}
           {known(advisorProfile.homepage) && <a href={advisorProfile.homepage} target="_blank" rel="noreferrer">Homepage<ArrowUpRight size={13} /></a>}
           {known(advisorProfile.cv) && <a href={assetPath(advisorProfile.cv)} target="_blank" rel="noreferrer">CV<ArrowUpRight size={13} /></a>}
         </div>
@@ -170,7 +162,6 @@ function Advisor() {
     </section>
     <section className="panel" id="biography"><SectionTitle title="Biography" /><div className="panel-copy biography-copy">
       {advisorProfile.bio.split('\n\n').map((paragraph, i) => <ResearchOverview key={i} text={paragraph} />)}
-      {known(advisorProfile.scholar) && <a href={advisorProfile.scholar} className="text-link" target="_blank" rel="noreferrer"><ScholarIcon />Google Scholar<ArrowUpRight size={13} /></a>}
     </div></section>
     <section className="panel"><SectionTitle title="Research Interests" /><div className="panel-copy"><ResearchOverview text={advisorProfile.research} /></div></section>
     <section className="panel" id="selected-publications">
@@ -213,36 +204,18 @@ function Members() {
   </section>)}</>;
 }
 
-function Research() {
-  return <div className="research-grid">{areas.map(a => <section className="panel research-panel" id={a.id} key={a.id}>
-    <div className="section-title"><h2><Link href={'/publications?area=' + a.id + '#conference-papers'}>{a.name}<ArrowUpRight size={16} /></Link></h2></div>
-    <div className="panel-copy"><ResearchOverview text={a.overview} /></div>
-    <div className="research-work"><h3>Related Work</h3>{projects.filter(p => p.researchAreas.includes(a.id as typeof p.researchAreas[number])).map(p => <article key={p.id}>
-      <Link href={'/projects/' + p.id}>{p.name}<ArrowUpRight size={13} /></Link><p>{p.summary}</p><span>{p.status}</span>
-      {p.paper && <a href={p.paper} target="_blank" rel="noreferrer" className="text-link">Paper<FileText size={12} /></a>}
-      {p.code && <a href={p.code} target="_blank" rel="noreferrer" className="text-link"><Github size={12} />Code</a>}
-      {p.id === 'lara' && <a href={researchCode[1].href} target="_blank" rel="noreferrer" className="text-link"><Github size={12} />Code</a>}
-    </article>)}{a.id === 'contract-security' && <article>
-      <a href={supervisorPublications.find(p => p.id === 'mufuzz')!.paper} target="_blank" rel="noreferrer">MuFuzz<ArrowUpRight size={13} /></a>
-      <p>Sequence-aware smart contract fuzzing with seed mask guidance.</p><span>ICDE 2024</span>
-      <a href={supervisorPublications.find(p => p.id === 'mufuzz')!.code} target="_blank" rel="noreferrer" className="text-link"><Github size={12} />Code</a>
-    </article>}</div>
-  </section>)}</div>;
-}
-
 function PaperRow({ p, onAreaSelect }: { p: PublicationItem; onAreaSelect: (id:string) => void }) {
   return <article className="paper-row">
     <div className="paper-tags" aria-label="Research areas">{p.researchAreas.map(id => {
       const area = areas.find(item => item.id === id);
       return area ? <button type="button" className={'research-tag tag-' + id} key={id} onClick={() => onAreaSelect(id)}>{area.name}</button> : null;
     })}</div>
-    <h3>{p.paper ? <a href={p.paper} target="_blank" rel="noreferrer">{p.title}</a> : p.detailsHref ? <Link href={p.detailsHref}>{p.title}</Link> : p.title}</h3>
+    <h3>{p.paper ? <a href={p.paper} target="_blank" rel="noreferrer">{p.title}</a> : p.title}</h3>
     {known(p.authors) && <p className="paper-authors">{p.authors}</p>}
     <p className="paper-venue">{p.venue}</p>
     <div className="paper-links">
       {p.paper && <a href={p.paper} target="_blank" rel="noreferrer">Paper<FileText size={13} /></a>}
       {p.code && <a href={p.code} target="_blank" rel="noreferrer"><Github size={13} />Code</a>}
-      {p.detailsHref && <Link href={p.detailsHref}>Details<ArrowUpRight size={13} /></Link>}
     </div>
   </article>;
 }
@@ -352,8 +325,6 @@ function News() {
     <NewsThumbnail item={n} /><div className="news-item-copy"><time>{n.date}</time><h2>{n.title}</h2><p>{n.body}</p>
       <div className="paper-links"><a href={n.href} target="_blank" rel="noreferrer">Paper<FileText size={13} /></a>
         {n.code && <a href={n.code} target="_blank" rel="noreferrer"><Github size={13} />Code</a>}
-        {n.image && <a href={assetPath(n.image)} target="_blank" rel="noreferrer">Overview<ArrowUpRight size={13} /></a>}
-        {n.imageSource && <a href={n.imageSource} target="_blank" rel="noreferrer">Figure source<ArrowUpRight size={13} /></a>}
       </div></div>
   </article>)}</div>;
 }
@@ -382,12 +353,12 @@ function ProjectDetail({ id }: { id: string }) {
   const p = projects.find(item => item.id === id)!;
   const area = areas.find(a => a.projects.includes(id));
   return <>
-    <Link href={p.kind === 'manuscript' ? '/research' : '/publications'} className="back-link">← {p.kind === 'manuscript' ? 'Research' : 'Publications'}</Link>
+    <Link href={p.kind === 'manuscript' ? '/#research' : '/publications'} className="back-link">← {p.kind === 'manuscript' ? 'Research' : 'Publications'}</Link>
     <section className="panel work-heading"><p className="paper-venue">{p.status}</p><h1>{known(p.en) ? p.en : p.title}</h1>{known(p.authors) && <p className="paper-authors">{p.authors}</p>}<p>{p.summary}</p>
       <div className="paper-links">{p.paper && <a href={p.paper} target="_blank" rel="noreferrer">Paper<FileText size={13} /></a>}{p.code && <a href={p.code} target="_blank" rel="noreferrer">Code<Code2 size={13} /></a>}</div>
     </section>
     <section className="panel"><SectionTitle title="Research Question" /><div className="panel-copy"><p>{p.problem}</p></div></section>
-    <section className="panel"><SectionTitle title="Approach" /><div className="panel-copy"><ul>{p.method.map(m => <li key={m}>{m}</li>)}</ul>{area && <Link href={'/research#' + area.id} className="text-link">{area.name}<ArrowUpRight size={14} /></Link>}</div></section>
+    <section className="panel"><SectionTitle title="Approach" /><div className="panel-copy"><ul>{p.method.map(m => <li key={m}>{m}</li>)}</ul>{area && <Link href={'/publications?area=' + area.id + '#conference-papers'} className="text-link">{area.name}<ArrowUpRight size={14} /></Link>}</div></section>
   </>;
 }
 
@@ -395,10 +366,10 @@ export function LabSite({ section: requestedSection, projectId }: { section: str
   const [menu, setMenu] = useState(false);
   const section = sectionAliases[requestedSection] || requestedSection;
   const work = projects.find(p => p.id === projectId);
-  const current = section === 'project-detail' ? (work?.kind === 'manuscript' ? 'research' : 'publications') : section;
+  const current = section === 'project-detail' ? (work?.kind === 'manuscript' ? 'home' : 'publications') : section;
   const page = pages[section];
   const content: Record<string, ReactNode> = {
-    home: <Home />, advisor: <Advisor />, members: <Members />, research: <Research />,
+    home: <Home />, advisor: <Advisor />, members: <Members />,
     publications: <Publications />, news: <News />, contact: <Contact />, resources: <Resources />,
   };
   return <>

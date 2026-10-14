@@ -19,3 +19,13 @@ Images are reproduced from the authors' original figures. PDF figures were cropp
 The Google Scholar and GitHub icons use Simple Icons paths (CC0): https://github.com/simple-icons/simple-icons/blob/develop/icons/googlescholar.svg and https://github.com/simple-icons/simple-icons/blob/develop/icons/github.svg.
 
 News archive labels use confirmed publication years. They do not assert unverified acceptance dates. The homepage shows the four newest records; the News page contains the full archive.
+
+
+## Additional figures (October 2026)
+
+- LMAE4Eth: author preprint, Figure 1, page 3; https://arxiv.org/pdf/2509.03939. Published version: https://doi.org/10.1109/TIFS.2025.3612149.
+- SwFuzz: Figure 1, page 3, from the coauthor copy at https://users.cs.northwestern.edu/~ychen/Papers/SWFuzz_ASIA.pdf.
+- IJCAI 2020 vulnerability detection: Figure 2, page 4; https://www.ijcai.org/proceedings/2020/0454.pdf.
+- iQuery: Figure 3, page 4, accepted version at https://eprints.ncl.ac.uk/288735 (CC BY 4.0); published version https://doi.org/10.1109/TDSC.2022.3228908.
+
+Figures are rendered directly from their source PDFs at 2400 pixels wide. The website retains the original aspect ratio. Attribution remains here after removing the extra user-facing source links. Newly added records without an accessible original overview use a compact placeholder.
