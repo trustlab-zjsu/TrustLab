@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1800" viewBox="0 0 3200 1800" role="img" aria-labelledby="title desc">
+  <title id="title">Peng Qian's doctoral dissertation selected for the CIE Blockchain Dissertation Incentive Program</title>
+  <desc id="desc">TrustLab academic news. Selected for the Doctoral Dissertation Incentive Program of the Blockchain Branch of the Chinese Institute of Electronics. Invited to present at BWTAC 2026 in Hangzhou, November 6–8, 2026.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#edf4fe"/>
+    </linearGradient>
+    <linearGradient id="node" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#315d94"/>
+      <stop offset="1" stop-color="#19375e"/>
+    </linearGradient>
+  </defs>
+  <rect width="3200" height="1800" fill="url(#background)"/>
+  <rect x="0" y="0" width="3200" height="24" fill="#233e68"/>
+  <circle cx="2760" cy="840" r="670" fill="#e5eefb" opacity=".55"/>
+  <circle cx="2760" cy="840" r="530" fill="none" stroke="#d5e3f5" stroke-width="3"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <g transform="translate(150 140)">
+      <rect width="110" height="110" rx="24" fill="#233e68"/>
+      <text x="23" y="77" font-size="72" font-weight="700" fill="#fff">T</text>
+      <text x="60" y="89" font-size="55" font-weight="700" fill="#b8ccea">L</text>
+      <text x="144" y="79" font-size="80" font-weight="700" fill="#233e68">TrustLab</text>
+    </g>
+    <text x="3040" y="215" text-anchor="end" font-size="43" font-weight="600" letter-spacing="5" fill="#637993">ACADEMIC NEWS · 2026</text>
+    <path d="M150 318H3050" stroke="#d8e3ef" stroke-width="3"/>
+    <rect x="150" y="405" width="374" height="95" rx="47.5" fill="#dce9fa"/>
+    <path d="m192 452 19 19 35-40" fill="none" stroke="#2b5588" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="271" y="468" font-size="43" font-weight="700" letter-spacing="4" fill="#264c7d">SELECTED</text>
+    <text x="150" y="705" font-size="143" font-weight="700" letter-spacing="-4" fill="#1c3559">Doctoral Dissertation</text>
+    <text x="150" y="885" font-size="143" font-weight="700" letter-spacing="-4" fill="#1c3559">Incentive Program</text>
+    <rect x="150" y="987" width="100" height="9" rx="4.5" fill="#507bac"/>
+    <text x="150" y="1145" font-size="107" font-weight="700" fill="#264c7d">Peng Qian</text>
+    <text x="150" y="1260" font-size="60" fill="#526a85">Blockchain Branch</text>
+    <text x="150" y="1340" font-size="60" fill="#526a85">Chinese Institute of Electronics</text>
+    <path d="M150 1470H3050" stroke="#cbdced" stroke-width="3"/>
+    <text x="150" y="1590" font-size="56" font-weight="700" fill="#2b4b73">Invited to present at BWTAC 2026</text>
+    <text x="150" y="1677" font-size="47" fill="#607892">Hangzhou · November 6–8, 2026</text>
+    <text x="3050" y="1677" text-anchor="end" font-size="39" letter-spacing="2" fill="#6f86a0">ZHEJIANG GONGSHANG UNIVERSITY</text>
+  </g>
+  <g fill="none" stroke="#9ab6d7" stroke-width="16" stroke-linecap="round">
+    <path d="M2335 580 2760 515 2940 940 2650 1270 2250 1070Z"/>
+    <path d="m2335 580 315 690M2760 515l-510 555M2940 940l-605-360M2250 1070l690-130" opacity=".55"/>
+  </g>
+  <circle cx="2595" cy="865" r="249" fill="#fff" stroke="#c6d8ed" stroke-width="5"/>
+  <g transform="translate(2450 680)" fill="none" stroke="#345e8e" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M22 0h177l70 72v262H22Z" fill="#f6f9ff"/>
+    <path d="M199 0v72h70M77 130h127M77 185h127M77 240h68"/>
+  </g>
+  <g fill="url(#node)" stroke="#fff" stroke-width="10">
+    <rect x="2275" y="520" width="120" height="120" rx="26"/>
+    <rect x="2700" y="455" width="120" height="120" rx="26"/>
+    <rect x="2880" y="880" width="120" height="120" rx="26"/>
+    <rect x="2590" y="1210" width="120" height="120" rx="26"/>
+    <rect x="2190" y="1010" width="120" height="120" rx="26"/>
+  </g>
+  <circle cx="2742" cy="1040" r="103" fill="#315e95" stroke="#fff" stroke-width="13"/>
+  <path d="m2698 1040 29 30 59-64" fill="none" stroke="#fff" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

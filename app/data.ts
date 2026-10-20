@@ -350,7 +350,10 @@ export const news:NewsItem[] = [
   id:'cie-blockchain-dissertation-2026',date:'2026',
   title:'Peng Qian’s doctoral dissertation selected for CIE Blockchain Dissertation Incentive Program',
   body:'Peng Qian’s doctoral dissertation has been selected for the Doctoral Dissertation Incentive Program of the Blockchain Branch of the Chinese Institute of Electronics. He has also been invited to present his research at BWTAC 2026, to be held in Hangzhou on November 6–8, 2026.',
-  href:'https://www.bwtac-cie.com/',linkLabel:'Conference website'
+  href:'https://www.bwtac-cie.com/',linkLabel:'Conference website',
+  image:'/news/cie-blockchain-dissertation-2026.png',
+  imageAlt:'Peng Qian’s doctoral dissertation selected for the CIE Blockchain Dissertation Incentive Program; invited to present at BWTAC 2026',
+  imageWidth:3200,imageHeight:1800
  },
  {id:'redpj',date:'2026',title:'ReDPJ accepted at PRICAI 2026',body:projects.find(p => p.id === 'redpj')!.en,href:projects.find(p => p.id === 'redpj')!.paper!,code:researchCode[0].href,image:'/news/redpj-overview.png',imageAlt:'Method overview of ReDPJ',imageSource:'https://github.com/theshi-1128/ReDPJ/blob/main/overview.pdf'},
  ...additionalPublicationNews,

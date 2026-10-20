@@ -97,7 +97,7 @@ function NewsThumbnail({ item }: { item: NewsItem }) {
     };
   }, [previewOpen]);
   return known(item.image) && !failed ? <>
-    <a ref={triggerRef} className="news-thumbnail" href={assetPath(item.image!)} target="_blank" rel="noreferrer" aria-haspopup="dialog" aria-label={'Open full-size method overview: ' + item.title} onClick={event => {
+    <a ref={triggerRef} className="news-thumbnail" href={assetPath(item.image!)} target="_blank" rel="noreferrer" aria-haspopup="dialog" aria-label={'Open full-size image: ' + item.title} onClick={event => {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
       setPreviewOpen(true);

@@ -48,3 +48,8 @@ The survey thumbnail is the original methods overview table, rather than a propo
 - DeFi review: title, authors and affiliations, with journal heading, from page 1 of the supplied published PDF `1-s2.0-S0957417425020500-main.pdf` (https://doi.org/10.1016/j.eswa.2025.128431).
 
 These two thumbnails show original paper metadata rather than a method architecture, as requested. They are rendered at 2400 pixels wide and keep their source aspect ratio.
+
+## Dissertation selection news (2026-10-20)
+
+- `cie-blockchain-dissertation-2026.svg`: original TrustLab news graphic based on the user-provided BWTAC 2026 selection notification. It illustrates the selection and invitation; it is not an official certificate or organizer-issued graphic.
+- `cie-blockchain-dissertation-2026.png`: 3200 × 1800 render of the vector source above. The title uses a descriptive English translation of the program name in the notification. No award ranking or completed presentation is asserted.
