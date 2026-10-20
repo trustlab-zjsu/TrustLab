@@ -157,20 +157,21 @@ function Home() {
   return <>
     <section className="panel welcome">
       <h1>Welcome to <span>TrustLab</span></h1>
-      <p>TrustLab is a research group at Zhejiang Gongshang University. We study <strong>LLM safety and security</strong>, <strong>trustworthy agent systems</strong>, and <strong>blockchain and smart contract security</strong>.</p>
-    </section>
-    <section className="panel home-section" id="research">
-      <SectionTitle title="Research" href="/publications" />
-      <div className="home-research-grid">{areas.map(area => <Link key={area.id} href={'/publications?area=' + area.id + '#conference-papers'} id={area.id} className="home-research-card">
-        <div className="research-card-top"><span className="research-icon" aria-hidden="true">{area.icon === 'shield' ? <ShieldCheck size={20} /> : area.icon === 'network' ? <Network size={20} /> : <Code2 size={20} />}</span><ArrowUpRight size={15} aria-hidden="true" /></div>
-        <h3>{area.name}</h3><ResearchOverview text={area.overview} />
-      </Link>)}</div>
+      <p className="welcome-tagline">Advancing Security and Trust in Intelligent and Decentralized Systems.</p>
+      <p>TrustLab is a research group at Zhejiang Gongshang University dedicated to improving the security, reliability, and trustworthiness of emerging technologies. Our research covers <strong>LLM safety and security</strong>, <strong>Trustworthy Agent Systems</strong>, and <strong>Blockchain &amp; Smart Contract Security</strong>. We focus on uncovering emerging threats, developing innovative security solutions, and building trustworthy, intelligent, and decentralized systems.</p>
     </section>
     <section className="panel home-section">
       <SectionTitle title="News" href="/news" />
       <div className="news-list">{news.slice(0,4).map(n => <article className="news-row" key={n.id}>
         <NewsThumbnail item={n} /><div className="news-row-copy"><time>{n.date}</time><Link href={'/news#' + n.id}>{n.title}<ArrowUpRight size={14} /></Link></div>
       </article>)}</div>
+    </section>
+    <section className="panel home-section" id="research">
+      <SectionTitle title="Research" href="/publications" />
+      <div className="home-research-grid">{areas.map(area => <Link key={area.id} href={'/publications?area=' + area.id + '#conference-papers'} id={area.id} className="home-research-card">
+        <div className="research-card-top"><span className="research-icon" aria-hidden="true">{area.icon === 'shield' ? <ShieldCheck size={20} /> : area.icon === 'network' ? <Network size={20} /> : <Code2 size={20} />}</span><ArrowUpRight size={15} aria-hidden="true" /></div>
+        <h3>{area.en}</h3><ResearchOverview text={area.overview} />
+      </Link>)}</div>
     </section>
   </>;
 }

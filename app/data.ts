@@ -67,21 +67,21 @@ export const projects:Project[] = [
 ];
 export const areas=[
  {
-  id:'llm-safety',name:'LLM Safety & Security',en:'LLM Safety & Security',icon:'shield',
+  id:'llm-safety',name:'LLM Safety & Security',en:'LLM Safety and Security',icon:'shield',
   description:'Explore the safety and security of large language models, and improve their robustness, reliability, and trustworthiness.',
-  overview:'We study LLM safety and security, focusing on risks in the development and use of large language models. Our research aims to improve their **robustness, reliability, and trustworthiness** to support safe and responsible use across diverse applications.',
+  overview:'Research focuses on identifying and mitigating the security and safety risks associated with large language models (LLMs), such as adversarial attacks, model vulnerabilities, and unsafe behaviors. The goal is to improve the **robustness, reliability, and trustworthiness** of LLMs, enabling their secure and responsible deployment across diverse applications.',
   projects:['recast','redpj']
  },
  {
   id:'agent-trust',name:'Trustworthy Agent Systems',en:'Trustworthy Agent Systems',icon:'network',
   description:'Study the security and reliability of intelligent agents and collaborative systems for safe, effective task execution.',
-  overview:'We study trustworthy agent systems, including individual agents and multi-agent collaboration. Our research aims to improve their **security, reliability, and coordination**, enabling agents to work together safely across diverse applications.',
+  overview:'Research explores the security and trustworthiness of autonomous agents and multi-agent systems, with an emphasis on agent interactions, collaborative reasoning, and emerging security threats. The goal is to improve agent **reliability, coordination, and resilience**, supporting secure and trustworthy collaboration in complex environments.',
   projects:['halluprop','evoguard']
  },
  {
-  id:'contract-security',name:'Blockchain & Smart Contract Security',en:'Blockchain & Smart Contract Security',icon:'code',
+  id:'contract-security',name:'Blockchain & Smart Contract Security',en:'Blockchain and Smart Contract Security',icon:'code',
   description:'Investigate the security of decentralized systems and smart contracts to support reliable blockchain technologies and applications.',
-  overview:'We study blockchain and smart contract security, focusing on risks in decentralized systems and applications. Our research aims to improve their **security, reliability, and trustworthiness** to support the safe development and practical use of blockchain technologies.',
+  overview:'Research investigates security vulnerabilities and emerging threats in blockchain systems, smart contracts, and decentralized applications. The goal is to improve **vulnerability detection, security analysis, and risk mitigation techniques**, strengthening the security and reliability of decentralized ecosystems.',
   projects:['lara']
  }
 ];

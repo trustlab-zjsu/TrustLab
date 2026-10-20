@@ -120,6 +120,7 @@ section[id], article[id] { scroll-margin-top: 100px; }
 .welcome h1 { color: var(--navy); font-size: clamp(28px, 2.8vw, 38px); font-weight: 700; letter-spacing: -.035em; line-height: 1.25; text-align: left; margin-bottom: 16px; }
 .welcome h1 span { font-weight: 700; }
 .welcome p { color: var(--muted); font-size: 16px; line-height: 1.85; max-width: 780px; }
+.welcome .welcome-tagline { color: var(--navy); font-size: 19px; font-weight: 600; line-height: 1.5; margin-bottom: 14px; }
 .welcome strong { color: var(--navy); font-weight: 550; }
 .home-research-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; padding: 20px 23px; }
 .home-research-card { border: 1px solid var(--border-inner); border-radius: var(--radius-card); padding: 18px 16px; background: linear-gradient(155deg, #f1f6fd 0%, #ffffff 85%); transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
@@ -324,6 +325,7 @@ section[id], article[id] { scroll-margin-top: 100px; }
   .welcome { padding: 23px 20px; }
   .welcome h1 { font-size: 29px; letter-spacing: -.035em; }
   .welcome p { font-size: 14px; line-height: 1.85; }
+  .welcome .welcome-tagline { font-size: 16px; line-height: 1.5; }
   .panel + .panel { margin-top: 18px; }
   .section-title { padding: 15px 19px; }
   .section-title h2 { font-size: 19px; }
