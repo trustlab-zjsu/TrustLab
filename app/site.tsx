@@ -380,7 +380,7 @@ function News() {
     <div className="news-year-heading"><h2 id={'news-year-' + year}>{year}</h2></div>
     <div>{news.filter(item => item.date.startsWith(year)).map(n => <article className="news-item" id={n.id} key={n.id}>
       <NewsThumbnail item={n} /><div className="news-item-copy">{n.date !== year && <time>{n.date}</time>}<h3>{n.title}</h3><p>{n.body}</p>
-        <div className="paper-links"><a href={n.href} target="_blank" rel="noreferrer">Paper<FileText size={13} /></a>
+        <div className="paper-links"><a href={n.href} target="_blank" rel="noreferrer">{n.linkLabel || 'Paper'}{n.linkLabel ? <ArrowUpRight size={13} /> : <FileText size={13} />}</a>
           {n.code && <a href={n.code} target="_blank" rel="noreferrer"><Github size={13} />Code</a>}
         </div></div>
     </article>)}</div>
