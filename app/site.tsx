@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, Building2, ChevronDown, Code2, FileText, Mail, MapPin, Menu, Network, ShieldCheck, X } from 'lucide-react';
 import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, supervisorPublications, type Project, type NewsItem } from './data';
+import { publications, publicationAreas, type PublicationItem } from './publications';
 
 const nav = [
   ['home', 'Homepage', '/'],
@@ -14,33 +15,6 @@ const nav = [
 ];
 const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || '').replace(/\/$/, '');
 const known = (value?: string) => Boolean(value && value !== 'XXX');
-type PublicationItem = {
-  id:string; title:string; authors?:string; venue:string;
-  kind:'conference'|'journal'|'preprint'; researchAreas:string[];
-  paper?:string; code?:string;
-};
-const publications:PublicationItem[] = [
-  ...projects.filter(p => p.kind !== 'manuscript').map(p => ({
-    id:'project-' + p.id,
-    title:known(p.en) ? p.en : p.title,
-    authors:p.authors,
-    venue:p.status,
-    kind:p.kind as PublicationItem['kind'],
-    researchAreas:p.researchAreas,
-    paper:p.paper,
-    code:p.code,
-  })),
-  ...supervisorPublications.flatMap(p => p.publicationKind && p.researchAreas?.length ? [{
-    id:'selected-' + p.id,
-    title:p.title,
-    authors:p.authors,
-    venue:p.venue + ' · ' + p.year,
-    kind:p.publicationKind,
-    researchAreas:p.researchAreas,
-    paper:p.paper,
-    code:p.code,
-  }] : []),
-];
 
 function Github({ size = 16 }: { size?:number }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>;
@@ -262,7 +236,7 @@ function Members() {
 function PaperRow({ p, onAreaSelect }: { p: PublicationItem; onAreaSelect: (id:string) => void }) {
   return <article className="paper-row">
     <div className="paper-tags" aria-label="Research areas">{p.researchAreas.map(id => {
-      const area = areas.find(item => item.id === id);
+      const area = publicationAreas.find(item => item.id === id);
       return area ? <button type="button" className={'research-tag tag-' + id} key={id} onClick={() => onAreaSelect(id)}>{area.name}</button> : null;
     })}</div>
     <h3>{p.paper ? <a href={p.paper} target="_blank" rel="noreferrer">{p.title}</a> : p.title}</h3>
@@ -294,7 +268,7 @@ function Publications() {
   useEffect(() => {
     const syncFilters = () => {
       const requestedArea = new URLSearchParams(window.location.search).get('area') || 'all';
-      const areaId = requestedArea === 'all' || areas.some(area => area.id === requestedArea) ? requestedArea : 'all';
+      const areaId = requestedArea === 'all' || publicationAreas.some(area => area.id === requestedArea) ? requestedArea : 'all';
       const requestedCategory = window.location.hash.slice(1);
       const categoryId = categories.some(category => category.id === requestedCategory) ? requestedCategory : 'conference-papers';
       setActiveArea(areaId);
@@ -349,7 +323,7 @@ function Publications() {
     <div className="publication-filter">
       <span>Research Area</span>
       <div role="group" aria-label="Filter publications by research area">
-        {[{id:'all',name:'All'}, ...areas].map(area => <button
+        {[{id:'all',name:'All'}, ...publicationAreas].map(area => <button
           type="button"
           key={area.id}
           className="area-filter"
@@ -369,7 +343,7 @@ function Publications() {
       hidden={activeCategory !== category.id}
       tabIndex={0}
     >
-      {entries.length ? <div className="paper-list">{entries.map(p => <PaperRow key={p.id} p={p} onAreaSelect={selectArea} />)}</div> : <p className="empty-list">No {category.title.toLowerCase()}{activeArea !== 'all' ? ` in ${areas.find(area => area.id === activeArea)?.name}` : ''} yet.</p>}
+      {entries.length ? <div className="paper-list">{entries.map(p => <PaperRow key={p.id} p={p} onAreaSelect={selectArea} />)}</div> : <p className="empty-list">No {category.title.toLowerCase()}{activeArea !== 'all' ? ` in ${publicationAreas.find(area => area.id === activeArea)?.name}` : ''} yet.</p>}
     </section>;
     })}
   </div>;
