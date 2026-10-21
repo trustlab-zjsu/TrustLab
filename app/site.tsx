@@ -235,10 +235,10 @@ function Members() {
 
 function PaperRow({ p, onAreaSelect }: { p: PublicationItem; onAreaSelect: (id:string) => void }) {
   return <article className="paper-row">
-    <div className="paper-tags" aria-label="Research areas">{p.researchAreas.map(id => {
+    {p.researchAreas.length > 0 && <div className="paper-tags" aria-label="Research areas">{p.researchAreas.map(id => {
       const area = publicationAreas.find(item => item.id === id);
       return area ? <button type="button" className={'research-tag tag-' + id} key={id} onClick={() => onAreaSelect(id)}>{area.name}</button> : null;
-    })}</div>
+    })}</div>}
     <h3>{p.paper ? <a href={p.paper} target="_blank" rel="noreferrer">{p.title}</a> : p.title}</h3>
     {known(p.authors) && <p className="paper-authors">{p.authors}</p>}
     <p className="paper-venue">{p.venue}</p>
@@ -333,7 +333,7 @@ function Publications() {
       </div>
     </div>
     {categories.map(category => {
-    const entries = publications.filter(p => p.kind === category.kind && (activeArea === 'all' || p.researchAreas.includes(activeArea)));
+    const entries = publications.filter(p => p.kind === category.kind && (activeArea === 'all' || p.researchAreas.some(id => id === activeArea)));
     return <section
       className="publication-panel"
       id={category.id}

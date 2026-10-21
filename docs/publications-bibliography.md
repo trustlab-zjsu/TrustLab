@@ -47,6 +47,6 @@ The catalogue contains **24 accepted/published papers: 14 conference papers and 
 
 ## Research labels and code
 
-The homepage retains its three current research areas. Publications additionally uses **AI Security** for the image-backdoor paper and **Software & System Security** for browser, WebAssembly and insider-threat research. These labels avoid assigning non-LLM work to LLM security or non-blockchain fuzzing to blockchain security.
+Publications uses exactly the homepage's three research areas: **LLM Safety and Security**, **Trustworthy Agent Systems**, and **Blockchain and Smart Contract Security**, with the same names and stable filter IDs. No additional research categories are introduced. Earlier browser, WebAssembly, image-backdoor and insider-threat papers remain in **All** within their conference/journal tabs, without an unrelated research-area label. All 24 accepted/published papers are retained.
 
 Code buttons point to existing TrustLab copies of the authors' public repositories where a paper-to-repository match was verified. No repository is created or changed by this catalogue update. Supervisor Selected Publications remains a concise selection; the Publications page combines that selection with the additional verified papers and existing laboratory publications, sorted by year descending.

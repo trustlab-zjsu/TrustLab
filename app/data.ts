@@ -1,5 +1,4 @@
 export type ResearchAreaId = 'llm-safety'|'agent-trust'|'contract-security';
-export type PublicationAreaId = ResearchAreaId|'ai-security'|'system-security';
 export type Project = {id:string; name:string; title:string; en:string; area:string; researchAreas:ResearchAreaId[]; status:string; kind:'conference'|'journal'|'preprint'|'manuscript'; summary:string; problem:string; method:string[]; tags:string[]; authors?:string; paper?:string; code?:string};
 export const projects:Project[] = [
  {
@@ -125,7 +124,7 @@ His research interests span AI security, large language model (LLM) and multi-ag
  email:'messi.qp711@gmail.com',office:'Room 402-1, Teaching Building 3, Jiaogong Road Campus, Zhejiang Gongshang University',homepage:'XXX',scholar:'https://scholar.google.com/citations?user=zUD2t5wAAAAJ&hl=zh-CN',cv:'XXX'
 };
 
-export type SelectedPublication = {id:string;title:string;authors:string;venue:string;year:number;paper:string;corresponding?:boolean;publicationKind:'conference'|'journal';researchAreas:PublicationAreaId[];code?:string};
+export type SelectedPublication = {id:string;title:string;authors:string;venue:string;year:number;paper:string;corresponding?:boolean;publicationKind:'conference'|'journal';researchAreas:ResearchAreaId[];code?:string};
 // The supervisor profile displays this selection; the full catalogue adds other published papers.
 // Conference details and publisher/author records were checked against the supplied bibliography.
 export const supervisorPublications:SelectedPublication[] = [
@@ -140,7 +139,7 @@ export const supervisorPublications:SelectedPublication[] = [
   id:'freewavm',title:'FreeWavm: Enhanced WebAssembly Runtime Fuzzing Guided by Parse Tree Mutation and Snapshot',
   authors:'Peng Qian, Xinlei Ying, Jiashui Wang, Long Liu, Lun Zhang, Jianhai Chen, Qinming He',
   venue:'ACM International Symposium on Software Testing and Analysis (ISSTA)',year:2025,
-  publicationKind:'conference',researchAreas:['system-security'],
+  publicationKind:'conference',researchAreas:[],
   paper:'https://doi.org/10.1145/3728877'
  },
  {
@@ -154,7 +153,7 @@ export const supervisorPublications:SelectedPublication[] = [
   id:'tacoma',title:'Tacoma: Enhanced Browser Fuzzing with Fine-Grained Semantic Alignment',
   authors:'Jiashui Wang, Peng Qian, Xilin Huang, Xinlei Ying, Yan Chen, Shouling Ji, Jianhai Chen, Jundong Xie, Long Liu',
   venue:'ACM International Symposium on Software Testing and Analysis (ISSTA)',year:2024,corresponding:true,
-  publicationKind:'conference',researchAreas:['system-security'],
+  publicationKind:'conference',researchAreas:[],
   paper:'https://doi.org/10.1145/3650212.3680351'
  },
  {

@@ -1,17 +1,14 @@
-import { areas, projects, supervisorPublications, type SelectedPublication } from './data';
+import { areas, projects, supervisorPublications, type ResearchAreaId, type SelectedPublication } from './data';
 
 export type PublicationItem = {
   id:string; title:string; authors?:string; venue:string; year:number;
-  kind:'conference'|'journal'|'preprint'; researchAreas:string[];
+  kind:'conference'|'journal'|'preprint'; researchAreas:ResearchAreaId[];
   paper?:string; code?:string;
 };
 
-// Additional labels cover earlier work without changing the homepage's three research areas.
-export const publicationAreas = [
-  ...areas.map(area => ({ id:area.id, name:area.name })),
-  { id:'ai-security', name:'AI Security' },
-  { id:'system-security', name:'Software & System Security' },
-];
+// Publication filters and labels use exactly the homepage's three research areas.
+// Earlier work outside these areas remains visible under All without an unrelated label.
+export const publicationAreas = areas.map(area => ({ id:area.id, name:area.en }));
 
 // Google Scholar profile zUD2t5wAAAAJ, checked against publisher records on 2026-10-21.
 // See docs/publications-bibliography.md for duplicate handling and publication-year decisions.
@@ -61,9 +58,7 @@ const additionalPublications:SelectedPublication[] = [
     "venue": "Asia-Pacific Software Engineering Conference (APSEC)",
     "year": 2024,
     "publicationKind": "conference",
-    "researchAreas": [
-      "system-security"
-    ],
+    "researchAreas": [],
     "paper": "https://doi.org/10.1109/apsec65559.2024.00045"
   },
   {
@@ -73,9 +68,7 @@ const additionalPublications:SelectedPublication[] = [
     "venue": "Asia-Pacific Software Engineering Conference (APSEC)",
     "year": 2024,
     "publicationKind": "conference",
-    "researchAreas": [
-      "system-security"
-    ],
+    "researchAreas": [],
     "paper": "https://doi.org/10.1109/apsec65559.2024.00029"
   },
   {
@@ -85,9 +78,7 @@ const additionalPublications:SelectedPublication[] = [
     "venue": "International Conference on Artificial Neural Networks (ICANN)",
     "year": 2024,
     "publicationKind": "conference",
-    "researchAreas": [
-      "ai-security"
-    ],
+    "researchAreas": [],
     "paper": "https://doi.org/10.1007/978-3-031-72359-9_14"
   },
   {
@@ -97,9 +88,7 @@ const additionalPublications:SelectedPublication[] = [
     "venue": "Electronics",
     "year": 2024,
     "publicationKind": "journal",
-    "researchAreas": [
-      "system-security"
-    ],
+    "researchAreas": [],
     "paper": "https://doi.org/10.3390/electronics13244885",
     "code": "https://github.com/trustlab-zjsu/ASG-ITD"
   },
