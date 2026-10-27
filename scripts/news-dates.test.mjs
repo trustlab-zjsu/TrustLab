@@ -2,13 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { compareNewsDates, formatNewsDate, isRecentNews, newsDateValue, newsYear } from '../app/news-dates.ts';
 
-test('New expires exactly seven days after publication and never marks future entries', () => {
+test('New expires exactly thirty days after publication and never marks future entries', () => {
   const value = '2026-10-20T10:17:39Z';
   const posted = Date.parse(value);
-  const week = 7 * 24 * 60 * 60 * 1000;
+  const month = 30 * 24 * 60 * 60 * 1000;
   assert.equal(isRecentNews(value, posted), true);
-  assert.equal(isRecentNews(value, posted + week - 1), true);
-  assert.equal(isRecentNews(value, posted + week), false);
+  assert.equal(isRecentNews(value, posted + month - 1), true);
+  assert.equal(isRecentNews(value, posted + month), false);
   assert.equal(isRecentNews(value, posted - 1), false);
   assert.equal(isRecentNews(value, null), false);
 });
@@ -17,7 +17,7 @@ test('Date-only entries start at midnight in Hangzhou, independently of visitor 
   assert.equal(newsDateValue('2026-10-21'), Date.parse('2026-10-20T16:00:00Z'));
   assert.equal(isRecentNews('2026-10-21', Date.parse('2026-10-20T15:59:59Z')), false);
   assert.equal(isRecentNews('2026-10-21', Date.parse('2026-10-20T16:00:00Z')), true);
-  assert.equal(formatNewsDate('2026-10-20T10:17:39Z'), 'Oct 20, 2026 · 18:17 UTC+8');
+  assert.equal(formatNewsDate('2026-10-20T10:17:39Z'), 'Oct 20, 2026');
 });
 
 test('Partial dates never invent a day or receive a New badge', () => {

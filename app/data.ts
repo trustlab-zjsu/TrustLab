@@ -1,5 +1,4 @@
 import { compareNewsDates } from './news-dates';
-import { hasLabLifeContent } from './lab-life';
 
 export type ResearchAreaId = 'llm-safety'|'agent-trust'|'contract-security';
 export type Project = {id:string; name:string; title:string; en:string; area:string; researchAreas:ResearchAreaId[]; status:string; kind:'conference'|'journal'|'preprint'|'manuscript'; summary:string; problem:string; method:string[]; tags:string[]; authors?:string; paper?:string; code?:string};
@@ -96,7 +95,7 @@ export const pages:Record<string,{title:string}>= {
  research:{title:'Research'},
  publications:{title:'Publications'},
  news:{title:'News'},
- ...(hasLabLifeContent ? {life:{title:'Lab Life'}} : {}),
+ gallery:{title:'Gallery'},
  contact:{title:'Contact'},
  resources:{title:'Learning & Teaching'}
 };

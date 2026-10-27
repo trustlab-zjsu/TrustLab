@@ -20,11 +20,11 @@ Historical entries use publication years rather than invented acceptance dates. 
 
 ## Date precision and recent-news marker (2026-10-27)
 
-News dates support a year, year-month, full date, or ISO timestamp with an explicit timezone. Labels distinguish `Published`, `Accepted` and `Posted`. Times display in `Asia/Shanghai` (UTC+8); no clock time is invented for a date-only record.
+News dates support a year, year-month, full date, or ISO timestamp with an explicit timezone. `Published`, `Accepted` and `Posted` are retained only as source metadata. The interface displays **date only**, without these prefixes or a clock time/timezone. Timestamp-to-date conversion uses Asia/Shanghai.
 
-The dissertation-selection announcement uses `Posted · Oct 20, 2026 · 18:17 UTC+8`, taken from the [commit that first added this announcement](https://github.com/trustlab-zjsu/TrustLab/commit/5a4ef03238a4b24560869f9276e0a60cd12b77f7). This is its website posting time, **not an asserted selection or acceptance time**.
+The dissertation-selection announcement displays `Oct 20, 2026`. Its source timestamp is taken from the [commit that first added this announcement](https://github.com/trustlab-zjsu/TrustLab/commit/5a4ef03238a4b24560869f9276e0a60cd12b77f7). This is its website posting time, **not an asserted selection or acceptance time**.
 
-Publisher-deposited Crossref `published` / final issue dates provide the following publication-date precision. They are not used as acceptance dates. Existing acceptance-only ReDPJ news remains `Accepted · 2026` until an exact acceptance date is supplied. IR-Fuzz and reentrancy news retain their known years.
+Publisher-deposited Crossref `published` / final issue dates provide the following publication-date precision. They are not used as acceptance dates. Existing acceptance-only ReDPJ news displays `2026` until an exact acceptance date is supplied. IR-Fuzz and reentrancy news retain their known years.
 
 | News ID | Display date value | Source / interpretation |
 | --- | --- | --- |
@@ -48,6 +48,6 @@ Publisher-deposited Crossref `published` / final issue dates provide the followi
 | ijcai-2020 | 2020-07 | https://doi.org/10.24963/ijcai.2020/454 — proceedings month. |
 | digital-rights | 2019-12 | https://doi.org/10.1109/CCIS48116.2019.9073733 — proceedings month. |
 
-`New` is shown only for an entry with a confirmed full date or timestamp that is at least zero and less than 168 hours old. Date-only entries start at midnight in Hangzhou. Year/month-only and future entries never receive the badge. The client clock refreshes once a minute and on visibility changes, so stale badges disappear without rebuilding the static website. The initial static render omits badges to avoid hydration mismatches.
+`New` is shown only for an entry with a confirmed full date or timestamp that is at least zero and less than 720 hours (30 days) old. Date-only entries start at midnight in Hangzhou. Year/month-only and future entries never receive the badge. The client clock refreshes once a minute and on visibility changes, so stale badges disappear without rebuilding the static website. The initial static render omits badges to avoid hydration mismatches.
 
 Run the date-boundary checks with `node --experimental-strip-types --test scripts/news-dates.test.mjs`.

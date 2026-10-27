@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Building2, ChevronDown, Code2, FileText, Mail, MapPin, Menu, Network, ShieldCheck, Trophy, X } from 'lucide-react';
+import { ArrowUpRight, Building2, Camera, ChevronDown, Code2, FileText, Mail, MapPin, Menu, Network, ShieldCheck, X } from 'lucide-react';
 import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, supervisorPublications, type Project, type NewsItem } from './data';
 import { publications, publicationAreas, type PublicationItem } from './publications';
-import { competitionAwards, hasLabLifeContent, labPhotos } from './lab-life';
+import { galleryCategories, galleryPhotos } from './gallery';
 import { formatNewsDate, isRecentNews, newsYear } from './news-dates';
 
 const nav = [
@@ -14,7 +14,7 @@ const nav = [
   ['members', 'Members', '/members'],
   ['publications', 'Publications', '/publications'],
   ['news', 'News', '/news'],
-  ...(hasLabLifeContent ? [['life', 'Lab Life', '/life']] : []),
+  ['gallery', 'Gallery', '/gallery'],
 ];
 const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || '').replace(/\/$/, '');
 const known = (value?: string) => Boolean(value && value !== 'XXX');
@@ -124,34 +124,28 @@ function useNewsClock() {
 
 function NewsDate({ item, now }: { item:NewsItem; now:number | null }) {
   return <div className="news-meta">
-    <time dateTime={item.date}>{item.dateLabel && <span className="news-date-label">{item.dateLabel} · </span>}{formatNewsDate(item.date)}</time>
-    {isRecentNews(item.date, now) && <span className="news-new" aria-label="News from the last 7 days">New</span>}
+    <time dateTime={item.date}>{formatNewsDate(item.date)}</time>
+    {isRecentNews(item.date, now) && <span className="news-new" aria-label="News from the last 30 days">New</span>}
   </div>;
 }
 
-function LabLife() {
-  const awards = [...competitionAwards].sort((a, b) => b.year - a.year);
-  return <>
-    {awards.length > 0 && <section className="panel" id="honors-awards">
-      <SectionTitle title="Honors & Awards" />
-      <div className="award-grid">{awards.map(award => <article className="award-card" key={award.id}>
-        <div className="award-top"><span className="award-icon" aria-hidden="true"><Trophy size={20} /></span><span className="award-year">{award.year}</span></div>
-        <p className="award-prize">{award.prize}</p><h3>{award.project}</h3>
-        <p className="award-competition">{award.competition}</p>
-        {award.team && <p className="award-team">{award.team}</p>}
-        {award.certificate && <a className="text-link" href={assetPath(award.certificate)} target="_blank" rel="noreferrer">Certificate<ArrowUpRight size={13} /></a>}
-      </article>)}</div>
-    </section>}
-    {labPhotos.length > 0 && <section className="panel" id="lab-life">
-      <SectionTitle title="Gallery" />
-      <div className="lab-photo-grid" data-count={labPhotos.length}>{labPhotos.map(photo => <figure className="lab-photo-card" key={photo.id}>
-        <a className="lab-photo-link" href={assetPath(photo.image)} target="_blank" rel="noreferrer" aria-label={'Open full-size photo: ' + photo.title}>
-          <img src={assetPath(photo.image)} alt={photo.imageAlt} loading="lazy" width={720} height={480} style={{objectPosition:photo.imagePosition || 'center'}} />
-        </a>
-        <figcaption><h3>{photo.title}</h3>{photo.date && <time dateTime={photo.date}>{formatNewsDate(photo.date)}</time>}{photo.caption && <p>{photo.caption}</p>}</figcaption>
-      </figure>)}</div>
-    </section>}
-  </>;
+function Gallery() {
+  const [activeCategory, setActiveCategory] = useState('all');
+  const photos = galleryPhotos.filter(photo => activeCategory === 'all' || photo.category === activeCategory);
+  return <section className="panel gallery-panel">
+    <div className="gallery-toolbar" role="group" aria-label="Filter photos by category">
+      {[{id:'all',name:'All'}, ...galleryCategories].map(category => <button type="button" className="gallery-filter" key={category.id} aria-pressed={activeCategory === category.id} onClick={() => setActiveCategory(category.id)}>{category.name}</button>)}
+    </div>
+    {photos.length > 0 ? <div className="gallery-grid">{photos.map(photo => <figure className="gallery-photo" key={photo.id}>
+      <a className="gallery-photo-link" href={assetPath(photo.image)} target="_blank" rel="noreferrer" aria-label={'Open full-size photo: ' + photo.title}>
+        <img src={assetPath(photo.image)} alt={photo.imageAlt} loading="lazy" width={photo.width} height={photo.height} />
+      </a>
+      <figcaption><h2>{photo.title}</h2>{photo.date && <time dateTime={photo.date}>{formatNewsDate(photo.date)}</time>}{photo.caption && <p>{photo.caption}</p>}</figcaption>
+    </figure>)}</div> : <div className="gallery-empty" role="status">
+      <div className="gallery-empty-art" aria-hidden="true"><span /><span /><span><Camera size={34} strokeWidth={1.3} /></span></div>
+      <p>Photos coming soon</p>
+    </div>}
+  </section>;
 }
 
 function Sidebar() {
@@ -455,7 +449,7 @@ export function LabSite({ section: requestedSection, projectId }: { section: str
   const page = pages[section];
   const content: Record<string, ReactNode> = {
     home: <Home />, advisor: <Advisor />, members: <Members />,
-    publications: <Publications />, news: <News />, life: <LabLife />, contact: <Contact />, resources: <Resources />,
+    publications: <Publications />, news: <News />, gallery: <Gallery />, contact: <Contact />, resources: <Resources />,
   };
   return <>
     <a href="#main-content" className="skip-link">Skip to main content</a>

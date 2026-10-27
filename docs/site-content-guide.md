@@ -1,25 +1,29 @@
-# Lab Life: photos and competition awards
+# Gallery and shared visual style
 
-The homepage keeps Welcome → News → Research. A separate **Lab Life** page combines **Honors & Awards** and **Gallery**. Its navigation item sits after News and before Contact. It is enabled automatically when at least one confirmed photo or award is added; empty collections produce no public route, navigation item, heading or placeholder. New awards may also be announced in News, while the permanent award record and associated photos live together here.
+The homepage keeps Welcome → News → Research. The navigation includes a separate **Gallery** page after News and before Contact. Gallery is a photo-only collection: laboratory images, award/certificate photos, competition/project photos, group photos and conference photos. It has no separate award-record cards. The page and category filters remain available while the collection is empty, with one restrained “Photos coming soon” state rather than invented photos or achievements.
 
-## Visual rules
+## Gallery content
 
-- Main panels retain their 24px radius; internal cards use 16px and images 12px.
-- Section heading backgrounds, supervisor/contact summaries and the welcome panel share one pale blue-to-white surface token. Text-heavy bodies remain white. Research/member/award cards share a lighter card surface token.
-- Awards use two columns on desktop and one on mobile. Each entry leads with the prize and project, followed by the competition, year, team and optional certificate link. There are no invented rankings or award totals.
-- The Gallery uses up to three equal columns, a consistent 3:2 preview and restrained captions. One or two photos expand to fill the row; mobile uses one column. Clicking a preview opens the full original photo, which is not cropped. `imagePosition` can adjust preview framing without altering the original.
+Add confirmed photos to `app/gallery.ts`:
 
-## Materials needed
+- Required: `id`, `title`, `image`, `imageAlt`, `category`.
+- Category: `lab`, `awards`, `competitions`, `projects`, `group`, or `conferences`.
+- Optional: `date`, `caption`, `width`, `height`.
 
-For Lab Life, provide original group/conference/activity photos with their event name, date and a short caption. Portraits and paper-method diagrams are not substituted for activity photos.
+Use original activity photos/certificates, with short English captions when useful. Store assets under `public/gallery/`, with short stable filenames and `/gallery/photo-name.jpg` paths in the data. The GitHub Pages base path is applied automatically.
 
-For Honors & Awards, provide the exact competition name, prize level, project title, award year and team members. A certificate or organizer's result announcement can supply the confirmation/link. Entering a competition alone is not an award.
+The photo wall uses three columns on desktop, two on narrower desktop/tablet screens and one on mobile. Original aspect ratios are preserved, including tall certificates. Selecting a category filters the photos; clicking a photo opens the full original image. No sample content is shipped in the public data collection.
 
-Add confirmed English entries to `app/lab-life.ts`:
+## News
 
-- `LabPhoto`: `id`, `title`, `image`, `imageAlt`; optional `date`, `caption`, `imagePosition`.
-- `CompetitionAward`: `id`, `competition`, `prize`, `project`, `year`; optional `team`, `certificate`.
+Display dates only, with no Published/Accepted/Posted prefix or clock time. Keep each date's confirmed precision; timestamps are converted to the Hangzhou calendar date. Source labels/timestamps remain available in the content data for provenance.
 
-Store original website assets under `public/lab-life/` or `public/awards/` with short, stable filenames. Use `/lab-life/photo-name.jpg` or `/awards/certificate-name.pdf` in the data; the site's GitHub Pages base path is applied automatically.
+“Within a month” is implemented as a rolling **30 days / 720 hours**. Only full dates/timestamps qualify for New; year/month-only and future records do not. The badge refreshes once a minute and when the tab becomes visible. Do not change an older record's date merely to trigger New.
 
-For News, keep the date's actual known precision. Supply an exact acceptance/announcement date when available; an ISO timestamp must include `Z` or a numeric timezone offset. Do not use today's date merely to make an older item show the New badge.
+## Glass-inspired surfaces
+
+Main panels retain their 24px radius; internal photo/research/member cards use 16px and images 12px. A pale ambient background, translucent white surfaces, fine bright edges and restrained shadows provide depth. Actual backdrop blur is limited to the header and sidebar; text-heavy content uses high-opacity white surfaces to retain contrast. There is no animated refraction or distortion of text/photos.
+
+Browsers without backdrop-filter retain readable white surfaces. Increased-contrast and reduced-transparency preferences remove blur and use opaque panels. Reduced-motion preferences disable hover movement.
+
+This is a restrained web interpretation, not a reproduction of Apple's native Liquid Glass material. Reference: https://developer.apple.com/design/human-interface-guidelines/materials .

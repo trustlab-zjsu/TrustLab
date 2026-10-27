@@ -2,7 +2,7 @@ import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { resolve, relative, sep } from 'node:path';
 const root=resolve('out');
 const {basePath}=JSON.parse(readFileSync(resolve(root,'site-config.json'),'utf8'));
-const routes=['','advisor','members','research','publications','news','contact','resources',
+const routes=['','advisor','members','research','publications','news','gallery','contact','resources',
  'people','community','join','projects',...['recast','halluprop','evoguard','lara','redpj'].map(x=>'projects/'+x)];
 const failures=[];
 for(const route of routes){if(!existsSync(resolve(root,route,'index.html')))failures.push('Missing route '+route);}

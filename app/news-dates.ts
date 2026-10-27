@@ -24,14 +24,9 @@ export function formatNewsDate(value: string): string {
   if (timestamp === null || /^\d{4}$/.test(value)) return value;
   const date = new Date(timestamp);
   const monthOnly = /^\d{4}-\d{2}$/.test(value);
-  const label = new Intl.DateTimeFormat('en-US', {
+  return new Intl.DateTimeFormat('en-US', {
     timeZone: TIME_ZONE, year: 'numeric', month: 'short', ...(monthOnly ? {} : { day: 'numeric' }),
   }).format(date);
-  if (!value.includes('T')) return label;
-  const time = new Intl.DateTimeFormat('en-GB', {
-    timeZone: TIME_ZONE, hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
-  }).format(date);
-  return `${label} · ${time} UTC+8`;
 }
 
 export function newsYear(value: string): string {
@@ -46,7 +41,7 @@ export function isRecentNews(value: string, now: number | null): boolean {
   const timestamp = newsDateValue(value);
   if (timestamp === null) return false;
   const age = now - timestamp;
-  return age >= 0 && age < 7 * DAY_MS;
+  return age >= 0 && age < 30 * DAY_MS;
 }
 
 export function compareNewsDates(a: {date:string}, b: {date:string}): number {
