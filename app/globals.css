@@ -441,3 +441,203 @@ section[id], article[id] { scroll-margin-top: 100px; }
   .site-header, .lab-profile, .panel { background: #fff; border-color: #c7d3e3; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
   .section-title, .news-year-heading, .publication-filter, .gallery-toolbar { background: #f3f7fc; }
 }
+
+/* Liquid Glass refinement — October 2026
+   Layered translucency, edge illumination and restrained optical motion.
+   All highlights are decorative; content and controls remain unobstructed. */
+:root {
+  --radius-panel: 28px;
+  --radius-card: 21px;
+  --radius-image: 14px;
+  --radius-control: 12px;
+  --glass-border: rgba(255, 255, 255, .86);
+  --glass-surface: linear-gradient(145deg, rgba(255,255,255,.78) 0%, rgba(245,250,255,.52) 47%, rgba(255,255,255,.73) 100%);
+  --panel-wash: linear-gradient(135deg, rgba(232,243,255,.49) 0%, rgba(255,255,255,.40) 78%);
+  --card-wash: linear-gradient(150deg, rgba(245,250,255,.59), rgba(255,255,255,.38));
+  --glass-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,.94),
+    inset 1px 0 0 rgba(255,255,255,.47),
+    inset -1px -1px 0 rgba(151,180,216,.13),
+    0 0 0 1px rgba(144,177,213,.20),
+    0 10px 28px rgba(34,66,106,.060),
+    0 25px 60px rgba(34,66,106,.035);
+}
+body {
+  background:
+    radial-gradient(ellipse 720px 520px at 5% 2%, rgba(177,206,248,.45), transparent 74%),
+    radial-gradient(ellipse 660px 540px at 97% 19%, rgba(190,215,249,.43), transparent 76%),
+    radial-gradient(ellipse 740px 590px at 55% 93%, rgba(209,225,251,.34), transparent 79%),
+    linear-gradient(165deg, #f3f8ff 0%, #f9fbff 54%, #f4f8ff 100%);
+  background-attachment: scroll;
+}
+.site-header {
+  background: rgba(248,251,255,.76);
+  border-bottom: 1px solid rgba(255,255,255,.79);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 1px 0 rgba(130,160,199,.18), 0 9px 25px rgba(31,60,96,.035);
+}
+.panel, .lab-profile, .home-research-card, .member-card, .gallery-photo {
+  isolation: isolate;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  background: var(--glass-surface);
+}
+.panel, .home-research-card, .member-card, .gallery-photo { position: relative; }
+.lab-profile {
+  background: linear-gradient(155deg, rgba(239,247,255,.75), rgba(255,255,255,.66) 75%);
+  overflow: hidden;
+}
+.home-research-card, .member-card, .gallery-photo { overflow: hidden; }
+.panel::before, .lab-profile::before, .home-research-card::before,
+.member-card::before, .gallery-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(120deg, rgba(255,255,255,.65), transparent 29%, transparent 73%, rgba(192,217,249,.13)),
+    linear-gradient(180deg, rgba(255,255,255,.38), transparent 13%);
+}
+.panel::after, .lab-profile::after, .home-research-card::after,
+.member-card::after, .gallery-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(230px circle at var(--glass-x, 50%) var(--glass-y, 0%), rgba(255,255,255,.76), transparent 74%),
+    radial-gradient(360px circle at var(--glass-x, 50%) var(--glass-y, 0%), rgba(145,188,245,.15), transparent 86%);
+  opacity: 0;
+  transition: opacity .32s ease;
+}
+/* Put content above the optical sheen without blocking clicks or focus. */
+.panel > *, .lab-profile > *, .home-research-card > *,
+.member-card > *, .gallery-photo > * { position: relative; z-index: 1; }
+.welcome {
+  background: linear-gradient(125deg, rgba(234,244,255,.65), rgba(255,255,255,.48) 70%, rgba(238,247,255,.44));
+}
+.advisor-profile, .contact-panel {
+  background: linear-gradient(125deg, rgba(235,245,255,.54), rgba(255,255,255,.32));
+}
+.section-title, .news-year-heading, .publication-filter, .gallery-toolbar {
+  background: linear-gradient(115deg, rgba(241,248,255,.52), rgba(255,255,255,.27));
+  border-bottom-color: rgba(148,178,217,.19);
+}
+.news-row + .news-row, .news-item + .news-item,
+.paper-row + .paper-row, .academic-records article + article {
+  border-top-color: rgba(151,178,211,.24);
+}
+.home-research-card {
+  background: linear-gradient(150deg, rgba(246,251,255,.66), rgba(240,248,255,.35));
+  transition: transform .32s cubic-bezier(.2,.8,.2,1), border-color .28s ease, box-shadow .35s ease;
+}
+.member-card {
+  background: linear-gradient(145deg, rgba(249,252,255,.76), rgba(235,246,255,.34));
+  transition: transform .32s cubic-bezier(.2,.8,.2,1), border-color .28s ease, box-shadow .35s ease;
+}
+.gallery-photo {
+  transition: transform .32s cubic-bezier(.2,.8,.2,1), border-color .28s ease, box-shadow .35s ease;
+}
+.research-icon {
+  border-color: rgba(255,255,255,.72);
+  background: rgba(255,255,255,.57);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.86), 0 3px 9px rgba(37,84,135,.07);
+}
+.publication-tabs {
+  background: rgba(223,235,250,.39);
+  border: 1px solid rgba(255,255,255,.61);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.74);
+}
+.publication-tab[aria-selected="true"],
+.main-nav a.active, .header-contact.active,
+.gallery-filter[aria-pressed="true"] {
+  background: linear-gradient(145deg, rgba(255,255,255,.92), rgba(223,238,255,.61));
+  border-color: rgba(255,255,255,.88);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 0 0 1px rgba(129,164,211,.20), 0 4px 13px rgba(39,80,133,.09);
+}
+.gallery-filter, .area-filter, .mobile-menu {
+  background: rgba(255,255,255,.65);
+  border-color: rgba(179,203,233,.54);
+}
+.site-header a, .gallery-filter, .area-filter, .publication-tab {
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease, box-shadow .25s ease;
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header {
+    background: rgba(246,251,255,.63);
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
+    backdrop-filter: blur(28px) saturate(170%);
+  }
+  .lab-profile {
+    -webkit-backdrop-filter: blur(28px) saturate(158%);
+    backdrop-filter: blur(28px) saturate(158%);
+  }
+  .panel {
+    -webkit-backdrop-filter: blur(24px) saturate(154%);
+    backdrop-filter: blur(24px) saturate(154%);
+  }
+  .home-research-card, .member-card, .gallery-photo {
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    backdrop-filter: blur(18px) saturate(150%);
+  }
+  .main-nav a.active, .header-contact.active, .publication-tab[aria-selected="true"] {
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    backdrop-filter: blur(12px) saturate(150%);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .panel:hover, .lab-profile:hover {
+    box-shadow: inset 0 1.5px 0 rgba(255,255,255,.98), inset 1px 0 0 rgba(255,255,255,.55),
+      0 0 0 1px rgba(140,178,224,.25), 0 15px 39px rgba(34,66,106,.09);
+  }
+  .home-research-card:hover, .member-card:hover, .gallery-photo:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,255,255,.98);
+    box-shadow: inset 0 1.5px 0 #fff, 0 0 0 1px rgba(123,169,224,.32),
+      0 14px 32px rgba(37,75,123,.13), 0 4px 12px rgba(37,75,123,.05);
+  }
+  .panel:hover::after, .lab-profile:hover::after, .home-research-card:hover::after,
+  .member-card:hover::after, .gallery-photo:hover::after { opacity: 1; }
+}
+@media (max-width: 600px) {
+  :root { --radius-panel: 24px; --radius-card: 18px; }
+  .panel, .lab-profile, .member-card, .home-research-card, .gallery-photo {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.92), 0 0 0 1px rgba(140,175,214,.16),
+      0 7px 22px rgba(31,62,103,.065);
+  }
+  .panel::after, .lab-profile::after, .home-research-card::after,
+  .member-card::after, .gallery-photo::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel, .lab-profile, .home-research-card, .member-card, .gallery-photo,
+  .panel::after, .lab-profile::after, .home-research-card::after,
+  .member-card::after, .gallery-photo::after,
+  .site-header a, .gallery-filter, .area-filter, .publication-tab { transition: none !important; }
+  .home-research-card:hover, .member-card:hover, .gallery-photo:hover { transform: none; }
+  .panel::after, .lab-profile::after, .home-research-card::after,
+  .member-card::after, .gallery-photo::after { display: none; }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  body { background: #f8fafc; }
+  .site-header, .panel, .lab-profile, .home-research-card, .member-card, .gallery-photo {
+    background: #fff;
+    border-color: #b5c7db;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .panel::before, .panel::after, .lab-profile::before, .lab-profile::after,
+  .home-research-card::before, .home-research-card::after,
+  .member-card::before, .member-card::after, .gallery-photo::before, .gallery-photo::after { display: none; }
+  .welcome, .advisor-profile, .contact-panel, .section-title, .news-year-heading,
+  .publication-filter, .gallery-toolbar { background: #f2f6fb; }
+  .publication-tabs, .publication-tab[aria-selected="true"], .main-nav a.active,
+  .header-contact.active, .gallery-filter, .area-filter, .mobile-menu {
+    background: #fff;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
