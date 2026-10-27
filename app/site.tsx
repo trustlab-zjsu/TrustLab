@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Building2, ChevronDown, Code2, FileText, Mail, MapPin, Menu, Network, ShieldCheck, X } from 'lucide-react';
+import { ArrowUpRight, Building2, ChevronDown, Code2, FileText, Mail, MapPin, Menu, Network, ShieldCheck, Trophy, X } from 'lucide-react';
 import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, supervisorPublications, type Project, type NewsItem } from './data';
 import { publications, publicationAreas, type PublicationItem } from './publications';
+import { competitionAwards, hasLabLifeContent, labPhotos } from './lab-life';
+import { formatNewsDate, isRecentNews, newsYear } from './news-dates';
 
 const nav = [
   ['home', 'Homepage', '/'],
@@ -12,6 +14,7 @@ const nav = [
   ['members', 'Members', '/members'],
   ['publications', 'Publications', '/publications'],
   ['news', 'News', '/news'],
+  ...(hasLabLifeContent ? [['life', 'Lab Life', '/life']] : []),
 ];
 const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || '').replace(/\/$/, '');
 const known = (value?: string) => Boolean(value && value !== 'XXX');
@@ -104,6 +107,53 @@ function SectionTitle({ title, href }: { title: string; href?: string }) {
   return <div className="section-title"><h2>{title}</h2>{href && <Link href={href}>View all<ArrowUpRight size={14} /></Link>}</div>;
 }
 
+function useNewsClock() {
+  const [now, setNow] = useState<number | null>(null);
+  useEffect(() => {
+    const update = () => setNow(Date.now());
+    update();
+    const timer = window.setInterval(update, 60_000);
+    document.addEventListener('visibilitychange', update);
+    return () => {
+      window.clearInterval(timer);
+      document.removeEventListener('visibilitychange', update);
+    };
+  }, []);
+  return now;
+}
+
+function NewsDate({ item, now }: { item:NewsItem; now:number | null }) {
+  return <div className="news-meta">
+    <time dateTime={item.date}>{item.dateLabel && <span className="news-date-label">{item.dateLabel} · </span>}{formatNewsDate(item.date)}</time>
+    {isRecentNews(item.date, now) && <span className="news-new" aria-label="News from the last 7 days">New</span>}
+  </div>;
+}
+
+function LabLife() {
+  const awards = [...competitionAwards].sort((a, b) => b.year - a.year);
+  return <>
+    {awards.length > 0 && <section className="panel" id="honors-awards">
+      <SectionTitle title="Honors & Awards" />
+      <div className="award-grid">{awards.map(award => <article className="award-card" key={award.id}>
+        <div className="award-top"><span className="award-icon" aria-hidden="true"><Trophy size={20} /></span><span className="award-year">{award.year}</span></div>
+        <p className="award-prize">{award.prize}</p><h3>{award.project}</h3>
+        <p className="award-competition">{award.competition}</p>
+        {award.team && <p className="award-team">{award.team}</p>}
+        {award.certificate && <a className="text-link" href={assetPath(award.certificate)} target="_blank" rel="noreferrer">Certificate<ArrowUpRight size={13} /></a>}
+      </article>)}</div>
+    </section>}
+    {labPhotos.length > 0 && <section className="panel" id="lab-life">
+      <SectionTitle title="Gallery" />
+      <div className="lab-photo-grid" data-count={labPhotos.length}>{labPhotos.map(photo => <figure className="lab-photo-card" key={photo.id}>
+        <a className="lab-photo-link" href={assetPath(photo.image)} target="_blank" rel="noreferrer" aria-label={'Open full-size photo: ' + photo.title}>
+          <img src={assetPath(photo.image)} alt={photo.imageAlt} loading="lazy" width={720} height={480} style={{objectPosition:photo.imagePosition || 'center'}} />
+        </a>
+        <figcaption><h3>{photo.title}</h3>{photo.date && <time dateTime={photo.date}>{formatNewsDate(photo.date)}</time>}{photo.caption && <p>{photo.caption}</p>}</figcaption>
+      </figure>)}</div>
+    </section>}
+  </>;
+}
+
 function Sidebar() {
   const [detailsOpen, setDetailsOpen] = useState(false);
   return <aside className="lab-profile" aria-label="About TrustLab">
@@ -128,6 +178,7 @@ function Sidebar() {
 }
 
 function Home() {
+  const now = useNewsClock();
   return <>
     <section className="panel welcome">
       <h1>Welcome to <span>TrustLab</span></h1>
@@ -137,7 +188,7 @@ function Home() {
     <section className="panel home-section">
       <SectionTitle title="News" href="/news" />
       <div className="news-list">{news.slice(0,4).map(n => <article className="news-row" key={n.id}>
-        <NewsThumbnail item={n} /><div className="news-row-copy"><time>{n.date}</time><Link href={'/news#' + n.id}>{n.title}<ArrowUpRight size={14} /></Link></div>
+        <NewsThumbnail item={n} /><div className="news-row-copy"><NewsDate item={n} now={now} /><Link href={'/news#' + n.id}>{n.title}<ArrowUpRight size={14} /></Link></div>
       </article>)}</div>
     </section>
     <section className="panel home-section" id="research">
@@ -350,11 +401,12 @@ function Publications() {
 }
 
 function News() {
-  const years = [...new Set(news.map(item => item.date.slice(0, 4)))].sort((a, b) => Number(b) - Number(a));
+  const now = useNewsClock();
+  const years = [...new Set(news.map(item => newsYear(item.date)))].sort((a, b) => Number(b) - Number(a));
   return <div className="panel news-archive">{years.map(year => <section className="news-year-group" key={year} aria-labelledby={'news-year-' + year}>
     <div className="news-year-heading"><h2 id={'news-year-' + year}>{year}</h2></div>
-    <div>{news.filter(item => item.date.startsWith(year)).map(n => <article className="news-item" id={n.id} key={n.id}>
-      <NewsThumbnail item={n} /><div className="news-item-copy">{n.date !== year && <time>{n.date}</time>}<h3>{n.title}</h3><p>{n.body}</p>
+    <div>{news.filter(item => newsYear(item.date) === year).map(n => <article className="news-item" id={n.id} key={n.id}>
+      <NewsThumbnail item={n} /><div className="news-item-copy"><NewsDate item={n} now={now} /><h3>{n.title}</h3><p>{n.body}</p>
         <div className="paper-links"><a href={n.href} target="_blank" rel="noreferrer">{n.linkLabel || 'Paper'}{n.linkLabel ? <ArrowUpRight size={13} /> : <FileText size={13} />}</a>
           {n.code && <a href={n.code} target="_blank" rel="noreferrer"><Github size={13} />Code</a>}
         </div></div>
@@ -403,7 +455,7 @@ export function LabSite({ section: requestedSection, projectId }: { section: str
   const page = pages[section];
   const content: Record<string, ReactNode> = {
     home: <Home />, advisor: <Advisor />, members: <Members />,
-    publications: <Publications />, news: <News />, contact: <Contact />, resources: <Resources />,
+    publications: <Publications />, news: <News />, life: <LabLife />, contact: <Contact />, resources: <Resources />,
   };
   return <>
     <a href="#main-content" className="skip-link">Skip to main content</a>

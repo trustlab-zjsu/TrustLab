@@ -1,3 +1,6 @@
+import { compareNewsDates } from './news-dates';
+import { hasLabLifeContent } from './lab-life';
+
 export type ResearchAreaId = 'llm-safety'|'agent-trust'|'contract-security';
 export type Project = {id:string; name:string; title:string; en:string; area:string; researchAreas:ResearchAreaId[]; status:string; kind:'conference'|'journal'|'preprint'|'manuscript'; summary:string; problem:string; method:string[]; tags:string[]; authors?:string; paper?:string; code?:string};
 export const projects:Project[] = [
@@ -85,13 +88,15 @@ export const areas=[
   projects:['lara']
  }
 ];
-export type NewsItem = {id:string;date:string;title:string;body:string;href:string;linkLabel?:string;code?:string;image?:string;imageAlt?:string;imageWidth?:number;imageHeight?:number;imageSource?:string};
+// Dates accept YYYY, YYYY-MM, YYYY-MM-DD, or an ISO timestamp with an explicit timezone.
+export type NewsItem = {id:string;date:string;dateLabel?:'Posted'|'Published'|'Accepted';title:string;body:string;href:string;linkLabel?:string;code?:string;image?:string;imageAlt?:string;imageWidth?:number;imageHeight?:number;imageSource?:string};
 export const pages:Record<string,{title:string}>= {
  advisor:{title:'Supervisor'},
  members:{title:'Members'},
  research:{title:'Research'},
  publications:{title:'Publications'},
  news:{title:'News'},
+ ...(hasLabLifeContent ? {life:{title:'Lab Life'}} : {}),
  contact:{title:'Contact'},
  resources:{title:'Learning & Teaching'}
 };
@@ -346,10 +351,20 @@ const additionalPublicationNews:NewsItem[] = [
 
 const newsImageSizes:Record<string,[number,number]> = {"swfuzz-overview.png": [2401, 1886], "freewavm-overview.png": [1586, 488], "random-number-overview.png": [2706, 890], "ijcai-2020-overview.png": [2401, 658], "echofuzz-overview.png": [2401, 710], "bitcoin-address-overview.png": [2401, 633], "ijcai-vulnerability-overview.png": [2401, 415], "graph-expert-overview.png": [2401, 488], "redpj-overview.png": [2400, 1411], "cross-modality-overview.png": [2401, 1009], "lmae4eth-overview.png": [2401, 1145], "ir-fuzz-overview.png": [2401, 676], "tacoma-overview.png": [2401, 636], "mufuzz-overview.png": [2401, 624]};
 
-// Historical entries use publication years, not unverified acceptance dates.
-export const news:NewsItem[] = [
+// Publisher dates retain their confirmed precision; see docs/news-bibliography.md.
+const publicationNewsDates:Record<string,string> = {
+ 'echofuzz':'2026-04-12', 'freewavm':'2025-06-22', 'lmae4eth':'2025-09-19',
+ 'defi-review':'2025-10', 'mecon':'2025-04', 'tacoma':'2024-09-11', 'mufuzz':'2024-05-13',
+ 'swfuzz':'2024-12-03', 'webaudio':'2024-12-03', 'insider-threat':'2024-12-11',
+ 'iquery':'2023-11', 'random-number':'2023-07', 'cross-modality':'2023-04-30',
+ 'graph-expert':'2023-02', 'bitcoin-address':'2023-04', 'contract-survey':'2022-08',
+ 'ijcai-vulnerability':'2021-08', 'ijcai-2020':'2020-07', 'digital-rights':'2019-12',
+};
+
+// Historical paper entries describe publication, not unverified acceptance dates.
+const newsItems:NewsItem[] = [
  {
-  id:'cie-blockchain-dissertation-2026',date:'2026',
+  id:'cie-blockchain-dissertation-2026',date:'2026-10-20T10:17:39Z',dateLabel:'Posted',
   title:'Peng Qian’s doctoral dissertation selected for CIE Blockchain Dissertation Incentive Program',
   body:'Peng Qian’s doctoral dissertation has been selected for the Doctoral Dissertation Incentive Program of the Blockchain Branch of the Chinese Institute of Electronics. He has also been invited to present his research at BWTAC 2026, to be held in Hangzhou on November 6–8, 2026.',
   href:'https://www.bwtac-cie.com/',linkLabel:'Conference website',
@@ -357,16 +372,19 @@ export const news:NewsItem[] = [
   imageAlt:'Peng Qian’s doctoral dissertation selected for the CIE Blockchain Dissertation Incentive Program; invited to present at BWTAC 2026',
   imageWidth:3200,imageHeight:1800
  },
- {id:'redpj',date:'2026',title:'ReDPJ accepted at PRICAI 2026',body:projects.find(p => p.id === 'redpj')!.en,href:projects.find(p => p.id === 'redpj')!.paper!,code:researchCode[0].href,image:'/news/redpj-overview.png',imageAlt:'Method overview of ReDPJ',imageSource:'https://github.com/theshi-1128/ReDPJ/blob/main/overview.pdf'},
+ {id:'redpj',date:'2026',dateLabel:'Accepted',title:'ReDPJ accepted at PRICAI 2026',body:projects.find(p => p.id === 'redpj')!.en,href:projects.find(p => p.id === 'redpj')!.paper!,code:researchCode[0].href,image:'/news/redpj-overview.png',imageAlt:'Method overview of ReDPJ',imageSource:'https://github.com/theshi-1128/ReDPJ/blob/main/overview.pdf'},
  ...additionalPublicationNews,
  ...supervisorPublications.map(p => {
   const details = publicationHighlights[p.id];
   return {id:p.id,date:String(p.year),title:`${details.name} published ${p.publicationKind === 'journal' ? 'in' : 'at'} ${details.venue}`,body:p.title,href:p.paper,code:details.code,image:`/news/${p.id}-overview.png`,imageAlt:`Method overview of ${details.name}`,imageSource:details.imageSource || p.paper};
  })
-].map((item:NewsItem) => {
+];
+
+export const news:NewsItem[] = newsItems.map(item => {
  const size = item.image && newsImageSizes[item.image.split('/').pop()!];
- return size ? {...item,imageWidth:size[0],imageHeight:size[1]} : item;
-}).sort((a,b) => Number(b.date) - Number(a.date));
+ const dated = {...item, date:publicationNewsDates[item.id] || item.date, dateLabel:item.dateLabel || 'Published' as const};
+ return size ? {...dated,imageWidth:size[0],imageHeight:size[1]} : dated;
+}).sort(compareNewsDates);
 
 export type Member = {name:string;photo:string;research:string;homepage?:string;scholar?:string;email?:string;year?:string};
 export const memberGroups:{id:string;title:string;members:Member[]}[] = [
