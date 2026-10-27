@@ -441,8 +441,52 @@ function ProjectDetail({ id }: { id: string }) {
   </>;
 }
 
+/**
+ * A single passive, frame-limited listener moves the decorative glass highlight.
+ * No pointer tracking is enabled on touch-first or reduced-motion devices.
+ */
+function useLiquidGlassPointer() {
+  useEffect(() => {
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const reducedTransparency = window.matchMedia('(prefers-reduced-transparency: reduce)');
+    if (!finePointer.matches || reducedMotion.matches || reducedTransparency.matches) return;
+
+    let frame: number | null = null;
+    let active: HTMLElement | null = null;
+    let x = 0;
+    let y = 0;
+
+    const onMove = (event: PointerEvent) => {
+      if (event.pointerType !== 'mouse' || !(event.target instanceof Element)) return;
+      const target = event.target.closest<HTMLElement>(
+        '.panel, .lab-profile, .home-research-card, .member-card, .gallery-photo'
+      );
+      if (!target) return;
+      active = target;
+      x = event.clientX;
+      y = event.clientY;
+      if (frame !== null) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = null;
+        if (!active) return;
+        const rect = active.getBoundingClientRect();
+        active.style.setProperty('--glass-x', Math.round(x - rect.left) + 'px');
+        active.style.setProperty('--glass-y', Math.round(y - rect.top) + 'px');
+      });
+    };
+
+    document.addEventListener('pointermove', onMove, { passive: true });
+    return () => {
+      document.removeEventListener('pointermove', onMove);
+      if (frame !== null) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+}
+
 export function LabSite({ section: requestedSection, projectId }: { section: string; projectId?: string }) {
   const [menu, setMenu] = useState(false);
+  useLiquidGlassPointer();
   const section = sectionAliases[requestedSection] || requestedSection;
   const work = projects.find(p => p.id === projectId);
   const current = section === 'project-detail' ? (work?.kind === 'manuscript' ? 'home' : 'publications') : section;
