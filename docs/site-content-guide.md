@@ -22,8 +22,10 @@ Display dates only, with no Published/Accepted/Posted prefix or clock time. Keep
 
 ## Glass-inspired surfaces
 
-Main panels retain their 24px radius; internal photo/research/member cards use 16px and images 12px. A pale ambient background, translucent white surfaces, fine bright edges and restrained shadows provide depth. Actual backdrop blur is limited to the header and sidebar; text-heavy content uses high-opacity white surfaces to retain contrast. There is no animated refraction or distortion of text/photos.
+Main panels use a 28px radius, internal photo/research/member cards 18px, and images 14px. The header floats above the page in a translucent shell with layered edge highlights, broad soft shadows and a sliding navigation lens. Section headings share the content surface rather than using separate tinted bands. White surfaces remain highly opaque behind long text. Actual backdrop blur is limited to the header, sidebar and image-dialog backdrop; text and photos are never refracted or distorted.
 
-Browsers without backdrop-filter retain readable white surfaces. Increased-contrast and reduced-transparency preferences remove blur and use opaque panels. Reduced-motion preferences disable hover movement.
+A one-pixel masked rim provides the specular edge. On fine pointers only, requestAnimationFrame throttles the rim highlight position; it does not tilt cards or move their content. Touch devices keep static highlights. Navigation lens placement updates on route/menu changes, resize and font loading; hover/focus can preview an item and leaving restores the current-page indicator.
+
+Browsers without backdrop-filter retain readable white surfaces. Increased-contrast and reduced-transparency preferences remove blur and use opaque panels. Reduced-motion preferences disable lens transitions, pointer-driven highlights and hover movement. Keyboard focus outlines remain visible. With JavaScript disabled, the current-page navigation link retains its static selected appearance.
 
 This is a restrained web interpretation, not a reproduction of Apple's native Liquid Glass material. Reference: https://developer.apple.com/design/human-interface-guidelines/materials .

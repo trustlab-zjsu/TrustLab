@@ -441,56 +441,102 @@ function ProjectDetail({ id }: { id: string }) {
   </>;
 }
 
-/**
- * A single passive, frame-limited listener moves the decorative glass highlight.
- * No pointer tracking is enabled on touch-first or reduced-motion devices.
- */
-function useLiquidGlassPointer() {
+export function LabSite({ section: requestedSection, projectId }: { section: string; projectId?: string }) {
+  const [menu, setMenu] = useState(false);
+  const navigationRef = useRef<HTMLElement>(null);
+  const section = sectionAliases[requestedSection] || requestedSection;
+  const work = projects.find(p => p.id === projectId);
+  const current = section === 'project-detail' ? (work?.kind === 'manuscript' ? 'home' : 'publications') : section;
+  const page = pages[section];
+  useEffect(() => {
+    const navigation = navigationRef.current;
+    if (!navigation) return;
+    let frame = 0;
+    let disposed = false;
+    const placeLens = (link = navigation.querySelector<HTMLElement>('[aria-current="page"]')) => {
+      if (!link || !navigation.getBoundingClientRect().width) {
+        delete navigation.dataset.lens;
+        return;
+      }
+      navigation.style.setProperty('--lens-x', `${link.offsetLeft}px`);
+      navigation.style.setProperty('--lens-y', `${link.offsetTop}px`);
+      navigation.style.setProperty('--lens-width', `${link.offsetWidth}px`);
+      navigation.style.setProperty('--lens-height', `${link.offsetHeight}px`);
+      navigation.dataset.lens = 'ready';
+    };
+    const update = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => { if (!disposed) placeLens(); });
+    };
+    const preview = (event: Event) => {
+      if (event instanceof PointerEvent && event.pointerType === 'touch') return;
+      const link = event.target instanceof Element ? event.target.closest<HTMLElement>('a') : null;
+      if (link && navigation.contains(link)) placeLens(link);
+    };
+    const restore = () => placeLens();
+    const observer = new ResizeObserver(update);
+    observer.observe(navigation);
+    navigation.querySelectorAll('a').forEach(link => observer.observe(link));
+    navigation.addEventListener('pointerover', preview);
+    navigation.addEventListener('pointerleave', restore);
+    navigation.addEventListener('focusin', preview);
+    navigation.addEventListener('focusout', restore);
+    document.fonts.ready.then(() => { if (!disposed) update(); });
+    update();
+    return () => {
+      disposed = true;
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      navigation.removeEventListener('pointerover', preview);
+      navigation.removeEventListener('pointerleave', restore);
+      navigation.removeEventListener('focusin', preview);
+      navigation.removeEventListener('focusout', restore);
+    };
+  }, [current, menu]);
+
   useEffect(() => {
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const reducedTransparency = window.matchMedia('(prefers-reduced-transparency: reduce)');
     if (!finePointer.matches || reducedMotion.matches || reducedTransparency.matches) return;
-
-    let frame: number | null = null;
-    let active: HTMLElement | null = null;
-    let x = 0;
-    let y = 0;
-
-    const onMove = (event: PointerEvent) => {
-      if (event.pointerType !== 'mouse' || !(event.target instanceof Element)) return;
-      const target = event.target.closest<HTMLElement>(
-        '.panel, .lab-profile, .home-research-card, .member-card, .gallery-photo'
-      );
-      if (!target) return;
-      active = target;
-      x = event.clientX;
-      y = event.clientY;
-      if (frame !== null) return;
+    let frame = 0;
+    let surface:HTMLElement | null = null;
+    let pending:{target:HTMLElement | null;x:number;y:number} | null = null;
+    const clear = () => {
+      surface?.style.removeProperty('--light-x');
+      surface?.style.removeProperty('--light-y');
+      surface = null;
+    };
+    const move = (event:PointerEvent) => {
+      if (event.pointerType === 'touch' || reducedMotion.matches || reducedTransparency.matches || !finePointer.matches) return;
+      const target = event.target instanceof Element ? event.target.closest<HTMLElement>('.header-inner, .lab-profile, .welcome, .home-research-card, .member-card, .gallery-photo') : null;
+      pending = {target,x:event.clientX,y:event.clientY};
+      if (frame) return;
       frame = window.requestAnimationFrame(() => {
-        frame = null;
-        if (!active) return;
-        const rect = active.getBoundingClientRect();
-        active.style.setProperty('--glass-x', Math.round(x - rect.left) + 'px');
-        active.style.setProperty('--glass-y', Math.round(y - rect.top) + 'px');
+        frame = 0;
+        if (!pending) return;
+        if (surface !== pending.target) { clear(); surface = pending.target; }
+        if (!surface) return;
+        const bounds = surface.getBoundingClientRect();
+        surface.style.setProperty('--light-x', `${((pending.x - bounds.left) / bounds.width) * 100}%`);
+        surface.style.setProperty('--light-y', `${((pending.y - bounds.top) / bounds.height) * 100}%`);
       });
     };
-
-    document.addEventListener('pointermove', onMove, { passive: true });
+    const leave = () => {
+      window.cancelAnimationFrame(frame);
+      frame = 0;
+      pending = null;
+      clear();
+    };
+    document.addEventListener('pointermove', move, {passive:true});
+    document.addEventListener('pointerleave', leave);
     return () => {
-      document.removeEventListener('pointermove', onMove);
-      if (frame !== null) window.cancelAnimationFrame(frame);
+      window.cancelAnimationFrame(frame);
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerleave', leave);
+      clear();
     };
   }, []);
-}
-
-export function LabSite({ section: requestedSection, projectId }: { section: string; projectId?: string }) {
-  const [menu, setMenu] = useState(false);
-  useLiquidGlassPointer();
-  const section = sectionAliases[requestedSection] || requestedSection;
-  const work = projects.find(p => p.id === projectId);
-  const current = section === 'project-detail' ? (work?.kind === 'manuscript' ? 'home' : 'publications') : section;
-  const page = pages[section];
   const content: Record<string, ReactNode> = {
     home: <Home />, advisor: <Advisor />, members: <Members />,
     publications: <Publications />, news: <News />, gallery: <Gallery />, contact: <Contact />, resources: <Resources />,
@@ -499,7 +545,7 @@ export function LabSite({ section: requestedSection, projectId }: { section: str
     <a href="#main-content" className="skip-link">Skip to main content</a>
     <header className="site-header" onKeyDown={event => { if (event.key === 'Escape' && menu) { setMenu(false); document.getElementById('menu-toggle')?.focus(); } }}><div className="header-inner">
       <Link className="wordmark" href="/" aria-label="TrustLab homepage"><Mark /><span>TrustLab</span></Link>
-      <nav id="main-nav" aria-label="Main navigation" className={menu ? 'main-nav open' : 'main-nav'}>
+      <nav ref={navigationRef} id="main-nav" aria-label="Main navigation" className={menu ? 'main-nav open' : 'main-nav'}>
         {nav.map(([key, label, href]) => <Link key={key} className={current === key ? 'active' : ''} aria-current={current === key ? 'page' : undefined} href={href} onClick={() => setMenu(false)}>{label}</Link>)}
       </nav>
       <div className="header-actions">
