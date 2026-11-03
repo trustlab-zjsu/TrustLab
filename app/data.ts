@@ -363,6 +363,23 @@ const publicationNewsDates:Record<string,string> = {
 // Historical paper entries describe publication, not unverified acceptance dates.
 const newsItems:NewsItem[] = [
  {
+  id:'qian-zju-open-project-2026',date:'2026-11-03',dateLabel:'Posted',
+  title:'Peng Qian’s 2026 open research project approved by Zhejiang University’s blockchain laboratory',
+  body:'Peng Qian of Zhejiang Gongshang University has received approval for a 2026 open research project from the State Key Laboratory of Blockchain and Data Security at Zhejiang University. Project A2606, “Multi-Agent-Driven Simulation and Risk Prediction of Complex On-Chain Contract Interactions,” runs from September 1, 2026 to August 31, 2028, with proposed funding of RMB 50,000.',
+  href:'https://bcds.zju.edu.cn/2026/1103/c85572a3222237/page.htm',linkLabel:'Official project announcement',
+  image:'/members/qian-peng.jpg',imageAlt:'Peng Qian, principal investigator of approved open research project A2606',
+  imageWidth:1750,imageHeight:2048
+ },
+ {
+  id:'qian-zast-young-talent-2027-2029',date:'2026-11-02',dateLabel:'Posted',
+  title:'Peng Qian named on proposed selection list for Zhejiang young talent support program',
+  body:'Peng Qian of Zhejiang Gongshang University is listed as a proposed participant in the 2027–2029 Young Talent Support and Development Program of the Zhejiang Association for Science and Technology. The announcement was issued on November 2, 2026, with a public comment period from November 3 to 9, 2026.',
+  href:'https://news.sciencenet.cn/htmlnews/2026/11/574055.shtm',linkLabel:'Selection publicity notice',
+  image:'/news/zast-young-talent-publicity-2026.png',
+  imageAlt:'Public notice for the proposed selection of participants in the 2027–2029 Zhejiang young talent support and development program',
+  imageWidth:700,imageHeight:1000,imageSource:'https://rmtzx.sciencenet.cn/kxwsprint/B334BF3F67E1657B736194BD012BE754.png'
+ },
+ {
   id:'cie-blockchain-dissertation-2026',date:'2026-10-20T10:17:39Z',dateLabel:'Posted',
   title:'Peng Qian’s doctoral dissertation selected for CIE Blockchain Dissertation Incentive Program',
   body:'Peng Qian’s doctoral dissertation has been selected for the Doctoral Dissertation Incentive Program of the Blockchain Branch of the Chinese Institute of Electronics. He has also been invited to present his research at BWTAC 2026, to be held in Hangzhou on November 6–8, 2026.',
