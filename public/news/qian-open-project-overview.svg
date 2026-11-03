@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="600" viewBox="0 0 1800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Multi-agent smart contract security research</title>
+  <desc id="desc">An original conceptual illustration of collaborating agents, contract interactions and risk prediction for Peng Qian's open research project A2606.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7fbff"/><stop offset="1" stop-color="#e8f2fc"/></linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#f5f9ff"/></linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1 8 5 1 9" fill="none" stroke="#6a8daf" stroke-width="2"/></marker>
+  </defs>
+  <rect width="1800" height="600" fill="url(#bg)"/>
+  <path d="M0 564H1800" stroke="#d6e5f4" stroke-width="2"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="64" y="72" width="320" height="54" rx="27" fill="#dfebf8"/>
+    <text x="224" y="108" text-anchor="middle" font-size="27" font-weight="700" letter-spacing="3" fill="#355d84">OPEN RESEARCH</text>
+    <text x="64" y="222" font-size="68" font-weight="700" fill="#173b60">Multi-agent</text>
+    <text x="64" y="307" font-size="68" font-weight="700" fill="#173b60">contract security</text>
+    <path d="M66 358H185" stroke="#699fcf" stroke-width="7" stroke-linecap="round"/>
+    <text x="64" y="431" font-size="39" font-weight="600" fill="#436785">Peng Qian · A2606</text>
+    <text x="64" y="490" font-size="29" fill="#6a8299">Zhejiang University open research project</text>
+  </g>
+  <g fill="url(#card)" stroke="#c6d9ec" stroke-width="3">
+    <rect x="765" y="155" width="270" height="292" rx="30"/>
+    <rect x="1118" y="155" width="270" height="292" rx="30"/>
+    <rect x="1470" y="155" width="270" height="292" rx="30"/>
+  </g>
+  <g stroke="#6a8daf" stroke-width="5" fill="none" marker-end="url(#arrow)">
+    <path d="M1052 300H1095"/><path d="M1405 300H1448"/>
+  </g>
+  <g stroke="#6c9bc5" stroke-width="5" fill="none">
+    <path d="M900 224 838 322H962ZM838 322H962"/>
+  </g>
+  <g fill="#e0edf9" stroke="#3f79ad" stroke-width="5">
+    <circle cx="900" cy="224" r="25"/><circle cx="838" cy="322" r="25"/><circle cx="962" cy="322" r="25"/>
+  </g>
+  <g fill="none" stroke="#3f79ad" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="1194" y="210" width="120" height="140" rx="14" fill="#edf5fc"/>
+    <path d="m1223 246-17 18 17 18m62-36 17 18-17 18m-20-42-18 49M1222 317h64"/>
+    <path d="M1535 219V344H1680"/>
+    <path d="m1553 312 32-43 34 15 38-54" stroke="#4b91bd"/>
+    <circle cx="1585" cy="269" r="7" fill="#4b91bd"/><circle cx="1619" cy="284" r="7" fill="#4b91bd"/><circle cx="1657" cy="230" r="7" fill="#4b91bd"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="600" fill="#355d80" text-anchor="middle">
+    <text x="900" y="407">Agents</text><text x="1253" y="407">Interactions</text><text x="1605" y="407">Risk prediction</text>
+  </g>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="600" viewBox="0 0 1800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Peng Qian: proposed selection for the 2027–2029 young talent program</title>
+  <desc id="desc">An original news summary graphic for the proposed-selection public notice of the Zhejiang Association for Science and Technology.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7fbff"/><stop offset="1" stop-color="#e8f2fc"/></linearGradient>
+  </defs>
+  <rect width="1800" height="600" fill="url(#bg)"/>
+  <path d="M0 564H1800" stroke="#d6e5f4" stroke-width="2"/>
+  <g transform="translate(78 83)">
+    <rect x="0" y="0" width="368" height="434" rx="32" fill="#fff" stroke="#c6d9ec" stroke-width="3"/>
+    <path d="M68 122H298M68 160H298M68 198H254" fill="none" stroke="#c3d8eb" stroke-width="13" stroke-linecap="round"/>
+    <rect x="43" y="253" width="282" height="100" rx="20" fill="#e7f0fa"/>
+    <text x="184" y="316" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700" fill="#315c83">2027–2029</text>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="525" y="78" width="460" height="58" rx="29" fill="#dfebf8"/>
+    <text x="755" y="117" text-anchor="middle" font-size="31" font-weight="700" letter-spacing="2" fill="#355d84">PROPOSED SELECTION</text>
+    <text x="525" y="249" font-size="88" font-weight="700" fill="#173b60">Peng Qian</text>
+    <text x="525" y="337" font-size="52" font-weight="600" fill="#315c83">Young Talent Support</text>
+    <text x="525" y="402" font-size="52" font-weight="600" fill="#315c83">&amp; Development Program</text>
+    <path d="M527 445H646" stroke="#699fcf" stroke-width="7" stroke-linecap="round"/>
+    <text x="525" y="509" font-size="32" fill="#617e98">Zhejiang Association for Science and Technology</text>
+  </g>
+</svg>
