@@ -88,7 +88,7 @@ export const areas=[
  }
 ];
 // Dates accept YYYY, YYYY-MM, YYYY-MM-DD, or an ISO timestamp with an explicit timezone.
-export type NewsItem = {id:string;date:string;dateLabel?:'Posted'|'Published'|'Accepted';title:string;body:string;href:string;linkLabel?:string;code?:string;image?:string;imageAlt?:string;imageWidth?:number;imageHeight?:number;imageSource?:string};
+export type NewsItem = {id:string;date:string;dateLabel?:'Posted'|'Published'|'Accepted';title:string;body:string;href:string;linkLabel?:string;code?:string;image?:string;imageAlt?:string;imageWidth?:number;imageHeight?:number;imageSource?:string;thumbnailAspectRatio?:number};
 export const pages:Record<string,{title:string}>= {
  advisor:{title:'Supervisor'},
  members:{title:'Members'},
@@ -367,17 +367,17 @@ const newsItems:NewsItem[] = [
   title:'Peng Qian’s 2026 open research project approved by Zhejiang University’s blockchain laboratory',
   body:'Peng Qian of Zhejiang Gongshang University has received approval for a 2026 open research project from the State Key Laboratory of Blockchain and Data Security at Zhejiang University. Project A2606, “Multi-Agent-Driven Simulation and Risk Prediction of Complex On-Chain Contract Interactions,” runs from September 1, 2026 to August 31, 2028, with proposed funding of RMB 50,000.',
   href:'https://bcds.zju.edu.cn/2026/1103/c85572a3222237/page.htm',linkLabel:'Official project announcement',
-  image:'/news/qian-open-project-overview.svg',imageAlt:'Conceptual illustration of multi-agent collaboration, contract interactions and risk prediction for Peng Qian’s project A2606',
-  imageWidth:1800,imageHeight:600
+  image:'/news/qian-open-project-notice-crop.png',imageAlt:'Original approval notification excerpt showing the approved open research project, project term and proposed funding of RMB 50,000',
+  imageWidth:1605,imageHeight:165,thumbnailAspectRatio:3
  },
  {
   id:'qian-zast-young-talent-2027-2029',date:'2026-11-02',dateLabel:'Posted',
   title:'Peng Qian named on proposed selection list for Zhejiang young talent support program',
   body:'Peng Qian of Zhejiang Gongshang University is listed as a proposed participant in the 2027–2029 Young Talent Support and Development Program of the Zhejiang Association for Science and Technology. The announcement was issued on November 2, 2026, with a public comment period from November 3 to 9, 2026.',
   href:'https://news.sciencenet.cn/htmlnews/2026/11/574055.shtm',linkLabel:'Selection publicity notice',
-  image:'/news/qian-young-talent-overview.svg',
-  imageAlt:'Peng Qian: proposed selection for the 2027–2029 Zhejiang young talent support and development program',
-  imageWidth:1800,imageHeight:600
+  image:'/news/qian-young-talent-list-crop.png',
+  imageAlt:'Original proposed-selection list, rows 168–173, showing Peng Qian of Zhejiang Gongshang University at row 170',
+  imageWidth:560,imageHeight:187,thumbnailAspectRatio:3,imageSource:'https://rmtzx.sciencenet.cn/kxwsprint/B334BF3F67E1657B736194BD012BE754.png'
  },
  {
   id:'cie-blockchain-dissertation-2026',date:'2026-10-20T10:17:39Z',dateLabel:'Posted',

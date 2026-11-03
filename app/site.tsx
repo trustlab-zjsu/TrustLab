@@ -74,12 +74,12 @@ function NewsThumbnail({ item }: { item: NewsItem }) {
     };
   }, [previewOpen]);
   return known(item.image) && !failed ? <>
-    <a ref={triggerRef} className="news-thumbnail" href={assetPath(item.image!)} target="_blank" rel="noreferrer" aria-haspopup="dialog" aria-label={'Open full-size image: ' + item.title} onClick={event => {
+    <a ref={triggerRef} className="news-thumbnail" style={item.thumbnailAspectRatio ? {aspectRatio:item.thumbnailAspectRatio,display:'grid',placeItems:'center'} : undefined} href={assetPath(item.image!)} target="_blank" rel="noreferrer" aria-haspopup="dialog" aria-label={'Open full-size image: ' + item.title} onClick={event => {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
       setPreviewOpen(true);
     }}>
-      <img src={assetPath(item.image!)} alt={item.imageAlt || item.title} width={item.imageWidth || 2400} height={item.imageHeight || 1000} loading="lazy" onError={() => setFailed(true)} />
+      <img src={assetPath(item.image!)} alt={item.imageAlt || item.title} width={item.imageWidth || 2400} height={item.imageHeight || 1000} style={item.thumbnailAspectRatio ? {height:'100%',objectFit:'contain'} : undefined} loading="lazy" onError={() => setFailed(true)} />
     </a>
     <dialog ref={dialogRef} className="image-preview" aria-label={'Image preview: ' + item.title} onClose={() => setPreviewOpen(false)} onKeyDown={event => {
       if (event.key === 'Tab') {
