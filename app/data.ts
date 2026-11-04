@@ -364,16 +364,16 @@ const publicationNewsDates:Record<string,string> = {
 const newsItems:NewsItem[] = [
  {
   id:'qian-zju-open-project-2026',date:'2026-11-03',dateLabel:'Posted',
-  title:'Peng Qian’s 2026 open research project approved by Zhejiang University’s blockchain laboratory',
-  body:'Peng Qian of Zhejiang Gongshang University has received approval for a 2026 open research project from the State Key Laboratory of Blockchain and Data Security at Zhejiang University. Project A2606, “Multi-Agent-Driven Simulation and Risk Prediction of Complex On-Chain Contract Interactions,” runs from September 1, 2026 to August 31, 2028, with proposed funding of RMB 50,000.',
+  title:'Peng Qian’s open research project approved by The State Key Laboratory of Blockchain and Data Security, Zhejiang University',
+  body:'Peng Qian of Zhejiang Gongshang University has received approval for a 2026 open research project from The State Key Laboratory of Blockchain and Data Security, Zhejiang University. Project A2606, “Multi-Agent-Driven Simulation and Risk Prediction of Complex On-Chain Contract Interactions,” runs from September 1, 2026 to August 31, 2028, with proposed funding of RMB 50,000.',
   href:'https://bcds.zju.edu.cn/2026/1103/c85572a3222237/page.htm',linkLabel:'Official project announcement',
   image:'/news/qian-open-project-notice-crop.png',imageAlt:'Original approval notification excerpt showing the approved open research project, project term and proposed funding of RMB 50,000',
   imageWidth:1605,imageHeight:165,thumbnailAspectRatio:3
  },
  {
   id:'qian-zast-young-talent-2027-2029',date:'2026-11-02',dateLabel:'Posted',
-  title:'Peng Qian named on proposed selection list for Zhejiang young talent support program',
-  body:'Peng Qian of Zhejiang Gongshang University is listed as a proposed participant in the 2027–2029 Young Talent Support and Development Program of the Zhejiang Association for Science and Technology. The announcement was issued on November 2, 2026, with a public comment period from November 3 to 9, 2026.',
+  title:'Peng Qian named on proposed selection list for the Young Elite Scientists Sponsorship Program by ZAST',
+  body:'Peng Qian of Zhejiang Gongshang University is listed as a proposed participant in the 2027–2029 Young Elite Scientists Sponsorship Program by ZAST (Zhejiang Association for Science and Technology). The announcement was issued on November 2, 2026, with a public comment period from November 3 to 9, 2026.',
   href:'https://news.sciencenet.cn/htmlnews/2026/11/574055.shtm',linkLabel:'Selection publicity notice',
   image:'/news/qian-young-talent-list-crop.png',
   imageAlt:'Original proposed-selection list, rows 168–173, showing Peng Qian of Zhejiang Gongshang University at row 170',
