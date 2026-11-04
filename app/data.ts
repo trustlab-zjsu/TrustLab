@@ -388,6 +388,15 @@ const newsItems:NewsItem[] = [
   imageAlt:'Peng Qian’s doctoral dissertation selected for the CIE Blockchain Dissertation Incentive Program; invited to present at BWTAC 2026',
   imageWidth:3200,imageHeight:1800
  },
+ {
+  id:'qian-education-fund-2026',date:'2026-09-30',dateLabel:'Published',
+  title:'Peng Qian’s project proposed for approval under the Scientific Research Fund of Zhejiang Provincial Education Department',
+  body:'Zhejiang Gongshang University has listed Peng Qian’s project, “Evolutionary-Game-Driven Hallucination Detection and Defense in Multi-Agent Systems,” among 12 science and technology projects proposed for approval under the 2026 Scientific Research Fund of Zhejiang Provincial Education Department. The public comment period ran from October 8 to 10, 2026.',
+  href:'https://kyc.zjgsu.edu.cn/2026/0930/c3454a232238/page.psp',linkLabel:'University publicity notice',
+  image:'/news/qian-education-fund-list-crop.png',
+  imageAlt:'Original proposed project list, row 7, showing Peng Qian’s research on evolutionary-game-driven hallucination detection and defense in multi-agent systems',
+  imageWidth:1312,imageHeight:62,thumbnailAspectRatio:3
+ },
  {id:'redpj',date:'2026',dateLabel:'Accepted',title:'ReDPJ accepted at PRICAI 2026',body:projects.find(p => p.id === 'redpj')!.en,href:projects.find(p => p.id === 'redpj')!.paper!,code:researchCode[0].href,image:'/news/redpj-overview.png',imageAlt:'Method overview of ReDPJ',imageSource:'https://github.com/theshi-1128/ReDPJ/blob/main/overview.pdf'},
  ...additionalPublicationNews,
  ...supervisorPublications.map(p => {

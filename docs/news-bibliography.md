@@ -60,3 +60,11 @@ Run the date-boundary checks with `node --experimental-strip-types --test script
 ### User-supplied English names (2026-11-04)
 
 The user's wording screenshots were materialized and visually checked at 1320 × 1230 and 1320 × 1315 pixels. The existing announcements now use the exact supplied names **Young Elite Scientists Sponsorship Program by ZAST** and **The State Key Laboratory of Blockchain and Data Security, Zhejiang University**. The latter's supplied project link matches the official A2606 announcement already cited above. This wording revision retains the confirmed dates, proposed-selection status, proposed funding, source links and original-source image crops. The private chat screenshots are not published as website images.
+
+## Scientific Research Fund announcement (verified 2026-11-04)
+
+`qian-education-fund-2026` cites the user's [Zhejiang Gongshang University notice](https://kyc.zjgsu.edu.cn/2026/0930/c3454a232238/page.psp), titled “2026年省教育厅一般科研项目拟立项项目公示（科学技术类）”. The notice page currently redirects to university authentication. The user supplied screenshots of the notice (2048 × 759 pixels) and project list (1384 × 960 pixels), which were materialized and visually inspected. Row 7 pairs 钱鹏 with “演化博弈驱动的多智能体系统幻觉检测与防御研究”; the English project title in the news is a translation. The program name **Scientific Research Fund of Zhejiang Provincial Education Department** follows the user's supplied English exactly.
+
+The notice proposes 12 science and technology projects for approval. It does not establish final approval or a funding amount. The page explicitly displays **2026-09-30** as its publication date; the notice signature is **2026-10-08** and its stated public comment period is **October 8–10, 2026**. The News date uses the displayed publication date, while its body reports the comment period separately. No date was inferred from the URL or changed to obtain a New badge.
+
+The displayed image is a lossless crop of the original list at pixel bounds (0, 522, 1312, 584), retaining only row 7. No names from other rows, announcement contact details or chat content are published in this new image. It uses the existing 3:1 contain frame and opens the full safe crop on click.
