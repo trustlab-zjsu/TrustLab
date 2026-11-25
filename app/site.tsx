@@ -138,7 +138,7 @@ function Gallery() {
     </div>
     {photos.length > 0 ? <div className="gallery-grid">{photos.map(photo => <figure className="gallery-photo" key={photo.id}>
       <a className="gallery-photo-link" href={assetPath(photo.image)} target="_blank" rel="noreferrer" aria-label={'Open full-size photo: ' + photo.title}>
-        <img src={assetPath(photo.image)} alt={photo.imageAlt} loading="lazy" width={photo.width} height={photo.height} />
+        <img src={assetPath(photo.thumbnail ?? photo.image)} alt={photo.imageAlt} loading="lazy" decoding="async" width={photo.width} height={photo.height} />
       </a>
       <figcaption><h2>{photo.title}</h2>{photo.date && <time dateTime={photo.date}>{formatNewsDate(photo.date)}</time>}{photo.caption && <p>{photo.caption}</p>}</figcaption>
     </figure>)}</div> : <div className="gallery-empty" role="status">

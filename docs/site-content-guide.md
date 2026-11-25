@@ -1,6 +1,6 @@
 # Gallery and shared visual style
 
-The homepage keeps Welcome → News → Research. The navigation includes a separate **Gallery** page after News and before Contact. Gallery is a photo-only collection: laboratory images, award/certificate photos, competition/project photos, group photos and conference photos. It has no separate award-record cards. The page and category filters remain available while the collection is empty, with one restrained “Photos coming soon” state rather than invented photos or achievements.
+The homepage keeps Welcome → News → Research. The navigation includes a separate **Gallery** page after News and before Contact. Gallery is a photo-only collection: laboratory images, award/certificate photos, competition/project photos, group photos and conference photos. It has no separate award-record cards. An empty category shows “Photos coming soon”.
 
 ## Gallery content
 
@@ -8,11 +8,11 @@ Add confirmed photos to `app/gallery.ts`:
 
 - Required: `id`, `title`, `image`, `imageAlt`, `category`.
 - Category: `lab`, `awards`, `competitions`, `projects`, `group`, or `conferences`.
-- Optional: `date`, `caption`, `width`, `height`.
+- Optional: `date`, `caption`, `width`, `height`, `thumbnail`.
 
-Use original activity photos/certificates, with short English captions when useful. Store assets under `public/gallery/`, with short stable filenames and `/gallery/photo-name.jpg` paths in the data. The GitHub Pages base path is applied automatically.
+Use original activity photos or images rendered from the supplied certificates. Write short English captions for awards that identify the event, track or entry, and award level or rank where applicable. Omit participant names from award captions. Store the full images in `public/gallery/` and smaller previews of the same proportions in `public/gallery/thumbs/`. Use `/gallery/photo-name.jpg` paths in the data; the GitHub Pages base path is applied automatically. For photographed certificates, correct perspective and lighting while preserving the original document contents.
 
-The photo wall uses three columns on desktop, two on narrower desktop/tablet screens and one on mobile. Original aspect ratios are preserved, including tall certificates. Selecting a category filters the photos; clicking a photo opens the full original image. No sample content is shipped in the public data collection.
+The photo wall uses three columns on desktop, two on narrower desktop/tablet screens and one on mobile. Original aspect ratios are preserved, including tall certificates. Selecting a category filters the photos; clicking a photo opens the full-size image.
 
 ## News
 

@@ -6,7 +6,7 @@ const root=resolve('out');
 if(!existsSync(resolve(root,'index.html'))) { console.error('Run pnpm build first.'); process.exit(1); }
 const basePath=JSON.parse(readFileSync(resolve(root,'site-config.json'),'utf8')).basePath;
 const port=Number(process.env.PORT || 3000);
-const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.txt':'text/plain; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.woff2':'font/woff2'};
+const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.txt':'text/plain; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.woff2':'font/woff2'};
 createServer(async (req,res)=>{
  try{
   const raw=new URL(req.url,'http://localhost').pathname;
