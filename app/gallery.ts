@@ -49,15 +49,15 @@ export const galleryItems:GalleryItem[] = [
   {
     id:'zjsu-mathematical-modeling-2026', title:'ZJSU Graduate Mathematical Modeling Competition · Third Prize', category:'awards', date:'2026-06',
     photos:[{
-      image:'/gallery/zjsu-mathematical-modeling-2026-scan.jpg?v=2', thumbnail:'/gallery/thumbs/zjsu-mathematical-modeling-2026-scan.webp?v=2', width:1910, height:1389,
+      image:'/gallery/zjsu-mathematical-modeling-2026-scan.jpg?v=3', thumbnail:'/gallery/thumbs/zjsu-mathematical-modeling-2026-scan.webp?v=3', width:1946, height:1519,
       imageAlt:'Third-prize certificate for the 2026 ZJSU graduate mathematical modeling competition',
     }],
   },
   {
-    id:'generative-ai-security-2024', title:'Generative AI Security Competition · Merit Award', category:'awards', date:'2024-12',
+    id:'generative-ai-security-2024', title:'Generative AI Security Competition · Fourth Place', category:'awards', date:'2024-12',
     photos:[{
       image:'/gallery/generative-ai-security-2024.webp', thumbnail:'/gallery/thumbs/generative-ai-security-2024.webp', width:2048, height:1449,
-      imageAlt:'Merit award certificate for the 2024 Generative AI Security Competition',
+      imageAlt:'Certificate for the 2024 Generative AI Security Competition',
     }],
   },
   {
