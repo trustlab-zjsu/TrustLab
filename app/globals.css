@@ -282,9 +282,6 @@ section[id], article[id] { scroll-margin-top: 116px; }
 .gallery-photo { position: relative; isolation: isolate; display: inline-block; width: 100%; break-inside: avoid; margin: 0 0 16px; border: 1px solid #ffffffbd; border-radius: var(--radius-card); overflow: hidden; background: #ffffffe8; box-shadow: inset 0 1px 0 #fff, 0 0 0 1px #d7e3f07a, 0 6px 20px -12px #294a7430; }
 .gallery-photo-link { display: block; cursor: zoom-in; }
 .gallery-photo-link img { width: 100%; height: auto; }
-.gallery-photo figcaption { padding: 13px 14px 15px; }
-.gallery-photo h2 { color: var(--navy); font-size: 14px; font-weight: 600; line-height: 1.5; }
-.gallery-photo time, .gallery-photo p { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.6; }
 
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .header-inner { background: linear-gradient(140deg, #ffffffcf, #f0f6ffd1); -webkit-backdrop-filter: blur(26px) saturate(155%); backdrop-filter: blur(26px) saturate(155%); }

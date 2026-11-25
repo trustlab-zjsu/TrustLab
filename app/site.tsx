@@ -140,7 +140,6 @@ function Gallery() {
       <a className="gallery-photo-link" href={assetPath(photo.image)} target="_blank" rel="noreferrer" aria-label={'Open full-size photo: ' + photo.title}>
         <img src={assetPath(photo.thumbnail ?? photo.image)} alt={photo.imageAlt} loading="lazy" decoding="async" width={photo.width} height={photo.height} />
       </a>
-      <figcaption><h2>{photo.title}</h2>{photo.date && <time dateTime={photo.date}>{formatNewsDate(photo.date)}</time>}{photo.caption && <p>{photo.caption}</p>}</figcaption>
     </figure>)}</div> : <div className="gallery-empty" role="status">
       <div className="gallery-empty-art" aria-hidden="true"><span /><span /><span><Camera size={34} strokeWidth={1.3} /></span></div>
       <p>Photos coming soon</p>

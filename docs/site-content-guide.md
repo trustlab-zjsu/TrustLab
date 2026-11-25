@@ -8,9 +8,9 @@ Add confirmed photos to `app/gallery.ts`:
 
 - Required: `id`, `title`, `image`, `imageAlt`, `category`.
 - Category: `lab`, `awards`, `competitions`, `projects`, `group`, or `conferences`.
-- Optional: `date`, `caption`, `width`, `height`, `thumbnail`.
+- Optional: `width`, `height`, `thumbnail`.
 
-Use original activity photos or images rendered from the supplied certificates. Write short English captions for awards that identify the event, track or entry, and award level or rank where applicable. Omit participant names from award captions. Store the full images in `public/gallery/` and smaller previews of the same proportions in `public/gallery/thumbs/`. Use `/gallery/photo-name.jpg` paths in the data; the GitHub Pages base path is applied automatically. For photographed certificates, correct perspective and lighting while preserving the original document contents.
+Use original activity photos or images rendered from the supplied certificates. Gallery cards display images only. Keep `title` and `imageAlt` for accessible image and link names. Store the full images in `public/gallery/` and smaller previews of the same proportions in `public/gallery/thumbs/`. Use `/gallery/photo-name.jpg` paths in the data; the GitHub Pages base path is applied automatically. For photographed certificates, correct perspective and lighting while preserving the original document contents.
 
 The photo wall uses three columns on desktop, two on narrower desktop/tablet screens and one on mobile. Original aspect ratios are preserved, including tall certificates. Selecting a category filters the photos; clicking a photo opens the full-size image.
 
