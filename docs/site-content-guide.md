@@ -1,13 +1,13 @@
 # Gallery and shared visual style
 
-The homepage keeps Welcome → News → Research. The navigation includes a separate **Gallery** page after News and before Contact. Gallery is a photo-only collection: laboratory images, award/certificate photos, competition/project photos, group photos and conference photos. It has no separate award-record cards. An empty category shows “Photos coming soon”.
+The homepage keeps Welcome → News → Research. The navigation includes a separate **Gallery** page after News and before Contact. The photo-only Gallery has three categories: Laboratory, Awards and Conferences. Awards includes certificates and competition photos. An empty category shows “Photos coming soon”.
 
 ## Gallery content
 
 Add confirmed photos to `app/gallery.ts`:
 
 - Required: `id`, `title`, `image`, `imageAlt`, `category`.
-- Category: `lab`, `awards`, `competitions`, `projects`, `group`, or `conferences`.
+- Category: `lab`, `awards`, or `conferences`.
 - Optional: `width`, `height`, `thumbnail`.
 
 Use original activity photos or images rendered from the supplied certificates. Gallery cards display images only. Keep `title` and `imageAlt` for accessible image and link names. Store the full images in `public/gallery/` and smaller previews of the same proportions in `public/gallery/thumbs/`. Use `/gallery/photo-name.jpg` paths in the data; the GitHub Pages base path is applied automatically. For photographed certificates, correct perspective and lighting while preserving the original document contents.

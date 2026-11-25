@@ -1,9 +1,6 @@
 export const galleryCategories = [
   {id:'lab', name:'Laboratory'},
   {id:'awards', name:'Awards'},
-  {id:'competitions', name:'Competitions'},
-  {id:'projects', name:'Projects'},
-  {id:'group', name:'Group Photos'},
   {id:'conferences', name:'Conferences'},
 ] as const;
 
