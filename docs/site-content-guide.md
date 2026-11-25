@@ -4,15 +4,15 @@ The homepage keeps Welcome → News → Research. The navigation includes a sepa
 
 ## Gallery content
 
-Add confirmed photos to `app/gallery.ts`:
+Add confirmed photos or albums to `app/gallery.ts`:
 
-- Required: `id`, `title`, `image`, `imageAlt`, `category`.
+- Each card needs `id`, `title`, `date`, `category`, and a nonempty `photos` list. Each photo needs `image` and `imageAlt`; `width`, `height`, and `thumbnail` are optional.
 - Category: `lab`, `awards`, or `conferences`.
-- Optional: `width`, `height`, `thumbnail`.
+- Use `dateLabel` for an event date range when appropriate.
 
-Use original activity photos or images rendered from the supplied certificates. Gallery cards display images only. Keep `title` and `imageAlt` for accessible image and link names. Store the full images in `public/gallery/` and smaller previews of the same proportions in `public/gallery/thumbs/`. Use `/gallery/photo-name.jpg` paths in the data; the GitHub Pages base path is applied automatically. For photographed certificates, correct perspective and lighting while preserving the original document contents.
+Use original activity photos or images rendered from the supplied certificates. Card captions display only a title and date; omit participant names from award captions. Store the full images in `public/gallery/` and smaller previews of the same proportions in `public/gallery/thumbs/`. Use `/gallery/photo-name.jpg` paths in the data; the GitHub Pages base path is applied automatically. For photographed certificates, correct perspective and lighting while preserving the original document contents.
 
-The photo wall uses three columns on desktop, two on narrower desktop/tablet screens and one on mobile. Original aspect ratios are preserved, including tall certificates. Selecting a category filters the photos; clicking a photo opens the full-size image.
+The photo wall uses three columns on desktop, two on narrower desktop/tablet screens and one on mobile. Original aspect ratios are preserved. Put multiple photos from one conference in a single card; its first image is the cover, and clicking it opens all the photos on a dedicated album page. A single-image card opens the full-size image directly.
 
 ## News
 

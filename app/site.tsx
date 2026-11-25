@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Building2, Camera, ChevronDown, Code2, FileText, Mail, MapPin, Menu, Network, ShieldCheck, X } from 'lucide-react';
+import { ArrowUpRight, Building2, Camera, ChevronDown, ChevronLeft, Code2, FileText, Images, Mail, MapPin, Menu, Network, ShieldCheck, X } from 'lucide-react';
 import { areas, projects, news, pages, sectionAliases, labDetails, memberGroups, advisorProfile, supervisorPublications, type Project, type NewsItem } from './data';
 import { publications, publicationAreas, type PublicationItem } from './publications';
-import { galleryCategories, galleryPhotos } from './gallery';
+import { galleryCategories, galleryItems, type GalleryImage, type GalleryItem } from './gallery';
 import { formatNewsDate, isRecentNews, newsYear } from './news-dates';
 
 const nav = [
@@ -129,18 +129,47 @@ function NewsDate({ item, now }: { item:NewsItem; now:number | null }) {
   </div>;
 }
 
+function GalleryDate({ item }: { item:GalleryItem }) {
+  return <time dateTime={item.date}>{item.dateLabel ?? formatNewsDate(item.date)}</time>;
+}
+
+function GalleryPicture({ photo }: { photo:GalleryImage }) {
+  return <img src={assetPath(photo.thumbnail ?? photo.image)} alt={photo.imageAlt} loading="lazy" decoding="async" width={photo.width} height={photo.height} />;
+}
+
+function GalleryAlbum({ item }: { item:GalleryItem }) {
+  return <section className="panel gallery-album" aria-label={item.title + ' photos'}>
+    <div className="gallery-album-toolbar">
+      <Link href="/gallery"><ChevronLeft size={16} aria-hidden="true" />Back to Gallery</Link>
+      <GalleryDate item={item} />
+    </div>
+    <div className="gallery-album-stack">
+      {item.photos.map(photo => <a className="gallery-photo-link" data-portrait={Boolean(photo.width && photo.height && photo.height > photo.width)} key={photo.image} href={assetPath(photo.image)} target="_blank" rel="noreferrer" aria-label={'Open full-size photo: ' + photo.imageAlt}>
+        <GalleryPicture photo={photo} />
+      </a>)}
+    </div>
+  </section>;
+}
+
 function Gallery() {
   const [activeCategory, setActiveCategory] = useState('all');
-  const photos = galleryPhotos.filter(photo => activeCategory === 'all' || photo.category === activeCategory);
+  const items = galleryItems.filter(item => activeCategory === 'all' || item.category === activeCategory);
   return <section className="panel gallery-panel">
     <div className="gallery-toolbar" role="group" aria-label="Filter photos by category">
       {[{id:'all',name:'All'}, ...galleryCategories].map(category => <button type="button" className="gallery-filter" key={category.id} aria-pressed={activeCategory === category.id} onClick={() => setActiveCategory(category.id)}>{category.name}</button>)}
     </div>
-    {photos.length > 0 ? <div className="gallery-grid">{photos.map(photo => <figure className="gallery-photo" key={photo.id}>
-      <a className="gallery-photo-link" href={assetPath(photo.image)} target="_blank" rel="noreferrer" aria-label={'Open full-size photo: ' + photo.title}>
-        <img src={assetPath(photo.thumbnail ?? photo.image)} alt={photo.imageAlt} loading="lazy" decoding="async" width={photo.width} height={photo.height} />
-      </a>
-    </figure>)}</div> : <div className="gallery-empty" role="status">
+    {items.length > 0 ? <div className="gallery-grid" data-single={items.length === 1}>{items.map(item => {
+      const cover = item.photos[0];
+      return <figure className="gallery-photo" key={item.id}>
+        {item.photos.length > 1 ? <Link className="gallery-photo-link gallery-cover-link" href={'/gallery/' + item.id} aria-label={'Open album: ' + item.title}>
+          <GalleryPicture photo={cover} />
+          <span className="gallery-album-icon" aria-hidden="true"><Images size={17} strokeWidth={1.7} /></span>
+        </Link> : <a className="gallery-photo-link" href={assetPath(cover.image)} target="_blank" rel="noreferrer" aria-label={'Open full-size photo: ' + item.title}>
+          <GalleryPicture photo={cover} />
+        </a>}
+        <figcaption><h2>{item.title}</h2><GalleryDate item={item} /></figcaption>
+      </figure>;
+    })}</div> : <div className="gallery-empty" role="status">
       <div className="gallery-empty-art" aria-hidden="true"><span /><span /><span><Camera size={34} strokeWidth={1.3} /></span></div>
       <p>Photos coming soon</p>
     </div>}
@@ -440,7 +469,7 @@ function ProjectDetail({ id }: { id: string }) {
   </>;
 }
 
-export function LabSite({ section: requestedSection, projectId }: { section: string; projectId?: string }) {
+export function LabSite({ section: requestedSection, projectId, album }: { section: string; projectId?: string; album?:GalleryItem }) {
   const [menu, setMenu] = useState(false);
   const navigationRef = useRef<HTMLElement>(null);
   const section = sectionAliases[requestedSection] || requestedSection;
@@ -538,7 +567,7 @@ export function LabSite({ section: requestedSection, projectId }: { section: str
   }, []);
   const content: Record<string, ReactNode> = {
     home: <Home />, advisor: <Advisor />, members: <Members />,
-    publications: <Publications />, news: <News />, gallery: <Gallery />, contact: <Contact />, resources: <Resources />,
+    publications: <Publications />, news: <News />, gallery: album ? <GalleryAlbum item={album} /> : <Gallery />, contact: <Contact />, resources: <Resources />,
   };
   return <>
     <a href="#main-content" className="skip-link">Skip to main content</a>
@@ -553,7 +582,7 @@ export function LabSite({ section: requestedSection, projectId }: { section: str
       </div>
     </div></header>
     <div className="site-body"><Sidebar /><main id="main-content" className="main-content">
-      {page && <div className="page-heading"><h1>{page.title}</h1></div>}
+      {page && <div className="page-heading"><h1>{album?.title ?? page.title}</h1></div>}
       {projectId ? <ProjectDetail id={projectId} /> : content[section]}
       <footer className="site-footer"><p>© 2026 TrustLab · Zhejiang Gongshang University</p><a href="#main-content">Back to top ↑</a></footer>
     </main></div>
